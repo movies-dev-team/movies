@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getPopularMovies } from './features/movieService'
-import type { Movie } from './features/movie'
+import { getPopularMovies } from './features/catalog/services/movieService'
+import type { Movie } from './shared/types/movie'
 import './App.css'
 
 function App() {
