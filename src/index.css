@@ -105,7 +105,7 @@
   --border-hover: #70409a;
 
   /* Gradients */
-  --gradient-brand: linear-gradient(135deg, #c64dff, #8125d9);
+  --gradient-brand: linear-gradient(to bottom, #9849c5 0%, #2a1450 100%);
   --gradient-panel: linear-gradient(180deg, #171329, #2a1450);
   --gradient-footer: linear-gradient(180deg, #171329, #3a1a70);
 
