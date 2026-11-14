@@ -6,10 +6,21 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+
 function DesignSystemPage() {
   return (
     <main className="min-h-dvh space-y-6 bg-background p-4 text-foreground">
-      //BOTONES
+      {/*---------------BOTONES---------------- */}
       <header className="space-y-2">
         <h1 className="text-2xl font-bold">CINÉA Design System</h1>
         <p className="text-sm text-muted-foreground">Button variants</p>
@@ -60,7 +71,7 @@ function DesignSystemPage() {
           </span>
         </div>
       </section>
-      //CARD
+      {/*---------------CARD---------------- */}
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Card</h2>
@@ -83,7 +94,7 @@ function DesignSystemPage() {
           <Input type="text" placeholder="Buscar películas..." />
         </div>
       </section>
-      //CHECKBOX
+      {/*---------------CHECKBOX---------------- */}
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Checkbox</h2>
@@ -99,7 +110,7 @@ function DesignSystemPage() {
           </label>
         </div>
       </section>
-      //SKELETON
+      {/*---------------SKELETON---------------- */}
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Skeleton</h2>
@@ -113,7 +124,7 @@ function DesignSystemPage() {
           <Skeleton className="h-64 w-60 rounded-xl" />
         </div>
       </section>
-      //TOAST
+      {/*---------------TOAST---------------- */}
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Toast</h2>
@@ -166,6 +177,42 @@ function DesignSystemPage() {
             Loading
           </Button>
         </div>
+      </section>
+      {/*---------------DIALOG---------------- */}
+      {/*---------------DIALOG----------------*/}
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-xl font-semibold">Dialog</h2>
+          <p className="text-sm text-muted-foreground">
+            Dialog component · Ventanas de confirmación
+          </p>
+        </div>
+
+        <Dialog>
+          <DialogTrigger render={<Button variant="secondary" />}>
+            Abrir Dialog
+          </DialogTrigger>
+
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Eliminar de favoritos</DialogTitle>
+              <DialogDescription>
+                ¿Estás seguro de que quieres eliminar esta película de tu lista
+                de favoritos?
+              </DialogDescription>
+            </DialogHeader>
+
+            <DialogFooter>
+              <DialogClose render={<Button variant="secondary" />}>
+                Cancelar
+              </DialogClose>
+
+              <DialogClose render={<Button variant="destructive" />}>
+                Eliminar
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </section>
     </main>
   );
