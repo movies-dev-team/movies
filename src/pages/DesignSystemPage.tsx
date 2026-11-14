@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 
 function DesignSystemPage() {
   return (
@@ -66,6 +68,33 @@ function DesignSystemPage() {
         <div className="flex flex-wrap gap-4">
           <Card className="h-64 w-60" />
           <Card className="h-64 w-60" />
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-xl font-semibold">Input</h2>
+          <p className="text-sm text-muted-foreground">Input component</p>
+        </div>
+
+        <div className="w-full max-w-sm space-y-2">
+          <Input type="text" placeholder="Buscar películas..." />
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-xl font-semibold">Checkbox</h2>
+          <p className="text-sm text-muted-foreground">
+            Checkbox component · Estados y variantes
+          </p>
+        </div>
+
+        <div className="flex flex-col items-start gap-4">
+          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-transparent p-2 transition-colors hover:border-border-hover hover:bg-surface-hover">
+            <Checkbox defaultChecked />
+            Acción
+          </label>
         </div>
       </section>
     </main>
