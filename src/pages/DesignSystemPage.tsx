@@ -4,15 +4,16 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 function DesignSystemPage() {
   return (
     <main className="min-h-dvh space-y-6 bg-background p-4 text-foreground">
+      //BOTONES
       <header className="space-y-2">
         <h1 className="text-2xl font-bold">CINÉA Design System</h1>
         <p className="text-sm text-muted-foreground">Button variants</p>
       </header>
-
       <section className="flex flex-col items-start gap-4">
         <div className="flex items-center gap-4">
           <Button variant="default">Iniciar sesión</Button>
@@ -59,7 +60,7 @@ function DesignSystemPage() {
           </span>
         </div>
       </section>
-
+      //CARD
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Card</h2>
@@ -71,7 +72,7 @@ function DesignSystemPage() {
           <Card className="h-64 w-60" />
         </div>
       </section>
-
+      //INPUT
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Input</h2>
@@ -82,7 +83,7 @@ function DesignSystemPage() {
           <Input type="text" placeholder="Buscar películas..." />
         </div>
       </section>
-
+      //CHECKBOX
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Checkbox</h2>
@@ -98,7 +99,7 @@ function DesignSystemPage() {
           </label>
         </div>
       </section>
-
+      //SKELETON
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Skeleton</h2>
@@ -110,6 +111,60 @@ function DesignSystemPage() {
         <div className="flex flex-wrap gap-4">
           <Skeleton className="h-64 w-60 rounded-xl" />
           <Skeleton className="h-64 w-60 rounded-xl" />
+        </div>
+      </section>
+      //TOAST
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-xl font-semibold">Toast</h2>
+          <p className="text-sm text-muted-foreground">
+            Toast component · Notificaciones
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Button
+            variant="soft"
+            onClick={() => toast.success("Película añadida a favoritos")}
+          >
+            Success
+          </Button>
+
+          <Button
+            variant="soft"
+            onClick={() => toast.info("Tu lista se ha actualizado")}
+          >
+            Info
+          </Button>
+
+          <Button
+            variant="soft"
+            onClick={() =>
+              toast.warning("Todavía no has puntuado esta película")
+            }
+          >
+            Warning
+          </Button>
+
+          <Button
+            variant="destructive"
+            onClick={() => toast.error("No se ha podido guardar la película")}
+          >
+            Error
+          </Button>
+
+          <Button
+            variant="secondary"
+            onClick={() => {
+              const id = toast.loading("Guardando puntuación...");
+
+              setTimeout(() => {
+                toast.success("Puntuación guardada correctamente", { id });
+              }, 2000);
+            }}
+          >
+            Loading
+          </Button>
         </div>
       </section>
     </main>
