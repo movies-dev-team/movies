@@ -3,6 +3,7 @@ import { Heart } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function DesignSystemPage() {
   return (
@@ -95,6 +96,20 @@ function DesignSystemPage() {
             <Checkbox defaultChecked />
             Acción
           </label>
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-xl font-semibold">Skeleton</h2>
+          <p className="text-sm text-muted-foreground">
+            Skeleton component · Estados de carga
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-4">
+          <Skeleton className="h-64 w-60 rounded-xl" />
+          <Skeleton className="h-64 w-60 rounded-xl" />
         </div>
       </section>
     </main>
