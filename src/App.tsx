@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getPopularMovies } from './features/catalog/services/movieService'
 import type { Movie } from './shared/types/movie'
 import './App.css'
+import MovieDetailPage from './features/details/pages/MovieDetailPage'
 
 function App() {
 
@@ -22,6 +23,9 @@ function App() {
 
   return (
       <section id="center">
+       <div>
+        <MovieDetailPage />
+      </div>
         <h1>Movies</h1>
         <ul>
           {movies.map((movie) => (
@@ -40,6 +44,8 @@ function App() {
            ))}
         </ul>
       </section>
+     
+      
   )
 }
 
