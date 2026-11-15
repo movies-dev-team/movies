@@ -83,7 +83,8 @@ function DesignSystemPage() {
           <Card className="h-64 w-60" />
         </div>
       </section>
-      //INPUT
+      {/*---------------INPUT---------------- */}
+
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Input</h2>
