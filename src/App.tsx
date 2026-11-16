@@ -12,10 +12,7 @@ function App() {
        <div>
         <MovieDetailPage />
       </div>
-        
-      </section>
-     
-      
+      </section>    
   )
 }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getPopularMovies } from '../services/movieService'
 import type { Movie } from '../../../shared/types/movie'
+import MovieCard from '@/shared/components/MovieCard'
 
 export default function CatalogPage() {
 
@@ -25,16 +26,11 @@ export default function CatalogPage() {
         <ul>
           {movies.map((movie) => (
             <li key={movie.id}>
-              {movie.poster_path && ( <img 
-                src={
-                  `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                }
-                alt={movie.title}
-              />
+              {movie.poster_path && ( 
+              <MovieCard
+                movie={movie}
+               />
               )}
-              <p>Title: {movie.title}</p>
-              <p>Year: {movie.release_date.slice(0, 4)}</p>
-              <p>Overview: {movie.overview}</p>
             </li>
            ))}
         </ul>

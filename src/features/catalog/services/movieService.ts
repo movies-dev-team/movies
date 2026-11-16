@@ -5,8 +5,7 @@ export async function getPopularMovies(): Promise<Movie[]> {
 
   const response = await tmdbApi.get('movie/popular', {
     params :{
-      api_key: import.meta.env.VITE_TMDB_API_KEY,
-      language: 'en-US',
+      language: 'es-ES',
       page: 1
   }});
 
