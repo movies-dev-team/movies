@@ -7,6 +7,11 @@ import CatalogPage from "@/features/catalog/pages/CatalogPage";
 import FavoritesPage from "@/features/favorites/FavoritesPage";
 import ProfilePage from "@/features/profile/ProfilePage";
 
+import MovieDetailPage from "@/features/details/pages/MovieDetailPage";
+import ActorDetailPage from "@/features/details/pages/ActorDetailPage";
+import DirectorDetailPage from "@/features/details/pages/DirectorDetailPage";
+import NotFoundPage from "@/pages/NotFoundPage";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,7 +28,15 @@ const router = createBrowserRouter([
       { index: true, Component: CatalogPage },
       { path: "favorite", Component: FavoritesPage },
       { path: "profile", Component: ProfilePage },
+
+      { path: "movie/:id", Component: MovieDetailPage },
+      { path: "actor/:id", Component: ActorDetailPage },
+      { path: "director/:id", Component: DirectorDetailPage },
     ],
+  },
+  {
+    path: "*",
+    Component: NotFoundPage,
   },
 ]);
 
