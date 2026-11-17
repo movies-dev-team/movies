@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 import type { MovieDetail } from "../types/movieDetail";
 import { getMovieDetail } from "../services/movieDetailService";
-
 
 export default function MovieDetailPage() {
 
@@ -30,7 +29,6 @@ export default function MovieDetailPage() {
 
         const data = await getMovieDetail(movieId);
         console.log('Detalle:', data)
-        console.log("Overview recibido:", data.overview);
         
         if (!ignore) {
           setMovie(data);
@@ -46,9 +44,7 @@ export default function MovieDetailPage() {
         }
       }
     }
-
     loadMovies();
-
     return () => {
       ignore = true;
     };
@@ -78,21 +74,26 @@ export default function MovieDetailPage() {
       />}
       <p>{movie.release_date.slice(0, 4)}</p>
       <h2>{movie.overview}</h2>
-      <p>
-        Director: {director?.name ?? "Desconocido"}
+      <p>Director:
+        {director? 
+        (<Link to={`/app/director/${director.id}`}>
+          {director.name}
+        </Link>) : "Desconocido"}
       </p>
       <h2>Reparto: </h2>
-        {actors.slice(0, 3).map((actor) => {
+        {actors.slice(0, 10).map((actor) => {
           return (
             <div key={actor.id}>
-              {actor.profile_path && (
+              <Link to={`/app/actor/${actor.id}`}>
+                {actor.profile_path && ( 
                 <img
-                src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
-                alt={`Foto de ${actor.name}`}
+                  src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
+                  alt={`Foto de ${actor.name}`}
                 />
-              )}
-              <p>{actor.name}</p>
-              <p>Personaje: {actor.character}</p>
+                )}
+                <p>{actor.name}</p>
+                <p>Personaje: {actor.character}</p>
+              </Link>
             </div>
           );
         })}
