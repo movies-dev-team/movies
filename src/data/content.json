@@ -2,7 +2,11 @@
   "navigation": {
     "catalog": "Catálogo",
     "favorites": "Favoritos",
-    "profile": "Mi perfil",
+    "profile": {
+      "label": "Mi perfil",
+      "information": "Mi perfil",
+      "signOut": "Cerrar sesión"
+    },
     "accessibility": {
       "brand": "CINÉA - Catálogo",
       "main": "Navegación principal"
