@@ -1,40 +1,16 @@
-import { NavLink } from "react-router"
-import { useState } from "react"
-import { logoutUser } from "@/features/auth/services/authService"
+import { NavLink } from "react-router";
+import content from "@/data/content.json";
 
 const Navbar = () => {
-  const [error, setError] = useState("")
-
-  async function handleLogout() {
-    try {
-      setError("")
-      await logoutUser()
-    } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "Error al cerrar sesión"
-      )
-    }
-  }
-
   return (
     <nav className="flex flex-wrap items-center gap-6 border-b border-border bg-card p-4">
-      <NavLink to="/app">Catálogo</NavLink>
+      <NavLink to="/app">{content.navigation.catalog}</NavLink>
 
-      <NavLink to="/app/favorite">Favoritos</NavLink>
+      <NavLink to="/app/favorite">{content.navigation.favorites}</NavLink>
 
-      <NavLink to="/app/profile">Perfil</NavLink>
-
-      <button
-        type="button"
-        onClick={handleLogout}
-        className="ml-auto cursor-pointer"
-      >
-        Cerrar sesión
-      </button>
-
-      {error && <p role="alert">{error}</p>}
+      <NavLink to="/app/profile">{content.navigation.profile}</NavLink>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
