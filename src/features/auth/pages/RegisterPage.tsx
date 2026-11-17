@@ -1,5 +1,12 @@
-const RegisterPage = () => {
-  return <div>RegisterPage</div>;
-};
+import RegisterForm from "../components/RegisterForm"
 
-export default RegisterPage;
+function RegisterPage() {
+  return (
+    <main>
+      <h1>Crear cuenta en Movies</h1>
+      <RegisterForm />
+    </main>
+  )
+}
+
+export default RegisterPage
