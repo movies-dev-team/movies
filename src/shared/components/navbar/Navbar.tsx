@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate, useLocation } from "react-router";
 import { ChevronDown } from "lucide-react";
 import content from "@/data/content.json";
 
@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import logo from "@/assets/images/logo.svg";
-import catalogActive from "@/assets/icons/catalogActive.svg";
+import catalogActive from "./assets/icons/catalogActive.svg";
 import catalogDefault from "./assets/icons/catalogDefault.svg";
 import profileActive from "./assets/icons/profileActive.svg";
 import profileDefault from "./assets/icons/profileDefault.svg";
-import favoritesActive from "@/assets/icons/favoritesActive.svg";
-import favoritesDefault from "@/assets/icons/favoritesDefault.svg";
+import favoritesActive from "./assets/icons/favoritesActive.svg";
+import favoritesDefault from "./assets/icons/favoritesDefault.svg";
 
 const NavigationLink = ({
   to,
@@ -49,7 +49,7 @@ const NavigationLink = ({
           <img
             src={isActive ? activeIcon : defaultIcon}
             alt=""
-            className="size-7 md:size-6"
+            className="size-8 md:size-7"
           />
 
           <span>{label}</span>
@@ -61,31 +61,28 @@ const NavigationLink = ({
 
 const ProfileMenu = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isProfileActive = location.pathname === "/app/profile";
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         aria-label={content.navigation.profile.information}
-        className="group flex flex-1 flex-col items-center justify-center text-sm text-text-secondary transition-colors md:flex-none md:text-base"
+        className={`group flex flex-1 flex-col items-center justify-center text-sm transition-colors md:flex-none md:text-base ${
+          isProfileActive ? "text-brand-light" : "text-text-secondary"
+        }`}
       >
         <span className="flex w-fit flex-col items-center justify-center gap-1 rounded-lg px-3 py-2 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:bg-surface-elevated md:flex-row md:gap-2">
           <img
-            src={profileDefault}
+            src={isProfileActive ? profileActive : profileDefault}
             alt=""
-            className="size-7 md:size-6 group-data-popup-open:hidden"
+            className="size-7 md:size-6"
           />
 
-          <img
-            src={profileActive}
-            alt=""
-            className="hidden size-7 md:size-6 group-data-popup-open:block"
-          />
+          <span className="md:hidden">Perfil</span>
 
-          <span className="md:hidden group-data-popup-open:text-brand-light">
-            Perfil
-          </span>
-
-          <ChevronDown className="hidden size-4 group-data-popup-open:text-brand-light md:block" />
+          <ChevronDown className="hidden size-4 md:block" />
         </span>
       </DropdownMenuTrigger>
 
