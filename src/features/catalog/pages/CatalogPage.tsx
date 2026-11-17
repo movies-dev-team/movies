@@ -1,39 +1,56 @@
-import { useState, useEffect } from 'react'
-import { getPopularMovies } from '../services/movieService'
-import type { Movie } from '../../../shared/types/movie'
-import MovieCard from '@/shared/components/MovieCard'
+
+import { useState, useEffect } from "react";
+import { getPopularMovies } from "../services/movieService";
+import type { Movie } from "../../../shared/types/movie";
+import MovieCard from "@/shared/components/MovieCard";
+import ErrorMessage from "@/shared/components/ErrorMessage";
+import content from "@/data/content.json";
 
 export default function CatalogPage() {
-
-  const [movies, setMovies] = useState<Movie[]>([])
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadMovies() {
       try {
+        setLoading(true);
+        setError(null);
+
         const data = await getPopularMovies();
         setMovies(data);
-        console.log('Películas recibidas:', data)
       } catch (error) {
         console.error(error);
+        setError(content.errors.generic);
+      } finally {
+        setLoading(false);
       }
     }
-      loadMovies();
+
+    loadMovies();
   }, []);
 
+  if (loading) {
+    return <p>{content.loading.generic}</p>;
+  }
+
+  if (error) {
+    return <ErrorMessage message={error} />;
+  }
+
   return (
-    <div>
-      <h1>Movies</h1>
+    <main>
+      <section>
+        <h1>{content.catalog.title}</h1>
+
         <ul>
           {movies.map((movie) => (
             <li key={movie.id}>
-              {movie.poster_path && ( 
-              <MovieCard
-                movie={movie}
-               />
-              )}
+              <MovieCard movie={movie} />
             </li>
-           ))}
+          ))}
         </ul>
-    </div>
-  )
+      </section>
+    </main>
+  );
 }
