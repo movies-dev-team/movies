@@ -1,3 +1,4 @@
+
 import { NavLink, useNavigate, useLocation } from "react-router"
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
@@ -169,7 +170,6 @@ const Navbar = () => {
           />
         </NavLink>
       </header>
-
 
       <nav
         aria-label={content.navigation.accessibility.main}
