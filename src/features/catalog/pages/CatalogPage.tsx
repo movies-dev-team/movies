@@ -5,6 +5,7 @@ import type { Movie } from "../../../shared/types/movie";
 import MovieCard from "@/shared/components/MovieCard";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import content from "@/data/content.json";
+import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -20,8 +21,7 @@ export default function CatalogPage() {
         const data = await getPopularMovies();
         setMovies(data);
       } catch (error) {
-        console.error(error);
-        setError(content.errors.generic);
+        setError(getApiErrorMessage(error));
       } finally {
         setLoading(false);
       }
@@ -36,6 +36,10 @@ export default function CatalogPage() {
 
   if (error) {
     return <ErrorMessage message={error} />;
+  }
+
+  if (movies.length === 0) {
+    return <p>{content.errors.notFound}</p>;
   }
 
   return (
