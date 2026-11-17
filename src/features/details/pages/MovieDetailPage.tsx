@@ -7,7 +7,7 @@ import { getMovieDetail } from "../services/movieDetailService";
 export default function MovieDetailPage() {
 
   const { id } = useParams();
-  const movieId = 1368337;
+  const movieId = Number(id);
 
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [loading, setLoading] = useState(true);
