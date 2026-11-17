@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     Component: MainLayout,
     children: [
       { index: true, Component: CatalogPage },
-      { path: "favorite", Component: FavoritesPage },
+      { path: "favorites", Component: FavoritesPage },
       { path: "profile", Component: ProfilePage },
 
       { path: "movie/:id", Component: MovieDetailPage },
