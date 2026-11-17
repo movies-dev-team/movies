@@ -1,5 +1,6 @@
 import { useState } from "react"
 import type { SubmitEvent } from "react"
+import { useNavigate } from "react-router"
 import { registerUser } from "../services/authService"
 
 function RegisterForm() {
@@ -7,12 +8,22 @@ function RegisterForm() {
   const [password, setPassword] = useState("")
   const [message, setMessage] = useState("")
 
+  const navigate = useNavigate()
+
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
     try {
-      await registerUser(email, password)
-      setMessage("Usuario registrado correctamente")
+      setMessage("")
+      const { session } = await registerUser(email, password)
+      if (!session) {
+      setMessage("Registro completado. Revisa tu correo para confirmar tu cuenta.")
+      return
+     }
+
+navigate("/app", { replace: true })
+
+      navigate("/app", { replace: true })
     } catch (error) {
       setMessage(
         error instanceof Error ? error.message : "Error al registrarse"
@@ -49,4 +60,3 @@ function RegisterForm() {
 }
 
 export default RegisterForm
-// cambio
