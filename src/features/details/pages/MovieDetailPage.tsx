@@ -7,7 +7,7 @@ import { getMovieDetail } from "../services/movieDetailService";
 export default function MovieDetailPage() {
 
   const { id } = useParams();
-  const movieId = 1263337;
+  const movieId = 1368337;
 
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -30,6 +30,7 @@ export default function MovieDetailPage() {
 
         const data = await getMovieDetail(movieId);
         console.log('Detalle:', data)
+        console.log("Overview recibido:", data.overview);
         
         if (!ignore) {
           setMovie(data);
