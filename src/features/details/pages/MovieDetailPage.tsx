@@ -3,16 +3,16 @@ import { useParams } from "react-router";
 import type { MovieDetail } from "../types/movieDetail";
 import { getMovieDetail } from "../services/movieDetailService";
 
+
 export default function MovieDetailPage() {
 
   const { id } = useParams();
   const movieId = Number(id);
-  
 
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  
+ 
   useEffect(() => {
 
     let ignore = false;
@@ -28,21 +28,20 @@ export default function MovieDetailPage() {
           return;
         }
 
-          const data = await getMovieDetail(movieId);
+        const data = await getMovieDetail(movieId);
+        console.log('Detalle:', data)
+        console.log("Overview recibido:", data.overview);
         
-          if (!ignore) {
-            setMovie(data);
-          }
-          
+        if (!ignore) {
+          setMovie(data);
+        }    
       } catch (error) {
-
-          if (!ignore) {
-            setError(true);
-            console.error(error);
-          }
-          
+        if (!ignore) {
+          setError(true);
+          console.error(error);
+        }    
       } finally {
-          if(!ignore) {
+        if(!ignore) {
           setLoading(false);
         }
       }
@@ -56,14 +55,19 @@ export default function MovieDetailPage() {
   },[movieId]);
 
   if (loading) {
-    return <p>Loading movie...</p>;
+    return <p>Cargando película...</p>;
   }
   if (error) {
-    return <p>Error loading movie...</p>
+    return <p>Error cargando película...</p>
   } 
   if (!movie) { 
-    return <p>Movie not found</p>
+    return <p>Película no encontrada</p>
   }
+
+  const actors = movie.credits.cast;
+  const director = movie.credits.crew.find(
+    (crew) => crew.job === "Director"
+  )
 
   return (
     <div>
@@ -72,8 +76,26 @@ export default function MovieDetailPage() {
         src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
         alt={`Poster of ${movie.original_title}`}
       />}
-      <p>Release year: {movie.release_date.slice(0, 4)}</p>
-      <h2>Overview: {movie.overview}</h2>
+      <p>{movie.release_date.slice(0, 4)}</p>
+      <h2>{movie.overview}</h2>
+      <p>
+        Director: {director?.name ?? "Desconocido"}
+      </p>
+      <h2>Reparto: </h2>
+        {actors.slice(0, 3).map((actor) => {
+          return (
+            <div key={actor.id}>
+              {actor.profile_path && (
+                <img
+                src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
+                alt={`Foto de ${actor.name}`}
+                />
+              )}
+              <p>{actor.name}</p>
+              <p>Personaje: {actor.character}</p>
+            </div>
+          );
+        })}
     </div> 
   )
 }
