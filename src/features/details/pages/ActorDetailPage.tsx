@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { getActorDetail } from "../services/actorDetailService";
-import type { ActorDetail } from "../types/actorDetail";
+import { getPersonDetail } from "../services/personDetailService";
+import type { PersonDetail } from "../types/personDetail"; 
 
 
 export default function ActorDetailPage() {
@@ -9,7 +9,7 @@ export default function ActorDetailPage() {
   const { id } = useParams();
   const actorId = Number(id);
 
-  const [actor, setActor] = useState<ActorDetail | null >(null);
+  const [actor, setActor] = useState<PersonDetail | null >(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -28,7 +28,7 @@ export default function ActorDetailPage() {
             return;
           }
 
-        const data = await getActorDetail(actorId);
+        const data = await getPersonDetail(actorId);
         console.log('Detalle de actor:', data);
 
         if (!ignore) {

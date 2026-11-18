@@ -1,8 +1,8 @@
 import { tmdbApi } from '../../../shared/services/tmdbApi'
-import type { ActorDetail } from '../types/actorDetail';
+import type { PersonDetail } from '../types/personDetail'; 
 
 
-export async function getActorDetail(person_id: number): Promise<ActorDetail> {
+export async function getPersonDetail(person_id: number): Promise<PersonDetail> {
 
   const response = await tmdbApi.get(`person/${person_id}`, {
     params :{
