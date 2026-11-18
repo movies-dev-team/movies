@@ -72,7 +72,11 @@
   },
 
   "catalog": {
-  "title": "Catálogo de películas"
- 
-}
+    "title": "Catálogo de películas"
+  },
+  "filters": {
+    "filterTitle": "Filtros",
+    "filterError": "No se han podido cargar los géneros.",
+    "filterGenres": "Género"
+  }
 }

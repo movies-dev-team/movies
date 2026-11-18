@@ -1,13 +1,29 @@
 import { tmdbApi } from "../../../shared/services/tmdbApi";
-import type { Movie } from "../../../shared/types/movie";
+import type { MoviesResponse, Genre } from "@/shared/types/movie";
 
-export async function getPopularMovies(): Promise<Movie[]> {
-  const response = await tmdbApi.get("movie/popular", {
+async function getData(endpoint: string, params = {}, page: number = 1) {
+  const response = await tmdbApi.get(endpoint, {
     params: {
-      language: "en-US",
-      page: 1,
+      language: "es-ES",
+      page,
+      ...params,
     },
   });
+  return response.data;
+}
 
-  return response.data.results;
+export function getPopularMovies(): Promise<MoviesResponse> {
+  return getData("movie/popular");
+}
+
+export function getMoviesByGenre(
+  genreId: string,
+  page: number = 1,
+): Promise<MoviesResponse> {
+  return getData("discover/movie", { with_genres: genreId }, page);
+}
+
+export async function getMovieGenres(): Promise<Genre[]> {
+  const data = await getData("genre/movie/list");
+  return data.genres;
 }
