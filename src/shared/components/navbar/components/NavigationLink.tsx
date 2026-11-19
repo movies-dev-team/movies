@@ -1,3 +1,4 @@
+
 import { NavLink } from "react-router";
 import type { NavigationLinkProps } from "@/shared/components/navbar/types/NavigationLink";
 
@@ -20,7 +21,7 @@ const NavigationLink = ({
     >
       {({ isActive }) => (
         <span
-          className={`flex w-fit flex-col items-center justify-center gap-0.5 rounded-lg px-3 py-1 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:bg-surface-elevated md:flex-row md:gap-2 ${
+          className={`flex w-fit flex-col items-center justify-center gap-1 rounded-lg px-3 py-2 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:bg-linear-to-t group-hover:from-brand-primary/40 group-hover:via-brand-primary/15 group-hover:to-card md:flex-row md:gap-2 ${
             isActive ? "text-brand-light" : ""
           }`}
         >
