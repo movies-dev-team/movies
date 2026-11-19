@@ -1,10 +1,5 @@
 import type { Movie } from "../types/movie";
-import {
-  Card,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import {Card, CardTitle,CardDescription, CardContent,} from "@/components/ui/card";
 import { Link } from "react-router";
 import { useState } from "react";
 import { Heart } from "lucide-react";
