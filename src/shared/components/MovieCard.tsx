@@ -10,12 +10,9 @@ import { useState } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import content from "@/data/content.json";
 
-interface MovieCardProps {
-  movie: Movie;
-}
-
-export default function MovieCard({ movie }: MovieCardProps) {
+export default function MovieCard({ movie }: { movie: Movie }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
@@ -24,8 +21,22 @@ export default function MovieCard({ movie }: MovieCardProps) {
         type="button"
         variant="glass"
         size="icon-sm"
-        onClick={() => setIsFavorite((prev) => !prev)}
-        aria-label={isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
+        onClick={() => {
+          const newFavoriteState = !isFavorite;
+
+          setIsFavorite(newFavoriteState);
+
+          if (newFavoriteState) {
+            toast.success(content.favorites.added);
+          } else {
+            toast(content.favorites.removed);
+          }
+        }}
+        aria-label={
+          isFavorite
+            ? content.favorites.removeLabel
+            : content.favorites.addLabel
+        }
         aria-pressed={isFavorite}
         className="absolute right-2 top-2 z-10 border-0 transition-transform duration-200 hover:scale-110"
       >
