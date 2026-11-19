@@ -45,15 +45,17 @@ export default function CatalogPage() {
   }, [filters.genre]);
 
   return (
-    <main className="p-6">
+    <main className="p-4 md:p-6">
+      
       <h1 className="mb-6 text-2xl font-bold">{content.catalog.title}</h1>
-
       <div className="flex flex-col gap-6 md:flex-row">
         <aside className="w-full shrink-0 md:w-56">
           <div className="rounded-xl border border-border-hover bg-gradient-panel p-3 shadow-medium">
             <div className="mb-3 flex items-center gap-2 border-b border-border-hover pb-3">
               <SlidersHorizontal className="size-5 text-brand-light" />
-              <h2 className="text-lg font-semibold">{content.filters.filterTitle}</h2>
+              <h2 className="text-lg font-semibold">
+                {content.filters.filterTitle}
+              </h2>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -78,7 +80,7 @@ export default function CatalogPage() {
           ) : movies.length === 0 ? (
             <p>{content.filters.filterError} </p>
           ) : (
-            <ul className="grid grid-cols-2 gap-5 md:grid-cols-5">
+            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {movies.map((movie) => (
                 <li key={movie.id} className="min-w-0">
                   <MovieCard movie={movie} />
