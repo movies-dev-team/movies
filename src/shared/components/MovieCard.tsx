@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Link } from "react-router";
 import { useState } from "react";
-import { Heart } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import content from "@/data/content.json";
@@ -57,9 +57,16 @@ export default function MovieCard({ movie }: { movie: Movie }) {
       </Link>
       <CardContent className="p-3">
         <CardTitle className="text-sm">{movie.title}</CardTitle>
-        <span className="text-xs text-muted-foreground">
-          {movie.release_date.slice(0, 4)}
-        </span>
+        <div className="mt-1 flex items-center justify-between">
+          <span className="text-xs text-muted-foreground">
+            {movie.release_date.slice(0, 4)}
+          </span>
+
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Star className="size-3.5 fill-brand-light text-brand-light" />
+            {movie.vote_average.toFixed(1)}
+          </span>
+        </div>
         <CardDescription className="mt-2 line-clamp-3 text-xs">
           Sinopsis: {movie.overview}
         </CardDescription>

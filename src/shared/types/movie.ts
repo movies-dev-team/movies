@@ -6,6 +6,7 @@ export interface Movie {
   release_date: string;
   original_language: string;
   genre_ids: number[];
+  vote_average: number;
 }
 
 export interface MoviesResponse {
