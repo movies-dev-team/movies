@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 import { getPersonDetail } from "../services/personDetailService";
 import type { PersonDetail } from "../types/personDetail"; 
 
@@ -147,24 +147,36 @@ export default function ActorDetailPage() {
           {hasFilmography ? (
           movieList.map((film) => {
             return (
-            <div key={film.id}>
-              {film.poster_path ? (<img
-                className="aspect-[2/3] w-full rounded-xl object-cover" 
-                src={`https://image.tmdb.org/t/p/w300${film.poster_path}`}
-                alt={`Póster de la película ${film.title}`}
-                />
-              ) : 
-              <div className="flex aspect-[2/3] w-full items-center justify-center rounded-xl bg-card">
-                <p className="px-3 text-center text-xs text-text-secondary">
-                  Imagen no disponible
+              <div key={film.id}>
+                <Link
+                  className="group block focus-visible:outline-none"
+                  to={`/app/movie/${film.id}`}>
+                  {film.poster_path ? (<img
+                    className="aspect-[2/3] w-full rounded-xl object-cover
+                    group-focus-visible:outline-2
+                    group-focus-visible:outline-offset-4
+                    group-focus-visible:outline-brand-light" 
+                    src={`https://image.tmdb.org/t/p/w300${film.poster_path}`}
+                    alt={`Póster de la película ${film.title}`}
+                    />
+                  ) : 
+                  <div className="flex aspect-[2/3] w-full items-center justify-center rounded-xl bg-card">
+                    <p className="px-3 text-center text-xs text-text-secondary">
+                      Imagen no disponible
+                    </p>
+                  </div>
+                  }
+                  <h3 
+                  className="mt-2 text-sm font-semibold leading-5 md:text-base 
+                  group-hover:text-brand-light group-focus-visible:text-brand-light"
+                  >
+                    {film.title} {film.release_date && `(${film.release_date.slice(0, 4)})`}
+                  </h3>
+                </Link>
+                <p className="mt-1 text-xs leading-5 text-text-secondary md:text-sm">
+                  {film.character}
                 </p>
               </div>
-              }
-              <h3 className="mt-2 text-sm font-semibold leading-5 md:text-base">
-                {film.title} {film.release_date && `(${film.release_date.slice(0, 4)})`}
-              </h3>
-              <p className="mt-1 text-xs leading-5 text-text-secondary md:text-sm">{film.character}</p>
-            </div>
             );
           })
         ): <p>No hay películas disponibles</p>}
