@@ -145,7 +145,7 @@ export default function ActorDetailPage() {
         <h2 id="filmography-title" className="mb-5 text-2xl font-bold">
           Filmografía
         </h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 auto-rows-fr gap-4 md:grid-cols-3 lg:grid-cols-4">
           {hasFilmography ? (
           movieList.map((film) => {
             return (

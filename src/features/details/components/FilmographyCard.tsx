@@ -13,8 +13,8 @@ interface FilmographyCardProps {
 export default function FilmographyCard({ film }: FilmographyCardProps) {
   return (
     <Link to={`/app/movie/${film.id}`} className="group block h-full focus-visible:outline-none">
-      <Card className="w-full h-full 
-          overflow-hidden 
+      <Card className="w-full h-full gap-0
+          overflow-hidden py-0
           group-focus-visible:outline-2 
           group-focus-visible:outline-brand-light"
       >
@@ -31,13 +31,9 @@ export default function FilmographyCard({ film }: FilmographyCardProps) {
             </div>
           }
         <CardContent className="p-3">
-          <CardTitle>
+          <CardTitle className="line-clamp-2">
             {film.title}  {film.release_date && `(${film.release_date.slice(0, 4)})`}
           </CardTitle>
-          {"character" in film && (
-            <p>{film.character}
-            </p>
-          )}
         </CardContent>
       </Card>
     </Link>
