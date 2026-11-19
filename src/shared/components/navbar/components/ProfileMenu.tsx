@@ -50,7 +50,7 @@ const ProfileMenu = () => {
             isProfileActive ? "text-brand-light" : "text-text-secondary"
           }`}
         >
-          <span className="flex w-fit flex-col items-center justify-center gap-y-0.5 rounded-lg px-3 py-1 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:bg-gradient-to-t group-hover:from-brand-primary/40 group-hover:via-brand-primary/15 group-hover:to-card md:flex-row md:gap-2">
+          <span className="flex w-fit flex-col items-center justify-center gap-y-0.5 rounded-lg px-3 py-1 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:bg-linear-to-t group-hover:from-brand-primary/40 group-hover:via-brand-primary/15 group-hover:to-card md:flex-row md:gap-2">
             <img
               src={isProfileActive ? profileActive : profileDefault}
               alt=""
