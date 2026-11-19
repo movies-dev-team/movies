@@ -7,4 +7,15 @@ export interface PersonDetail {
   profile_path: string | null;
   imdb_id: string | null;
   known_for_department: string;
+  movie_credits: {
+    cast: PersonMovieCredit[];
+  }
+}
+
+export interface PersonMovieCredit {
+  id: number;
+  title: string;
+  character: string;
+  poster_path: string | null;
+  release_date: string;
 }

@@ -3,6 +3,18 @@ import { useParams } from "react-router";
 import { getPersonDetail } from "../services/personDetailService";
 import type { PersonDetail } from "../types/personDetail"; 
 
+function formatDate(date: string | null): string {
+  if (!date) return ""
+  const parsedDate = new Date(date);
+  
+  const formatter = new Intl.DateTimeFormat("es-ES", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+  return formatter.format(parsedDate);
+}
 
 export default function ActorDetailPage() {
 
@@ -12,6 +24,8 @@ export default function ActorDetailPage() {
   const [actor, setActor] = useState<PersonDetail | null >(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showAllMovies, setShowAllMovies] =useState(false);
 
   useEffect(() => {
 
@@ -21,6 +35,8 @@ export default function ActorDetailPage() {
       setActor(null);
       setLoading(true);
       setError(false);
+      setIsExpanded(false);
+      setShowAllMovies(false);
     
       try {
         if (!Number.isInteger(actorId) || actorId <= 0) {
@@ -62,20 +78,112 @@ export default function ActorDetailPage() {
     return <p>Actor/Actriz no encontrado/a</p>
   }
 
+  const hasLongBiography = actor.biography.length > 300;
+  const filmography = actor.movie_credits.cast;
+  const hasFilmography = filmography.length > 0;
+  const sortedFilmography = [...filmography].sort((a, b) => 
+    b.release_date.localeCompare(a.release_date));
+  const moviesPerProfile = 8
+  const visibleFilmography = sortedFilmography.slice(0, moviesPerProfile);
+  const movieList = showAllMovies ? sortedFilmography : visibleFilmography;
+
   return (
-    <div>
-      {actor.profile_path && ( <img
-        src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
-        alt={`Foto de ${actor.name}`}
-        />
-      )}
-      <h1>
-        {actor.name}
-      </h1>
-      <p>{actor.biography}</p> 
-    </div>
+    <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
+      <section className="grid grid-cols-5 gap-4 md:grid-cols-3 md:gap-x-8 md:gap-y-4">
+        <div className="col-span-2 md:col-span-1 md:row-span-2">
+          {actor.profile_path && ( <img
+            className="aspect-[2/3] w-full max-w-[160px] md:max-w-xs rounded-xl object-cover"
+            src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
+            alt={`Foto de ${actor.name}`}
+            />
+          )}
+        </div>
+        <div className="col-span-3 min-w-0 md:col-span-2">
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+            {actor.name}
+          </h1>
+          <div className="mt-3 flex flex-col gap-2">
+            {actor.birthday && (
+            <p className="text-sm leading-5 text-text-secondary">
+              Nacimiento: {formatDate(actor.birthday)}
+            </p>
+            )}
+            {actor.place_of_birth && (
+            <p className="text-sm leading-5 text-text-secondary">
+              Lugar: {actor.place_of_birth}
+            </p>
+            )}
+          </div>  
+        </div>
+        <div className="col-span-5 min-w-0 md:col-span-2">
+          <h2 className="mb-2 text-xl font-semibold">
+          Biografía
+          </h2>
+          <p className={`text-sm leading-7 text-text-secondary whitespace-pre-line md:text-base
+            ${hasLongBiography && !isExpanded ? "max-h-40 overflow-hidden" : ""}`}
+          >
+            {actor.biography.trim() ? actor.biography : "Biografía no disponible"}
+          </p>
+          {hasLongBiography && (
+            <button
+            type="button"
+            aria-expanded={isExpanded}
+            className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
+            onClick={() => setIsExpanded((previous) => !previous)}
+          >
+           {isExpanded ? "Leer menos" : "Leer más..."}
+          </button>)}
+        </div>   
+      </section>
+      <section
+        id="filmography"
+        aria-labelledby="filmography-title"
+        className="mt-10"
+      >
+        <h2 id="filmography-title" className="mb-5 text-2xl font-bold">
+          Filmografía
+        </h2>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {hasFilmography ? (
+          movieList.map((film) => {
+            return (
+            <div key={film.id}>
+              {film.poster_path ? (<img
+                className="aspect-[2/3] w-full rounded-xl object-cover" 
+                src={`https://image.tmdb.org/t/p/w300${film.poster_path}`}
+                alt={`Póster de la película ${film.title}`}
+                />
+              ) : 
+              <div className="flex aspect-[2/3] w-full items-center justify-center rounded-xl bg-card">
+                <p className="px-3 text-center text-xs text-text-secondary">
+                  Imagen no disponible
+                </p>
+              </div>
+              }
+              <h3 className="mt-2 text-sm font-semibold leading-5 md:text-base">
+                {film.title} {film.release_date && `(${film.release_date.slice(0, 4)})`}
+              </h3>
+              <p className="mt-1 text-xs leading-5 text-text-secondary md:text-sm">{film.character}</p>
+            </div>
+            );
+          })
+        ): <p>No hay películas disponibles</p>}
+        </div>
+        {(sortedFilmography.length > moviesPerProfile) && (
+          <button
+            type="button"
+            aria-expanded={showAllMovies}
+            className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
+            onClick={() => setShowAllMovies((previous) => !previous)}
+          >
+           {showAllMovies ? "Ver menos" : "Ver más..."}
+          </button>)}
+      </section> 
+    </main>
   )
 }
+
+
 
 
 

@@ -8,7 +8,7 @@ export async function getPersonDetail(person_id: number): Promise<PersonDetail> 
     params :{
       api_key: import.meta.env.VITE_TMDB_API_KEY,
       append_to_response:'movie_credits',
-      language:'en-US',
+      language:'es-ES',
     }
   }); 
     return response.data
