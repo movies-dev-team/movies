@@ -7,10 +7,11 @@ import {
 } from "@/components/ui/card";
 import { Link } from "react-router";
 import { useState } from "react";
-import { Heart, Star } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import content from "@/data/content.json";
+import MovieRatingAPI from "./MovieRatingAPI";
 
 export default function MovieCard({ movie }: { movie: Movie }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -62,10 +63,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
             {movie.release_date.slice(0, 4)}
           </span>
 
-          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Star className="size-3.5 fill-brand-light text-brand-light" />
-            {movie.vote_average.toFixed(1)}
-          </span>
+          <MovieRatingAPI rating={movie.vote_average} />
         </div>
         <CardDescription className="mt-2 line-clamp-3 text-xs">
           Sinopsis: {movie.overview}
