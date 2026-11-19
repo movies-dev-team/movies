@@ -15,7 +15,7 @@ const DesktopNavbar = () => {
   return (
     <nav
       aria-label={content.navigation.accessibility.main}
-      className="relative isolate hidden items-center justify-between overflow-hidden border-b border-border bg-card px-6 py-3 md:flex"
+      className="relative isolate hidden items-center justify-between overflow-hidden border-b border-border bg-card px-6 py-2.5 md:flex"
     >
       <img
         src={imgNavBar}
@@ -24,7 +24,7 @@ const DesktopNavbar = () => {
         className="pointer-events-none absolute inset-0 z-0 h-[125%] w-full translate-y-2 object-cover object-center opacity-30"
       />
 
-      <div className="relative z-10 flex w-full items-center justify-between">
+      <div className="relative z-10 flex w-full items-center justify-between translate-y-1">
         <div className="flex items-center gap-6 lg:gap-10">
           <NavLink to="/app">
             <img src={logo} alt="CINÉA" className="h-9 w-auto" />

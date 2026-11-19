@@ -16,27 +16,26 @@ const Navbar = () => {
   return (
     <>
       {/* Top mobile navbar */}
-      <header className="relative isolate flex items-center justify-between overflow-hidden border-b border-border bg-card px-5 py-3 md:hidden">
-        {/* Background image */}
+      <header className="relative isolate flex items-center justify-between overflow-hidden border-b border-border bg-card px-5 py-2 md:hidden">
+        
         <img
           src={imgNavBar}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 h-[125%] w-full translate-y-4 object-cover object-center opacity-30"
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full scale-[2.5] translate-y-3 object-cover object-center opacity-30 md:scale-100"
         />
 
         {/* Header content */}
         <NavLink
           to="/app"
           aria-label={content.navigation.accessibility.brand}
-          className="relative z-10"
+          className="relative z-10 translate-y-1"
         >
           <img src={logo} alt="CINÉA" className="h-9 w-auto" />
         </NavLink>
       </header>
 
-      {/* Desktop navbar */}
-      <DesktopNavbar />
+           <DesktopNavbar />
 
       {/* Bottom mobile navbar */}
       <nav
