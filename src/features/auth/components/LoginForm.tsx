@@ -2,6 +2,7 @@ import { useState } from "react"
 import type { SubmitEvent } from "react"
 import { Link, useNavigate } from "react-router"
 import { loginUser } from "../services/authService"
+import {validateEmail,validatePassword,} from "./authValidation"
 
 function LoginForm() {
   const [email, setEmail] = useState("")
@@ -15,10 +16,25 @@ function LoginForm() {
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     setError("")
+
+    const emailError = validateEmail(email)
+
+    if (emailError) {
+      setError(emailError)
+      return
+    }
+
+    const passwordError = validatePassword(password)
+
+    if (passwordError) {
+      setError(passwordError)
+      return
+    }
+
     setIsLoading(true)
 
     try {
-      await loginUser(email, password)
+      await loginUser(email.trim(), password)
       navigate("/app")
     } catch (error) {
       setError(
@@ -32,23 +48,27 @@ function LoginForm() {
   }
 
   return (
-    <section className="mx-auto w-full max-w-md rounded-2xl border border-white/20 bg-slate-950/75 p-6 shadow-2xl backdrop-blur-xl sm:p-8 lg:ml-auto">
+    <section className="mx-auto w-full max-w-90 rounded-2xl border border-white/15 bg-slate-950/80 px-5 py-4 shadow-2xl backdrop-blur-xl lg:ml-auto lg:max-w-md lg:p-8">
 
-      <h2 className="mb-6 text-center text-3xl font-bold lg:text-left">
+      <h2 className="mb-3 text-center text-xl font-bold lg:mb-6 lg:text-left lg:text-3xl">
         Inicia sesión
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className="space-y-2.5 lg:space-y-4"
+      >
 
         <div>
           <label htmlFor="email" className="sr-only">
             Correo electrónico
           </label>
 
-          <div className="flex items-center gap-3 rounded-xl bg-white/10 px-4 transition-colors focus-within:ring-2 focus-within:ring-purple-500">
+          <div className="flex h-10 items-center gap-2.5 rounded-lg bg-white/10 px-3 focus-within:ring-2 focus-within:ring-purple-500 lg:h-14 lg:rounded-xl lg:px-4">
 
             <svg
-              className="h-5 w-5 shrink-0"
+              className="h-4 w-4 shrink-0 lg:h-5 lg:w-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -76,7 +96,7 @@ function LoginForm() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
-              className="w-full bg-transparent py-4 text-white outline-none placeholder:text-gray-300"
+              className="h-full min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-gray-300 lg:text-base"
             />
           </div>
         </div>
@@ -86,10 +106,10 @@ function LoginForm() {
             Contraseña
           </label>
 
-          <div className="flex items-center gap-3 rounded-xl bg-white/10 px-4 transition-colors focus-within:ring-2 focus-within:ring-purple-500">
+          <div className="flex h-10 items-center gap-2.5 rounded-lg bg-white/10 px-3 focus-within:ring-2 focus-within:ring-purple-500 lg:h-14 lg:rounded-xl lg:px-4">
 
             <svg
-              className="h-5 w-5 shrink-0"
+              className="h-4 w-4 shrink-0 lg:h-5 lg:w-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -117,7 +137,7 @@ function LoginForm() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
-              className="min-w-0 flex-1 bg-transparent py-4 text-white outline-none placeholder:text-gray-300"
+              className="h-full min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-gray-300 lg:text-base"
             />
 
             <button
@@ -133,7 +153,7 @@ function LoginForm() {
             >
               {showPassword ? (
                 <svg
-                  className="h-5 w-5"
+                  className="h-4 w-4 lg:h-5 lg:w-5"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
@@ -146,7 +166,7 @@ function LoginForm() {
                 </svg>
               ) : (
                 <svg
-                  className="h-5 w-5"
+                  className="h-4 w-4 lg:h-5 lg:w-5"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
@@ -162,7 +182,7 @@ function LoginForm() {
         </div>
 
         {error && (
-          <p role="alert" className="text-sm text-red-400">
+          <p role="alert" className="text-xs text-red-400">
             {error}
           </p>
         )}
@@ -170,20 +190,20 @@ function LoginForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="mt-4 w-full rounded-xl bg-linear-to-r from-purple-700 to-purple-600 py-4 text-lg font-bold text-white shadow-lg transition hover:from-purple-600 hover:to-purple-500 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-2 h-11 w-full rounded-lg bg-linear-to-r from-purple-700 to-purple-600 text-sm font-bold text-white shadow-lg transition hover:from-purple-600 hover:to-purple-500 disabled:cursor-not-allowed disabled:opacity-60 lg:mt-4 lg:h-14 lg:rounded-xl lg:text-lg"
         >
           {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
         </button>
 
       </form>
 
-      <div className="my-8 flex items-center gap-3">
+      <div className="my-4 flex items-center gap-3 lg:my-8">
         <div className="h-px flex-1 bg-white/10" />
-        <div className="h-2 w-2 rounded-full bg-white/20" />
+        <div className="h-1.5 w-1.5 rounded-full bg-purple-500" />
         <div className="h-px flex-1 bg-white/10" />
       </div>
 
-      <p className="text-center text-base text-gray-200">
+      <p className="text-center text-xs text-gray-200 lg:text-base">
         ¿No tienes cuenta?{" "}
         <Link
           to="/register"

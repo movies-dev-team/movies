@@ -1,9 +1,7 @@
 import LoginForm from "../components/LoginForm"
-
 import desktopBackground from "@/assets/images/cinea-background-home.webp"
 import mobileBackground from "@/assets/images/fondo-cinea-movil.webp"
 import logo from "@/assets/images/logo.svg"
-
 import filmIcon from "@/assets/icons/catalog.svg"
 import heartIcon from "@/assets/icons/favorites.svg"
 
@@ -22,7 +20,7 @@ const features = [
 
 function LoginPage() {
   return (
-    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4 py-10 text-white sm:px-8 lg:px-12">
+    <main className="relative flex min-h-dvh flex-col overflow-x-hidden px-4 py-5 text-white sm:px-8 lg:items-center lg:justify-center lg:px-12 lg:py-10">
 
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat lg:hidden"
@@ -38,59 +36,52 @@ function LoginPage() {
         }}
       />
 
-      <div className="absolute inset-0 bg-slate-950/45" />
-
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-
-        <section className="flex flex-col items-center text-center lg:items-start lg:text-left">
-
-          <div className="mb-8 flex items-center">
+      <div className="absolute inset-0 bg-slate-950/35" />
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col lg:grid lg:grid-cols-2 lg:items-center lg:gap-16">
+        <section className="flex w-full flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="mb-5 flex w-full items-center justify-center lg:mb-8 lg:justify-start">
             <img
               src={logo}
               alt="CINEA"
-              className="h-16 w-auto sm:h-20"
+              className="h-16 w-auto translate-x-8 sm:h-20 lg:translate-x-0"
             />
           </div>
 
-          <h1 className="mb-5 text-3xl leading-tight font-bold sm:text-4xl lg:text-4xl">
-            Tu próximo gran descubrimiento empieza aquí.
-          </h1>
+          <div className="w-full text-center lg:text-left">
+            <h1 className="mx-auto max-w-md text-xl leading-tight font-bold sm:text-3xl lg:mx-0 lg:max-w-none lg:text-4xl">
+              Tu próximo gran descubrimiento empieza aquí.
+            </h1>
+          </div>
 
-          <p className="max-w-xl text-base text-gray-200 sm:text-lg lg:text-xl">
-            Explora películas, descubre historias y crea tu colección personal.
-          </p>
-
-          <div className="mt-10 grid w-full grid-cols-2 gap-6 sm:mt-12 lg:grid-cols-4 lg:gap-4">
-
+          <div className="mt-6 grid w-full grid-cols-4 gap-2 lg:mt-12 lg:gap-4">
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="flex flex-col items-center gap-2 text-center"
+                className="flex min-w-0 flex-col items-center gap-1 text-center lg:gap-2"
               >
                 <img
                   src={feature.icon}
                   alt=""
-                  className="h-10 w-10"
+                  className="h-6 w-6 lg:h-10 lg:w-10"
                 />
 
-                <h2 className="text-base font-bold">
+                <h2 className="text-[10px] font-bold sm:text-sm lg:text-base">
                   {feature.title}
                 </h2>
-
-                <p className="text-xs text-gray-200">
+                <p className="text-[9px] leading-tight text-gray-200 sm:text-[11px] lg:text-xs">
                   {feature.description}
                 </p>
               </div>
             ))}
 
-            <div className="flex flex-col items-center gap-2 text-center">
-
+            <div className="flex min-w-0 flex-col items-center gap-1 text-center lg:gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="48"
                 height="42"
                 viewBox="0 0 48 42"
                 fill="none"
+                className="h-6 w-6 lg:h-10 lg:w-10"
                 aria-hidden="true"
               >
                 <defs>
@@ -114,29 +105,26 @@ function LoginPage() {
                   strokeLinejoin="round"
                 >
                   <path d="M16.5 12.5 C17.8 19.2 20.8 22.2 27.5 23.5 C20.8 24.8 17.8 27.8 16.5 34.5 C15.2 27.8 12.2 24.8 5.5 23.5 C12.2 22.2 15.2 19.2 16.5 12.5Z" />
-
                   <path d="M36 3 C36.8 7.2 38.8 9.2 43 10 C38.8 10.8 36.8 12.8 36 17 C35.2 12.8 33.2 10.8 29 10 C33.2 9.2 35.2 7.2 36 3Z" />
                 </g>
               </svg>
 
-              <h2 className="text-base font-bold">
+              <h2 className="text-[10px] font-bold sm:text-sm lg:text-base">
                 Descubre
               </h2>
-
-              <p className="text-xs text-gray-200">
+              <p className="text-[9px] leading-tight text-gray-200 sm:text-[11px] lg:text-xs">
                 Nuevos mundos y talentos
               </p>
-
             </div>
 
-            <div className="flex flex-col items-center gap-2 text-center">
-
+            <div className="flex min-w-0 flex-col items-center gap-1 text-center lg:gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="42"
                 height="42"
                 viewBox="0 0 42 42"
                 fill="none"
+                className="h-6 w-6 lg:h-10 lg:w-10"
                 aria-hidden="true"
               >
                 <defs>
@@ -182,20 +170,21 @@ function LoginPage() {
                 />
               </svg>
 
-              <h2 className="text-base font-bold">
+              <h2 className="text-[10px] font-bold sm:text-sm lg:text-base">
                 Puntúa
               </h2>
 
-              <p className="text-xs text-gray-200">
+              <p className="text-[9px] leading-tight text-gray-200 sm:text-[11px] lg:text-xs">
                 Tu valoración cuenta
               </p>
-
             </div>
 
           </div>
         </section>
 
-        <LoginForm />
+        <div className="mt-auto w-full pt-12 lg:mt-0 lg:pt-0">
+          <LoginForm />
+        </div>
 
       </div>
     </main>
