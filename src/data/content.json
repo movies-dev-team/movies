@@ -69,5 +69,14 @@
       "accountText": "¿Ya tienes una cuenta?",
       "accountLink": "Inicia sesión"
     }
+  },
+
+  "catalog": {
+    "title": "Catálogo de películas"
+  },
+  "filters": {
+    "filterTitle": "Filtros",
+    "filterError": "No se han podido cargar los géneros.",
+    "filterGenres": "Género"
   }
 }
