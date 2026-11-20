@@ -72,11 +72,18 @@
   },
 
   "catalog": {
-    "title": "Catálogo de películas"
+    "title": "Explora películas"
   },
+
   "filters": {
-    "filterTitle": "Filtros",
     "filterError": "No se han podido cargar los géneros.",
     "filterGenres": "Género"
+  },
+
+  "favorites": {
+    "added": "¡Una nueva película se une a tu colección!",
+    "removed": " ¡Se baja el telón! Película retirada de tu colección.",
+    "addLabel": "Añadir a favoritos",
+    "removeLabel": "Quitar de favoritos"
   }
 }
