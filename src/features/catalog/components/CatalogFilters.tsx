@@ -1,3 +1,4 @@
+
 import { SlidersHorizontal, RotateCcw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -9,12 +10,15 @@ import {
 import content from "@/data/content.json";
 
 import FilterGenres from "./FilterGenres";
-//import FilterRating from "./FilterRating";
+import FilterRating from "./FilterRating";
 import type { CatalogFiltersProps } from "../types/CatalogFilters";
 
 export default function CatalogFilters({
   selectedGenre,
   onGenreChange,
+  selectedMinRating,
+  selectedMaxRating,
+  onRatingChange,
   onReset,
 }: CatalogFiltersProps) {
   return (
@@ -52,7 +56,11 @@ export default function CatalogFilters({
             onChange={onGenreChange}
           />
 
-          {/*<FilterRating />*/}
+          <FilterRating
+            selectedMinRating={selectedMinRating}
+            selectedMaxRating={selectedMaxRating}
+            onChange={onRatingChange}
+          />
         </div>
       </div>
     </aside>

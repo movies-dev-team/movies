@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { getPopularMovies, getMoviesByGenre } from "../services/movieService";
+import {
+  getPopularMovies,
+  getMoviesByGenre,
+  getMoviesByRating,
+} from "../services/movieService";
 
 import type { Movie } from "@/shared/types/movie";
 import MovieCard from "@/shared/components/MovieCard";
@@ -27,9 +31,18 @@ export default function CatalogPage() {
         setLoading(true);
         setError(null);
 
-        const data = filters.genre
-          ? await getMoviesByGenre(filters.genre)
-          : await getPopularMovies();
+        let data;
+
+        if (filters.genre) {
+          data = await getMoviesByGenre(filters.genre);
+        } else if (
+          filters.minRating !== undefined &&
+          filters.maxRating !== undefined
+        ) {
+          data = await getMoviesByRating(filters.minRating, filters.maxRating);
+        } else {
+          data = await getPopularMovies();
+        }
 
         setMovies(data.results);
       } catch (error) {
@@ -40,7 +53,7 @@ export default function CatalogPage() {
     }
 
     loadMovies();
-  }, [filters.genre]);
+  }, [filters.genre, filters.minRating, filters.maxRating]);
 
   const handleReset = () => {
     setFilters({
@@ -60,6 +73,15 @@ export default function CatalogPage() {
             setFilters((prev) => ({
               ...prev,
               genre: values[0] ?? "",
+            }))
+          }
+          selectedMinRating={filters.minRating}
+          selectedMaxRating={filters.maxRating}
+          onRatingChange={(min, max) =>
+            setFilters((prev) => ({
+              ...prev,
+              minRating: min,
+              maxRating: max,
             }))
           }
           onReset={handleReset}

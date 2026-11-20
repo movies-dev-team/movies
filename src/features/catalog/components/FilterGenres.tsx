@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Clapperboard, ChevronDown } from "lucide-react";
 
@@ -9,8 +8,7 @@ import { getMovieGenres } from "../services/movieService";
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 
 import type { Genre } from "@/shared/types/movie";
-import type { FilterGenresProps } from "../types/CatalogFilters";
-import type { FilterOption } from "@/shared/types/filter";
+import type { FilterGenresProps, FilterOption } from "../types/CatalogFilters";
 import content from "@/data/content.json";
 
 export default function FilterGenres({
@@ -79,11 +77,7 @@ export default function FilterGenres({
             </p>
           ) : genres.length === 0 ? (
             <div className="col-span-2">
-              <ErrorMessage
-                message={
-                  error ?? "No hay géneros disponibles."
-                }
-              />
+              <ErrorMessage message={error ?? "No hay géneros disponibles."} />
             </div>
           ) : (
             genres.map((genre) => {

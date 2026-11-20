@@ -27,3 +27,18 @@ export async function getMovieGenres(): Promise<Genre[]> {
   const data = await getData("genre/movie/list");
   return data.genres;
 }
+
+export function getMoviesByRating(
+  minRating: number,
+  maxRating: number,
+  page: number = 1,
+): Promise<MoviesResponse> {
+  return getData(
+    "discover/movie",
+    {
+      "vote_average.gte": minRating,
+      "vote_average.lte": maxRating,
+    },
+    page,
+  );
+}
