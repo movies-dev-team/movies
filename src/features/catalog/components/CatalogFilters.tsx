@@ -21,7 +21,7 @@ export default function CatalogFilters({
     <aside className="w-full shrink-0 md:mt-10 md:w-72 lg:w-80">
       <div className="rounded-xl border border-border/30 bg-card/40 p-5 shadow-none">
         <div className="mb-4 flex items-center justify-between">
-          <SlidersHorizontal className="size-5 text-brand-light" />
+          <SlidersHorizontal className="size-6 text-brand-light" />
 
           <Tooltip>
             <TooltipTrigger>
@@ -33,7 +33,7 @@ export default function CatalogFilters({
                 onClick={onReset}
                 className="text-muted-foreground transition-all duration-90 hover:scale-90 hover:bg-brand-primary/5 hover:text-brand-light hover:shadow-[0_0_4px_var(--color-brand-primary)]"
               >
-                <RotateCcw className="size-4" />
+                <RotateCcw className="size-5" />
               </Button>
             </TooltipTrigger>
 

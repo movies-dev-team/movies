@@ -46,7 +46,7 @@ const ProfileMenu = () => {
       <DropdownMenu>
         <DropdownMenuTrigger
           aria-label={content.navigation.profile.information}
-          className={`group flex flex-col items-center justify-center text-sm transition-colors md:text-base ${
+          className={`group flex flex-col items-center justify-center text-sm transition-colors md:text-lg ${
             isProfileActive ? "text-brand-light" : "text-text-secondary"
           }`}
         >
@@ -65,7 +65,7 @@ const ProfileMenu = () => {
 
         <DropdownMenuContent side="top" align="end" sideOffset={8}>
           <DropdownMenuItem
-            className="cursor-pointer transition-colors hover:text-brand-soft focus:text-brand-soft"
+            className="cursor-pointer text-base transition-colors hover:text-brand-soft focus:text-brand-soft"
             onClick={() => navigate("/app/profile")}
           >
             {content.navigation.profile.information}
@@ -74,7 +74,7 @@ const ProfileMenu = () => {
           <DropdownMenuItem
             disabled={isLoggingOut}
             onClick={handleLogout}
-            className="cursor-pointer transition-colors hover:text-brand-soft focus:text-brand-soft"
+            className="cursor-pointer text-base transition-colors hover:text-brand-soft focus:text-brand-soft"
           >
             {isLoggingOut
               ? "Cerrando sesión..."

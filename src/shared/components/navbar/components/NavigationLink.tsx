@@ -14,7 +14,7 @@ const NavigationLink = ({
       to={to}
       end={end}
       className={({ isActive }) =>
-        `group relative flex flex-1 flex-col items-center justify-center text-sm transition-colors md:flex-none md:text-base ${
+        `group relative flex flex-1 flex-col items-center justify-center text-sm transition-colors md:flex-none md:text-xl ${
           isActive ? "text-brand-light" : "text-text-secondary"
         }`
       }
