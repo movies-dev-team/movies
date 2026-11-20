@@ -77,7 +77,8 @@
 
   "filters": {
     "filterError": "No se han podido cargar los géneros.",
-    "filterGenres": "Género"
+    "filterGenres": "Género",
+    "restoreFilters": "Restaurar filtros"
   },
 
   "favorites": {

@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-import type { FilterProps } from "@/shared/types/filter";
+import type { FilterConfigProps } from "@/shared/types/filter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 export default function Filter({
-  label,
+  title,
   options,
   selectedValues,
   onChange,
   icon: Icon,
-}: FilterProps) {
+}: FilterConfigProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleChange(optionValue: string) {
@@ -28,11 +28,11 @@ export default function Filter({
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
-        className="flex w-full items-center justify-between px-3 py-2 text-sm font-semibold transition-colors hover:text-brand-light"
+        className="flex w-full items-center justify-between px-3 py-3 text-base font-semibold transition-colors hover:text-brand-light"
       >
         <span className="flex items-center gap-2">
-          {Icon && <Icon className="size-5 shrink-0 text-brand-light" />}
-          {label}
+          {Icon && <Icon className="size-6 shrink-0 text-brand-light" />}
+          {title}
         </span>
 
         <ChevronDown
@@ -43,7 +43,7 @@ export default function Filter({
       </button>
 
       {isOpen && (
-        <div className="mt-3 grid grid-cols-2 gap-2 px-4 pb-4">
+        <div className="mt-3 grid grid-cols-2 gap-2.5 px-4 pb-4">
           {options.map((option) => {
             const isSelected = selectedValues.includes(option.value);
 
@@ -55,7 +55,7 @@ export default function Filter({
                 variant={isSelected ? "default" : "secondary"}
                 aria-pressed={isSelected}
                 onClick={() => handleChange(option.value)}
-                className={`h-auto min-h-8 w-full min-w-0 whitespace-normal rounded-full border border-border/40 px-2 py-1.5 text-xs leading-tight shadow-none ${
+                className={`h-auto min-h-10 w-full min-w-0 whitespace-normal rounded-full border border-border/40 px-3 py-2 text-sm leading-tight shadow-none ${
                   isSelected
                     ? "bg-brand-primary text-white hover:bg-brand-primary"
                     : "bg-surface-hover/70 text-muted-foreground hover:bg-surface-hover hover:text-foreground"
