@@ -15,7 +15,6 @@ export default function CatalogFilters({
   selectedGenre,
   onGenreChange,
   onReset,
-  onError,
 }: CatalogFiltersProps) {
   return (
     <aside className="w-full shrink-0 md:mt-10 md:w-72 lg:w-80">
@@ -45,11 +44,11 @@ export default function CatalogFilters({
             </TooltipContent>
           </Tooltip>
         </div>
+
         <div className="flex flex-col gap-3">
           <FilterGenres
             selectedGenres={selectedGenre ? [selectedGenre] : []}
             onChange={onGenreChange}
-            onError={onError}
           />
         </div>
       </div>

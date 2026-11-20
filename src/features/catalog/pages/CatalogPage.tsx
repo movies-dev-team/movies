@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { getPopularMovies, getMoviesByGenre } from "../services/movieService";
 
 import type { Movie } from "@/shared/types/movie";
@@ -8,7 +8,6 @@ import content from "@/data/content.json";
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 
 import CatalogFilters from "../components/CatalogFilters";
-import { toast } from "sonner";
 
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -21,10 +20,6 @@ export default function CatalogPage() {
     maxRating: undefined as number | undefined,
     trend: "",
   });
-
-  const handleFilterError = useCallback((error: unknown) => {
-    toast.error(getApiErrorMessage(error));
-  }, []);
 
   useEffect(() => {
     async function loadMovies() {
@@ -68,7 +63,6 @@ export default function CatalogPage() {
             }))
           }
           onReset={handleReset}
-          onError={handleFilterError}
         />
 
         <section className="min-w-0 flex-1">

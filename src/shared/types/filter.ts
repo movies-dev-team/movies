@@ -11,4 +11,6 @@ export interface FilterConfigProps {
   selectedValues: string[];
   onChange: (selectedValues: string[]) => void;
   icon?: LucideIcon;
+  loading?: boolean;
+  emptyMessage?: string;
 }

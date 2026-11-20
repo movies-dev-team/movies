@@ -1,9 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { Clapperboard } from "lucide-react";
 
 import Filter from "@/shared/components/Filter";
 import { getMovieGenres } from "../services/movieService";
+import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 
 import type { Genre } from "@/shared/types/movie";
 import type { FilterGenresProps } from "../types/CatalogFilters";
@@ -13,9 +13,10 @@ import content from "@/data/content.json";
 export default function FilterGenres({
   selectedGenres,
   onChange,
-  onError,
 }: FilterGenresProps) {
   const [genres, setGenres] = useState<FilterOption[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadGenres() {
@@ -29,12 +30,14 @@ export default function FilterGenres({
 
         setGenres(options);
       } catch (error) {
-        onError(error);
+        setError(getApiErrorMessage(error));
+      } finally {
+        setLoading(false);
       }
     }
 
     loadGenres();
-  }, [onError]);
+  }, []);
 
   return (
     <Filter
@@ -43,6 +46,11 @@ export default function FilterGenres({
       options={genres}
       selectedValues={selectedGenres}
       onChange={onChange}
+      loading={loading}
+      emptyMessage={
+        error ??
+        (genres.length === 0 ? "No hay géneros disponibles." : undefined)
+      }
     />
   );
 }
