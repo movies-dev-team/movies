@@ -5,8 +5,8 @@ export interface FilterOption {
   value: string;
 }
 
-export interface FilterProps {
-  label: string;
+export interface FilterConfigProps {
+  title: string;
   options: FilterOption[];
   selectedValues: string[];
   onChange: (selectedValues: string[]) => void;
