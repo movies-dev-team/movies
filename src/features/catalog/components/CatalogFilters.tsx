@@ -9,6 +9,7 @@ import {
 import content from "@/data/content.json";
 
 import FilterGenres from "./FilterGenres";
+//import FilterRating from "./FilterRating";
 import type { CatalogFiltersProps } from "../types/CatalogFilters";
 
 export default function CatalogFilters({
@@ -50,6 +51,8 @@ export default function CatalogFilters({
             selectedGenres={selectedGenre ? [selectedGenre] : []}
             onChange={onGenreChange}
           />
+
+          {/*<FilterRating />*/}
         </div>
       </div>
     </aside>
