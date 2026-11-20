@@ -72,7 +72,7 @@ export default function CatalogPage() {
         />
 
         <section className="min-w-0 flex-1">
-          <h1 className="mb-3 text-xl">{content.catalog.title}</h1>
+          <h1 className="mb-3 text-2xl">{content.catalog.title}</h1>
 
           {loading ? (
             <p>{content.loading.generic}</p>

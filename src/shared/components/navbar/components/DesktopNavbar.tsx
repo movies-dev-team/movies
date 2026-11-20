@@ -27,7 +27,7 @@ const DesktopNavbar = () => {
       <div className="relative z-10 flex w-full items-center justify-between translate-y-1">
         <div className="flex items-center gap-6 lg:gap-10">
           <NavLink to="/app">
-            <img src={logo} alt="CINÉA" className="h-9 w-auto" />
+            <img src={logo} alt="CINÉA" className="h-11 w-auto" />
           </NavLink>
 
           <NavigationLink

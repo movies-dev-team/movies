@@ -24,6 +24,6 @@ export function getMoviesByGenre(
 }
 
 export async function getMovieGenres(): Promise<Genre[]> {
-  const data = await getData("genre/movie/listgg");
+  const data = await getData("genre/movie/list");
   return data.genres;
 }

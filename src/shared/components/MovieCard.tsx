@@ -1,3 +1,4 @@
+
 import type { Movie } from "../types/movie";
 import {
   Card,
@@ -49,6 +50,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
           }`}
         />
       </Button>
+
       <Link to={`/app/movie/${movie.id}`} className="block">
         <img
           className="w-full aspect-3/4 object-cover"
@@ -56,16 +58,21 @@ export default function MovieCard({ movie }: { movie: Movie }) {
           alt={movie.title}
         />
       </Link>
-      <CardContent className="p-3">
-        <CardTitle className="text-sm">{movie.title}</CardTitle>
+
+      <CardContent className="p-4">
+        <CardTitle className="text-base font-semibold leading-snug">
+          {movie.title}
+        </CardTitle>
+
         <div className="mt-1 flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">
+          <span className="text-base text-muted-foreground">
             {movie.release_date.slice(0, 4)}
           </span>
 
           <MovieRatingAPI rating={movie.vote_average} />
         </div>
-        <CardDescription className="mt-2 line-clamp-3 text-xs">
+
+        <CardDescription className="mt-3 line-clamp-3 text-base leading-relaxed">
           Sinopsis: {movie.overview}
         </CardDescription>
       </CardContent>
