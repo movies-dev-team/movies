@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Filmstrip with play symbol</title>
+  <defs>
+    <mask id="filmstrip-cutouts" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+      <rect width="64" height="64" fill="black"/>
+      <rect x="6" y="5" width="52" height="54" rx="7" fill="white"/>
+      <rect x="20" y="11" width="24" height="42" fill="black"/>
+      <rect x="10" y="13" width="7" height="6" rx="1" fill="black"/>
+      <rect x="10" y="29" width="7" height="6" rx="1" fill="black"/>
+      <rect x="10" y="45" width="7" height="6" rx="1" fill="black"/>
+      <rect x="47" y="13" width="7" height="6" rx="1" fill="black"/>
+      <rect x="47" y="29" width="7" height="6" rx="1" fill="black"/>
+      <rect x="47" y="45" width="7" height="6" rx="1" fill="black"/>
+    </mask>
+  </defs>
+  <rect x="6" y="5" width="52" height="54" rx="7" fill="#8323C3" mask="url(#filmstrip-cutouts)"/>
+  <path
+    d="M27 22.5C27 20.9 28.8 20 30.1 20.9L44.1 30.4C45.3 31.2 45.3 32.8 44.1 33.6L30.1 43.1C28.8 44 27 43.1 27 41.5V22.5Z"
+    fill="#8323C3"
+  />
+</svg>

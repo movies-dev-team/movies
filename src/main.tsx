@@ -1,13 +1,16 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
-import { BrowserRouter } from "react-router"
-import "./index.css"
-import App from "./App.tsx"
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router";
+import router from "./router";
+import "./index.css";
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>
-)
+    <TooltipProvider delay={0}>
+      <RouterProvider router={router} />
+      <Toaster position="top-right" richColors />
+    </TooltipProvider>
+  </StrictMode>,
+);
