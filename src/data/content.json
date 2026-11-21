@@ -86,5 +86,16 @@
     "removed": " ¡Se baja el telón! Película retirada de tu colección.",
     "addLabel": "Añadir a favoritos",
     "removeLabel": "Quitar de favoritos"
+  },
+
+  "movieDetail": {
+    "synopsis": "Sinopsis",
+    "cast": "Reparto",
+    "director": "Director",
+    "runtime": "Duración",
+    "trailer": "Ver tráiler",
+    "share": "Compartir",
+    "noPoster": "Póster no disponible",
+    "noRating": "Aún no hay suficientes valoraciones"
   }
 }
