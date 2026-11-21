@@ -1,16 +1,30 @@
-
 import type { Movie } from "../types/movie";
-import {Card, CardTitle,CardDescription, CardContent,} from "@/components/ui/card";
+import { Card, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Link } from "react-router";
-import { useState } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import content from "@/data/content.json";
 import MovieRatingAPI from "./MovieRatingAPI";
+import { useFavoritesContext } from "@/features/favorites/hooks/useFavoritesContext";
 
 export default function MovieCard({ movie }: { movie: Movie }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isFavorite, toggleFavorite, updatingIds } = useFavoritesContext();
+
+  const favorite = isFavorite(movie.id);
+  const isUpdating = updatingIds.includes(movie.id);
+
+  async function handleToggleFavorite() {
+    if (isUpdating) return;
+
+    await toggleFavorite(movie.id);
+
+    if (favorite) {
+      toast(content.favorites.removed);
+    } else {
+      toast.success(content.favorites.added);
+    }
+  }
 
   return (
     <Card className="relative w-full h-full gap-0 p-0 hover:-translate-y-0.5 hover:brightness-110">
@@ -18,28 +32,19 @@ export default function MovieCard({ movie }: { movie: Movie }) {
         type="button"
         variant="glass"
         size="icon-sm"
-        onClick={() => {
-          const newFavoriteState = !isFavorite;
-
-          setIsFavorite(newFavoriteState);
-
-          if (newFavoriteState) {
-            toast.success(content.favorites.added);
-          } else {
-            toast(content.favorites.removed);
-          }
-        }}
+        onClick={handleToggleFavorite}
+        disabled={isUpdating}
         aria-label={
-          isFavorite
+          favorite
             ? content.favorites.removeLabel
             : content.favorites.addLabel
         }
-        aria-pressed={isFavorite}
+        aria-pressed={favorite}
         className="absolute right-2 top-2 z-10 border-0 transition-transform duration-200 hover:scale-110"
       >
         <Heart
           className={`size-5 transition-all duration-200 ${
-            isFavorite
+            favorite
               ? "fill-brand-primary text-brand-light stroke-0 drop-shadow-brand-glow"
               : "text-white"
           }`}
@@ -49,7 +54,11 @@ export default function MovieCard({ movie }: { movie: Movie }) {
       <Link to={`/app/movie/${movie.id}`} className="block">
         <img
           className="w-full aspect-3/4 object-cover"
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : undefined
+          }
           alt={movie.title}
         />
       </Link>
@@ -61,7 +70,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
 
         <div className="mt-1 flex items-center justify-between">
           <span className="text-base text-muted-foreground">
-            {movie.release_date.slice(0, 4)}
+            {movie.release_date?.slice(0, 4)}
           </span>
 
           <MovieRatingAPI rating={movie.vote_average} />

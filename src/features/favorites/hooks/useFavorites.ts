@@ -1,62 +1,70 @@
-import { useEffect, useState } from "react"
-import { getFavorites, addFavorite, removeFavorite } from "../services/favoritesService"
+import { useEffect, useState } from "react";
+import { getFavorites, addFavorite, removeFavorite } from "../services/favoritesService";
 
 export function useFavorites() {
-  const [favorites, setFavorites] = useState<number[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [updatingIds, setUpdatingIds] = useState<number[]>([])
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [updatingIds, setUpdatingIds] = useState<number[]>([]);
 
   useEffect(() => {
-    let active = true
+    let active = true;
 
     async function loadFavorites() {
       try {
-        const data = await getFavorites()
+        const data = await getFavorites();
 
         if (active) {
-          setFavorites(data.map((favorite) => favorite.movie_id))
+          setFavorites(data.map((favorite) => favorite.movie_id));
         }
       } catch (err) {
         if (active) {
-          setError(err instanceof Error ? err.message : "Error al cargar favoritos")
+          setError(
+            err instanceof Error ? err.message : "Error al cargar favoritos"
+          );
         }
       } finally {
         if (active) {
-          setLoading(false)
+          setLoading(false);
         }
       }
     }
 
-    loadFavorites()
+    loadFavorites();
 
     return () => {
-      active = false
-    }
-  }, [])
+      active = false;
+    };
+  }, []);
 
   function isFavorite(movieId: number) {
-    return favorites.includes(movieId)
+    return favorites.includes(movieId);
   }
 
-  async function toggleFavorite(movieId: number) {
-    if (loading || updatingIds.includes(movieId)) return
+  async function toggleFavorite(movieId: number): Promise<boolean> {
+    if (loading || updatingIds.includes(movieId)) return false;
 
-    setUpdatingIds((prev) => [...prev, movieId])
-    setError(null)
+    setUpdatingIds((prev) => [...prev, movieId]);
+    setError(null);
 
     try {
       if (isFavorite(movieId)) {
-        await removeFavorite(movieId)
-        setFavorites((prev) => prev.filter((id) => id !== movieId))
+        await removeFavorite(movieId);
+        setFavorites((prev) => prev.filter((id) => id !== movieId));
       } else {
-        await addFavorite(movieId)
-        setFavorites((prev) => [...prev, movieId])
+        await addFavorite(movieId);
+        setFavorites((prev) => [...prev, movieId]);
       }
+
+      return true;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al actualizar favoritos")
+      setError(
+        err instanceof Error ? err.message : "Error al actualizar favoritos"
+      );
+
+      return false;
     } finally {
-      setUpdatingIds((prev) => prev.filter((id) => id !== movieId))
+      setUpdatingIds((prev) => prev.filter((id) => id !== movieId));
     }
   }
 
@@ -67,5 +75,5 @@ export function useFavorites() {
     updatingIds,
     isFavorite,
     toggleFavorite,
-  }
+  };
 }
