@@ -1,5 +1,5 @@
 import { tmdbApi } from "../../../shared/services/tmdbApi";
-import type { MoviesResponse, Genre } from "@/shared/types/movie";
+import type { MoviesResponse, MovieGenre } from "@/shared/types/movie";
 
 async function getData(endpoint: string, params = {}, page: number = 1) {
   const response = await tmdbApi.get(endpoint, {
@@ -23,7 +23,7 @@ export function getMoviesByGenre(
   return getData("discover/movie", { with_genres: genreId }, page);
 }
 
-export async function getMovieGenres(): Promise<Genre[]> {
+export async function getMovieGenres(): Promise<MovieGenre[]> {
   const data = await getData("genre/movie/list");
   return data.genres;
 }
