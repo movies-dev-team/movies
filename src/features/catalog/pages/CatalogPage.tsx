@@ -3,6 +3,7 @@ import {
   getPopularMovies,
   getMoviesByGenre,
   getMoviesByRating,
+  getTrendingMovies,
 } from "../services/movieService";
 
 import type { Movie } from "@/shared/types/movie";
@@ -22,7 +23,7 @@ export default function CatalogPage() {
     genre: "",
     minRating: undefined as number | undefined,
     maxRating: undefined as number | undefined,
-    trend: "",
+    trend: "" as "day" | "week" | "",
   });
 
   useEffect(() => {
@@ -33,7 +34,9 @@ export default function CatalogPage() {
 
         let data;
 
-        if (filters.genre) {
+        if (filters.trend) {
+          data = await getTrendingMovies(filters.trend);
+        } else if (filters.genre) {
           data = await getMoviesByGenre(filters.genre);
         } else if (
           filters.minRating !== undefined &&
@@ -53,7 +56,7 @@ export default function CatalogPage() {
     }
 
     loadMovies();
-  }, [filters.genre, filters.minRating, filters.maxRating]);
+  }, [filters.genre, filters.minRating, filters.maxRating, filters.trend]);
 
   const handleReset = () => {
     setFilters({
@@ -82,6 +85,13 @@ export default function CatalogPage() {
               ...prev,
               minRating: min,
               maxRating: max,
+            }))
+          }
+          selectedPeriod={filters.trend}
+          onTrendChange={(period) =>
+            setFilters((prev) => ({
+              ...prev,
+              trend: period,
             }))
           }
           onReset={handleReset}

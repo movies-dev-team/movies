@@ -40,5 +40,11 @@ export function getMoviesByRating(
       "vote_average.lte": maxRating,
     },
     page,
-  );
+  );  
+}
+
+export function getTrendingMovies(
+  period: "day" | "week",
+): Promise<MoviesResponse> {
+  return getData(`trending/movie/${period}`);
 }

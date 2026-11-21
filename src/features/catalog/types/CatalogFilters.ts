@@ -3,7 +3,9 @@ export interface CatalogFiltersProps {
   onGenreChange: (values: string[]) => void;
   selectedMinRating?: number;
   selectedMaxRating?: number;
-  onRatingChange: (min: number, max: number) => void;
+  onRatingChange: (min?: number, max?: number) => void;
+  selectedPeriod: "day" | "week" | "";
+  onTrendChange: (period: "day" | "week" | "") => void;
   onReset: () => void;
 }
 
@@ -15,4 +17,9 @@ export interface FilterGenresProps {
 export interface FilterOption {
   label: string;
   value: string;
+}
+
+export interface FilterTrendingProps {
+  selectedPeriod: "day" | "week" | "";
+  onChange: (period: "day" | "week" | "") => void;
 }
