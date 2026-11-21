@@ -1,3 +1,13 @@
+import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
+
+export interface CatalogFilterValues {
+  genre: string;
+  minRating?: number;
+  maxRating?: number;
+  trend: "day" | "week" | "";
+}
+
 export interface CatalogFiltersProps {
   selectedGenre: string;
   onGenreChange: (values: string[]) => void;
@@ -22,4 +32,17 @@ export interface FilterOption {
 export interface FilterTrendingProps {
   selectedPeriod: "day" | "week" | "";
   onChange: (period: "day" | "week" | "") => void;
+}
+
+export interface FilterRatingProps {
+  selectedMinRating?: number;
+  selectedMaxRating?: number;
+  onChange: (min?: number, max?: number) => void;
+}
+
+export interface FilterSectionProps {
+  icon: LucideIcon;
+  title: string;
+  selectedLabel?: string | null;
+  children: ReactNode;
 }

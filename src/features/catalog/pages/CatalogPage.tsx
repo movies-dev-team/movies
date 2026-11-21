@@ -1,29 +1,22 @@
 import { useState, useEffect } from "react";
-import {
-  getPopularMovies,
-  getMoviesByGenre,
-  getMoviesByRating,
-  getTrendingMovies,
-} from "../services/movieService";
-
 import type { Movie } from "@/shared/types/movie";
 import MovieCard from "@/shared/components/MovieCard";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import content from "@/data/content.json";
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
-
+import type { CatalogFilterValues } from "../types/CatalogFilters";
 import CatalogFilters from "../components/CatalogFilters";
-
+import { getMovies } from "../services/movieService";
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<CatalogFilterValues>({
     genre: "",
-    minRating: undefined as number | undefined,
-    maxRating: undefined as number | undefined,
-    trend: "" as "day" | "week" | "",
+    minRating: undefined,
+    maxRating: undefined,
+    trend: "",
   });
 
   useEffect(() => {
@@ -32,20 +25,7 @@ export default function CatalogPage() {
         setLoading(true);
         setError(null);
 
-        let data;
-
-        if (filters.trend) {
-          data = await getTrendingMovies(filters.trend);
-        } else if (filters.genre) {
-          data = await getMoviesByGenre(filters.genre);
-        } else if (
-          filters.minRating !== undefined &&
-          filters.maxRating !== undefined
-        ) {
-          data = await getMoviesByRating(filters.minRating, filters.maxRating);
-        } else {
-          data = await getPopularMovies();
-        }
+        const data = await getMovies(filters);
 
         setMovies(data.results);
       } catch (error) {
@@ -56,8 +36,7 @@ export default function CatalogPage() {
     }
 
     loadMovies();
-  }, [filters.genre, filters.minRating, filters.maxRating, filters.trend]);
-
+  }, [filters]);
   const handleReset = () => {
     setFilters({
       genre: "",
@@ -105,7 +84,7 @@ export default function CatalogPage() {
           ) : error ? (
             <ErrorMessage message={error} />
           ) : movies.length === 0 ? (
-            <p>{content.filters.filterError}</p>
+            <p role="status">{content.filters.noResults}</p>
           ) : (
             <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
               {movies.map((movie) => (
