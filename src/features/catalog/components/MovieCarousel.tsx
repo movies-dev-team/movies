@@ -60,6 +60,16 @@ export default function MovieCarousel() {
     loadMovies();
   }, []);
 
+  useEffect(() => {
+    if (movies.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev === movies.length - 1 ? 0 : prev + 1));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [movies.length]);
+
   if (movies.length === 0) return null;
 
   const movie = movies[currentIndex];
@@ -82,7 +92,7 @@ export default function MovieCarousel() {
         key={movie.id}
         src={getImageUrl(movie.backdrop_path!, "original")}
         alt=""
-        className="absolute inset-0 size-full object-cover object-[center_35%]"
+        className="absolute inset-0 size-full object-cover object-[center_35%] animate-[slide-in_700ms_ease-out]"
       />
 
       <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent md:bg-linear-to-r md:from-black/70 md:via-black/20 md:to-transparent" />
