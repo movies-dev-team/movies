@@ -14,7 +14,28 @@ export async function getMovieTrailer(movie_id: number): Promise<MovieTrailer | 
     video.official === true && 
     video.site === "YouTube"
   )
-  return trailer ?? null;
+
+  if(trailer) {
+    return trailer;
+  }
+
+  const secondCall = await tmdbApi.get<MovieTrailerResponse>(`movie/${movie_id}/videos`, {
+    params: {
+      language:'en-US',
+    }
+  });
+
+  const alternativeTrailer = secondCall.data.results.find((video) =>
+    video.type === "Trailer" && 
+    video.official === true && 
+    video.site === "YouTube"
+  )
+
+  if(alternativeTrailer) {
+    return alternativeTrailer;
+  }
+
+  return null; 
 }
 
 
