@@ -105,7 +105,9 @@
   },
 
   "movieDetail": {
-    "synopsis": "Sinopsis",
+    "overview": "Sinopsis",
+    "readMore": "Leer más...",
+    "readLess": "Leer menos",
     "director": "Director",
     "cast": "Reparto",
     "character": "Personaje",

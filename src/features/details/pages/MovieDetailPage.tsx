@@ -15,6 +15,7 @@ export default function MovieDetailPage() {
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
  
   useEffect(() => {
 
@@ -24,6 +25,7 @@ export default function MovieDetailPage() {
       setMovie(null);
       setLoading(true);
       setError(false);
+      setIsExpanded(false);
 
       try {
         if (!Number.isInteger(movieId) || movieId <= 0) {
@@ -70,6 +72,7 @@ export default function MovieDetailPage() {
   const runtime = movie.runtime ?? 0;
   const hours = Math.floor((runtime) / 60 );
   const minutes = runtime % 60;
+  const hasLongOverview = movie.overview.length > 300;
   
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
@@ -146,12 +149,23 @@ export default function MovieDetailPage() {
         <h2
           className="mb-4 text-xl font-semibold"
           id="synopsis-title">
-            {content.movieDetail.synopsis}
+            {content.movieDetail.overview}
         </h2>
         <p
-          className="text-sm leading-relaxed gap: 16px mt-4">
+          className={`text-sm leading-relaxed mt-4 
+            ${hasLongOverview && !isExpanded? "max-h-40 overflow-hidden" : ""}`}
+          >
           {movie.overview}
         </p>
+        {hasLongOverview && (
+            <button
+            type="button"
+            aria-expanded={isExpanded}
+            className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
+            onClick={() => setIsExpanded((previous) => !previous)}
+          >
+           {isExpanded ? content.movieDetail.readLess : content.movieDetail.readMore}
+          </button>)}
       </section>
       <section className="mt-8">
         <h2>{content.movieDetail.cast}</h2>
