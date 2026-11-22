@@ -9,6 +9,7 @@ export interface PersonDetail {
   known_for_department: string;
   movie_credits: {
     cast: PersonMovieCredit[];
+    crew: PersonCrewCredit[];
   }
 }
 
@@ -18,4 +19,13 @@ export interface PersonMovieCredit {
   character: string;
   poster_path: string | null;
   release_date: string;
+}
+
+export interface PersonCrewCredit {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  release_date: string;
+  job: string;
+  department: string;
 }

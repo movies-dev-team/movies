@@ -4,9 +4,10 @@ import { getMovieGenres } from "../services/movieService";
 import { Button } from "@/components/ui/button";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
+import type { MovieGenre } from "@/shared/types/movie";
+import type { FilterGenresProps, FilterOption } from "../types/CatalogFilters";
 import content from "@/data/content.json";
 import { getOptionClass } from "../utils/getOptionClass";
-import type { FilterGenresProps, FilterOption } from "../types/CatalogFilters";
 import FilterSection from "./FilterSection";
 
 export default function FilterGenres({
@@ -22,7 +23,7 @@ export default function FilterGenres({
   useEffect(() => {
     async function loadGenres() {
       try {
-        const data = await getMovieGenres();
+        const data: MovieGenre[] = await getMovieGenres();
 
         const options = data.map((genre) => ({
           label: genre.name,

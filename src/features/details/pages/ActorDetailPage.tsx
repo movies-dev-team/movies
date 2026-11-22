@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router";
+import { useParams } from "react-router";
 import { getPersonDetail } from "../services/personDetailService";
-import type { PersonDetail } from "../types/personDetail"; 
+import type { PersonDetail } from "../types/personDetail";
+import FilmographyCard from "../components/FilmographyCard";
+
 
 function formatDate(date: string | null): string {
   if (!date) return ""
@@ -88,7 +90,7 @@ export default function ActorDetailPage() {
   const movieList = showAllMovies ? sortedFilmography : visibleFilmography;
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
+    <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
       <section className="grid grid-cols-5 gap-4 md:grid-cols-3 md:gap-x-8 md:gap-y-4">
         <div className="col-span-2 md:col-span-1 md:row-span-2">
           {actor.profile_path && ( <img
@@ -143,40 +145,13 @@ export default function ActorDetailPage() {
         <h2 id="filmography-title" className="mb-5 text-2xl font-bold">
           Filmografía
         </h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 auto-rows-fr gap-4 md:grid-cols-3 lg:grid-cols-4">
           {hasFilmography ? (
           movieList.map((film) => {
             return (
-              <div key={film.id}>
-                <Link
-                  className="group block focus-visible:outline-none"
-                  to={`/app/movie/${film.id}`}>
-                  {film.poster_path ? (<img
-                    className="aspect-[2/3] w-full rounded-xl object-cover
-                    group-focus-visible:outline-2
-                    group-focus-visible:outline-offset-4
-                    group-focus-visible:outline-brand-light" 
-                    src={`https://image.tmdb.org/t/p/w300${film.poster_path}`}
-                    alt={`Póster de la película ${film.title}`}
-                    />
-                  ) : 
-                  <div className="flex aspect-[2/3] w-full items-center justify-center rounded-xl bg-card">
-                    <p className="px-3 text-center text-xs text-text-secondary">
-                      Imagen no disponible
-                    </p>
-                  </div>
-                  }
-                  <h3 
-                  className="mt-2 text-sm font-semibold leading-5 md:text-base 
-                  group-hover:text-brand-light group-focus-visible:text-brand-light"
-                  >
-                    {film.title} {film.release_date && `(${film.release_date.slice(0, 4)})`}
-                  </h3>
-                </Link>
-                <p className="mt-1 text-xs leading-5 text-text-secondary md:text-sm">
-                  {film.character}
-                </p>
-              </div>
+              <FilmographyCard
+              key={film.id}
+              film={film} />
             );
           })
         ): <p>No hay películas disponibles</p>}
@@ -191,7 +166,7 @@ export default function ActorDetailPage() {
            {showAllMovies ? "Ver menos" : "Ver más..."}
           </button>)}
       </section> 
-    </main>
+    </div>
   )
 }
 

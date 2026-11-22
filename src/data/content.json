@@ -21,7 +21,8 @@
   },
 
   "loading": {
-    "generic": "Cargando información..."
+    "generic": "Cargando información...",
+    "trailer": "Cargando tráiler..."
   },
 
   "auth": {
@@ -101,5 +102,21 @@
     "removed": " ¡Se baja el telón! Película retirada de tu colección.",
     "addLabel": "Añadir a favoritos",
     "removeLabel": "Quitar de favoritos"
+  },
+
+  "movieDetail": {
+    "synopsis": "Sinopsis",
+    "director": "Director",
+    "cast": "Reparto",
+    "character": "Personaje",
+    "runtime": "Duración",
+    "trailer": "Ver tráiler",
+    "share": "Compartir",
+    "noPoster": "Póster no disponible",
+    "noRating": "Aún no hay suficientes valoraciones",
+    "unknownDirector": "Director desconocido",
+    "productionCompanies": "Productoras",
+    "originCountry": "País de origen",
+    "noTrailer": "Tráiler no disponible"
   }
 }

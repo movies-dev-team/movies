@@ -16,3 +16,7 @@ export interface MoviesResponse {
   total_results: number;
 }
 
+export interface MovieGenre {
+  id: number;
+  name: string;
+}
