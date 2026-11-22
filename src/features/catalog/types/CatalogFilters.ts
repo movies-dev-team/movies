@@ -22,6 +22,8 @@ export interface CatalogFiltersProps {
 export interface FilterGenresProps {
   selectedGenres: string[];
   onChange: (selectedGenres: string[]) => void;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 export interface FilterOption {
@@ -32,12 +34,16 @@ export interface FilterOption {
 export interface FilterTrendingProps {
   selectedPeriod: "day" | "week" | "";
   onChange: (period: "day" | "week" | "") => void;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 export interface FilterRatingProps {
   selectedMinRating?: number;
   selectedMaxRating?: number;
   onChange: (min?: number, max?: number) => void;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 export interface FilterSectionProps {
@@ -45,4 +51,7 @@ export interface FilterSectionProps {
   title: string;
   selectedLabel?: string | null;
   children: ReactNode;
+  isOpen: boolean;
+  onToggle: () => void;
+  alignRight?: boolean;
 }

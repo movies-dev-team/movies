@@ -1,5 +1,5 @@
 import { SlidersHorizontal, RotateCcw } from "lucide-react";
-
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -7,11 +7,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import content from "@/data/content.json";
-
+import { useState } from "react";
 import FilterGenres from "./FilterGenres";
 import FilterRating from "./FilterRating";
 import FilterTrending from "./FilterTrending";
-
 import type { CatalogFiltersProps } from "../types/CatalogFilters";
 
 export default function CatalogFilters({
@@ -24,6 +23,25 @@ export default function CatalogFilters({
   onTrendChange,
   onReset,
 }: CatalogFiltersProps) {
+  const filtersRef = useRef<HTMLDivElement>(null);
+  const [openFilter, setOpenFilter] = useState<string | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: PointerEvent) {
+      if (
+        window.matchMedia("(max-width: 767px)").matches &&
+        filtersRef.current &&
+        !filtersRef.current.contains(event.target as Node)
+      ) {
+        setOpenFilter(null);
+      }
+    }
+    document.addEventListener("pointerdown", handleClickOutside);
+    return () => {
+      document.removeEventListener("pointerdown", handleClickOutside);
+    };
+  }, []);
+
   const activeCount =
     (selectedGenre ? 1 : 0) +
     (selectedMinRating !== undefined ? 1 : 0) +
@@ -31,9 +49,15 @@ export default function CatalogFilters({
 
   return (
     <aside className="w-full shrink-0 md:mt-10 md:w-72 lg:w-80">
-      <div className="rounded-xl border border-border/30 bg-card/40 p-5 shadow-none">
-        <div className="mb-4 flex items-center justify-between">
-          <SlidersHorizontal className="size-6 text-brand-light" />
+      <div className="rounded-xl border border-border/30 bg-card/40 px-5 py-1 md:p-5 shadow-none">
+        <div className="mb-1 flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            <SlidersHorizontal className="size-6 text-brand-light" />
+
+            <p aria-live="polite" className="text-sm text-text-secondary">
+              {content.filters.activeFilters}: {activeCount}
+            </p>
+          </div>
 
           <Tooltip>
             <TooltipTrigger
@@ -59,24 +83,36 @@ export default function CatalogFilters({
             </TooltipContent>
           </Tooltip>
         </div>
-
-        <p aria-live="polite" className="mb-3 text-sm text-text-secondary">
-          {content.filters.activeFilters}: {activeCount}
-        </p>
-
-        <div className="grid grid-cols-3 items-start gap-2 md:grid-cols-1">
+        <div
+          ref={filtersRef}
+          className="grid grid-cols-3 items-start gap-1 md:grid-cols-1"
+        >
           <FilterGenres
             selectedGenres={selectedGenre ? [selectedGenre] : []}
             onChange={onGenreChange}
+            isOpen={openFilter === "genre"}
+            onToggle={() =>
+              setOpenFilter(openFilter === "genre" ? null : "genre")
+            }
           />
+
           <FilterRating
             selectedMinRating={selectedMinRating}
             selectedMaxRating={selectedMaxRating}
             onChange={onRatingChange}
+            isOpen={openFilter === "rating"}
+            onToggle={() =>
+              setOpenFilter(openFilter === "rating" ? null : "rating")
+            }
           />
+
           <FilterTrending
             selectedPeriod={selectedPeriod}
             onChange={onTrendChange}
+            isOpen={openFilter === "trending"}
+            onToggle={() =>
+              setOpenFilter(openFilter === "trending" ? null : "trending")
+            }
           />
         </div>
       </div>

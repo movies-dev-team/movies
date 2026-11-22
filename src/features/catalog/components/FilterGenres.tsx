@@ -12,6 +12,8 @@ import FilterSection from "./FilterSection";
 export default function FilterGenres({
   selectedGenres,
   onChange,
+  isOpen,
+  onToggle,
 }: FilterGenresProps) {
   const [genres, setGenres] = useState<FilterOption[]>([]);
   const [loading, setLoading] = useState(true);
@@ -52,6 +54,8 @@ export default function FilterGenres({
       icon={Clapperboard}
       title={content.filters.filterGenres}
       selectedLabel={selectedLabel}
+      isOpen={isOpen}
+      onToggle={onToggle}
     >
       {loading ? (
         <p role="status" className="col-span-2 text-base text-muted-foreground">

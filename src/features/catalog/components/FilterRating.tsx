@@ -1,5 +1,4 @@
 import { Star } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import content from "@/data/content.json";
 import FilterSection from "./FilterSection";
@@ -16,6 +15,8 @@ export default function FilterRating({
   selectedMinRating,
   selectedMaxRating,
   onChange,
+  isOpen,
+  onToggle,
 }: FilterRatingProps) {
   const selectedOption = ratingOptions.find(
     (option) =>
@@ -31,6 +32,8 @@ export default function FilterRating({
           ? content.filters.ratingOptions[selectedOption.labelKey]
           : null
       }
+      isOpen={isOpen}
+      onToggle={onToggle}
     >
       {ratingOptions.map((option) => {
         const isSelected =

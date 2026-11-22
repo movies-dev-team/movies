@@ -1,6 +1,6 @@
 import { tmdbApi } from "../../../shared/services/tmdbApi";
-import type { MoviesResponse} from "@/shared/types/movie";
-import type { CatalogFilterValues} from "../types/CatalogFilters";
+import type { MoviesResponse } from "@/shared/types/movie";
+import type { CatalogFilterValues } from "../types/CatalogFilters";
 
 async function getData(endpoint: string, params = {}, page: number = 1) {
   const response = await tmdbApi.get(endpoint, {
@@ -26,11 +26,9 @@ export async function getMovies(
     const data = await getTrendingMovies(filters.trend);
 
     const filteredMovies = data.results.filter((movie) => {
-      // Sin género elegido pasan todas; con género, solo las que lo tengan
       const matchesGenre =
         !filters.genre || movie.genre_ids.includes(Number(filters.genre));
 
-      // Sin puntuación elegida pasan todas; con puntuación, solo las del rango
       const matchesRating =
         filters.minRating === undefined ||
         filters.maxRating === undefined ||
@@ -59,7 +57,9 @@ export async function getMovies(
   return getData("discover/movie", params);
 }
 
-export async function getMovieGenres(): Promise<{ id: number; name: string }[]> {
+export async function getMovieGenres(): Promise<
+  { id: number; name: string }[]
+> {
   const data = await getData("genre/movie/list");
   return data.genres;
 }
