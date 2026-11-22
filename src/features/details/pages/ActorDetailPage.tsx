@@ -90,7 +90,7 @@ export default function ActorDetailPage() {
   const movieList = showAllMovies ? sortedFilmography : visibleFilmography;
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
+    <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
       <section className="grid grid-cols-5 gap-4 md:grid-cols-3 md:gap-x-8 md:gap-y-4">
         <div className="col-span-2 md:col-span-1 md:row-span-2">
           {actor.profile_path && ( <img
@@ -166,7 +166,7 @@ export default function ActorDetailPage() {
            {showAllMovies ? "Ver menos" : "Ver más..."}
           </button>)}
       </section> 
-    </main>
+    </div>
   )
 }
 
