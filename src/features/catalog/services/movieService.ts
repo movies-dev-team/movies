@@ -1,5 +1,9 @@
 import { tmdbApi } from "../../../shared/services/tmdbApi";
-import type { MoviesResponse, Movie } from "@/shared/types/movie";
+import type {
+  MoviesResponse,
+  Movie,
+  MovieBackdrop,
+} from "@/shared/types/movie";
 
 import type { CatalogFilterValues } from "../types/CatalogFilters";
 
@@ -66,4 +70,16 @@ export async function getMovieGenres(): Promise<
 }
 export function getMovieById(movieId: number): Promise<Movie> {
   return getData(`movie/${movieId}`);
+}
+
+export function getNowPlayingMovies(): Promise<MoviesResponse> {
+  return getData("movie/now_playing", { region: "ES" });
+}
+
+export async function getMovieBackdropImages(
+  movieId: number,
+): Promise<{ backdrops: MovieBackdrop[] }> {
+  return getData(`movie/${movieId}/images`, {
+    include_image_language: "es,null",
+  });
 }

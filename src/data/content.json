@@ -118,5 +118,14 @@
     "productionCompanies": "Productoras",
     "originCountry": "País de origen",
     "noTrailer": "Tráiler no disponible"
+  },
+
+  "carousel": {
+    "regionLabel": "Carrusel de estrenos",
+    "previous": "Película anterior",
+    "next": "Película siguiente",
+    "viewDetails": "Ver detalles",
+    "slideLabel": "{current} de {total}",
+    "loading": "Cargando estrenos…"
   }
 }
