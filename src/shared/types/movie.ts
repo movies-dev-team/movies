@@ -7,6 +7,7 @@ export interface Movie {
   original_language: string;
   genre_ids: number[];
   vote_average: number;
+  backdrop_path: string | null;
 }
 
 export interface MoviesResponse {
@@ -19,4 +20,9 @@ export interface MoviesResponse {
 export interface MovieGenre {
   id: number;
   name: string;
+}
+export interface MovieBackdrop {
+  file_path: string;
+  width: number;
+  height: number;
 }

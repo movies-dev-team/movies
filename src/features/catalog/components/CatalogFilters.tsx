@@ -49,8 +49,9 @@ export default function CatalogFilters({
 
   return (
     <aside className="w-full shrink-0 md:mt-10 md:w-72 lg:w-80">
-      <div className="rounded-xl border border-border/30 bg-card/40 px-5 py-1 md:p-5 shadow-none">
-        <div className="mb-1 flex items-center justify-between">
+      <div className="rounded-xl border border-border/30 bg-card/40 p-5 md:p-6 shadow-none">
+        <div className="mb-1 flex items-center justify-between md:mb-4">
+          
           <div className="flex items-center gap-1">
             <SlidersHorizontal className="size-6 text-brand-light" />
 
@@ -58,7 +59,6 @@ export default function CatalogFilters({
               {content.filters.activeFilters}: {activeCount}
             </p>
           </div>
-
           <Tooltip>
             <TooltipTrigger
               render={
@@ -85,7 +85,7 @@ export default function CatalogFilters({
         </div>
         <div
           ref={filtersRef}
-          className="grid grid-cols-3 items-start gap-1 md:grid-cols-1"
+          className="grid grid-cols-3 items-start gap-2 md:grid-cols-1 md:gap-4"
         >
           <FilterGenres
             selectedGenres={selectedGenre ? [selectedGenre] : []}

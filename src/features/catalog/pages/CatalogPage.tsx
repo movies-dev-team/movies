@@ -7,6 +7,8 @@ import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 import type { CatalogFilterValues } from "../types/CatalogFilters";
 import CatalogFilters from "../components/CatalogFilters";
 import { getMovies } from "../services/movieService";
+import MovieCarousel from "../components/MovieCarousel";
+
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,6 +50,7 @@ export default function CatalogPage() {
 
   return (
     <main className="p-4 md:p-6">
+      <MovieCarousel />
       <div className="flex flex-col gap-6 md:flex-row md:gap-10">
         <CatalogFilters
           selectedGenre={filters.genre}

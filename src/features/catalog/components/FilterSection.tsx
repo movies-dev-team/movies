@@ -44,7 +44,7 @@ export default function FilterSection({
       </button>
       {isOpen && (
         <div
-          className={`absolute top-full z-50 mt-2 grid w-[200%] max-w-[calc(100vw-2rem)] grid-cols-2 gap-2.5 rounded-xl border border-border/40 bg-card p-3 shadow-xl md:static md:mt-3 md:w-full md:max-w-none md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none ${
+          className={`absolute top-full z-50 mt-2 grid w-[200%] max-w-[calc(100vw-2rem)] grid-cols-2 gap-2.5 rounded-xl border border-border/40 bg-card p-3 shadow-xl md:static md:mt-3 md:w-full md:max-w-none md:rounded-none md:border-0 md:bg-transparent md:px-3 md:py-2 md:shadow-none ${
             alignRight ? "right-0" : "left-0"
           }`}
         >
