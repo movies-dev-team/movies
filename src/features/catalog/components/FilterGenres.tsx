@@ -1,21 +1,24 @@
-
 import { useEffect, useState } from "react";
 import { Clapperboard } from "lucide-react";
-
-import Filter from "@/shared/components/Filter";
 import { getMovieGenres } from "../services/movieService";
-
+import { Button } from "@/components/ui/button";
+import ErrorMessage from "@/shared/components/ErrorMessage";
+import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 import type { MovieGenre } from "@/shared/types/movie";
-import type { FilterGenresProps } from "../types/CatalogFilters";
-import type { FilterOption } from "@/shared/types/filter";
+import type { FilterGenresProps, FilterOption } from "../types/CatalogFilters";
 import content from "@/data/content.json";
+import { getOptionClass } from "../utils/getOptionClass";
+import FilterSection from "./FilterSection";
 
 export default function FilterGenres({
   selectedGenres,
   onChange,
-  onError,
+  isOpen,
+  onToggle,
 }: FilterGenresProps) {
   const [genres, setGenres] = useState<FilterOption[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadGenres() {
@@ -28,21 +31,60 @@ export default function FilterGenres({
         }));
 
         setGenres(options);
-      } catch (error) {
-        onError(error);
+      } catch (err) {
+        setError(getApiErrorMessage(err));
+      } finally {
+        setLoading(false);
       }
     }
 
     loadGenres();
-  }, [onError]);
+  }, []);
+
+  function handleChange(optionValue: string) {
+    const isSelected = selectedGenres.includes(optionValue);
+    onChange(isSelected ? [] : [optionValue]);
+  }
+
+  const selectedLabel = genres.find(
+    (genre) => genre.value === selectedGenres[0],
+  )?.label;
 
   return (
-    <Filter
-      title={content.filters.filterGenres}
+    <FilterSection
       icon={Clapperboard}
-      options={genres}
-      selectedValues={selectedGenres}
-      onChange={onChange}
-    />
+      title={content.filters.filterGenres}
+      selectedLabel={selectedLabel}
+      isOpen={isOpen}
+      onToggle={onToggle}
+    >
+      {loading ? (
+        <p role="status" className="col-span-2 text-base text-muted-foreground">
+          {content.filters.genresLoading}
+        </p>
+      ) : genres.length === 0 ? (
+        <div className="col-span-2">
+          <ErrorMessage message={error ?? content.filters.genresEmpty} />
+        </div>
+      ) : (
+        genres.map((genre) => {
+          const isSelected = selectedGenres.includes(genre.value);
+
+          return (
+            <Button
+              key={genre.value}
+              type="button"
+              size="sm"
+              variant={isSelected ? "default" : "secondary"}
+              aria-pressed={isSelected}
+              onClick={() => handleChange(genre.value)}
+              className={getOptionClass(isSelected)}
+            >
+              {genre.label}
+            </Button>
+          );
+        })
+      )}
+    </FilterSection>
   );
 }

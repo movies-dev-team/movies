@@ -1,30 +1,23 @@
-import { useState, useEffect, useCallback } from "react";
-import { getPopularMovies, getMoviesByGenre } from "../services/movieService";
-
+import { useState, useEffect } from "react";
 import type { Movie } from "@/shared/types/movie";
 import MovieCard from "@/shared/components/MovieCard";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import content from "@/data/content.json";
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
-
+import type { CatalogFilterValues } from "../types/CatalogFilters";
 import CatalogFilters from "../components/CatalogFilters";
-import { toast } from "sonner";
-
+import { getMovies } from "../services/movieService";
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<CatalogFilterValues>({
     genre: "",
-    minRating: undefined as number | undefined,
-    maxRating: undefined as number | undefined,
+    minRating: undefined,
+    maxRating: undefined,
     trend: "",
   });
-
-  const handleFilterError = useCallback((error: unknown) => {
-    toast.error(getApiErrorMessage(error));
-  }, []);
 
   useEffect(() => {
     async function loadMovies() {
@@ -32,9 +25,7 @@ export default function CatalogPage() {
         setLoading(true);
         setError(null);
 
-        const data = filters.genre
-          ? await getMoviesByGenre(filters.genre)
-          : await getPopularMovies();
+        const data = await getMovies(filters);
 
         setMovies(data.results);
       } catch (error) {
@@ -45,8 +36,7 @@ export default function CatalogPage() {
     }
 
     loadMovies();
-  }, [filters.genre]);
-
+  }, [filters]);
   const handleReset = () => {
     setFilters({
       genre: "",
@@ -67,19 +57,34 @@ export default function CatalogPage() {
               genre: values[0] ?? "",
             }))
           }
+          selectedMinRating={filters.minRating}
+          selectedMaxRating={filters.maxRating}
+          onRatingChange={(min, max) =>
+            setFilters((prev) => ({
+              ...prev,
+              minRating: min,
+              maxRating: max,
+            }))
+          }
+          selectedPeriod={filters.trend}
+          onTrendChange={(period) =>
+            setFilters((prev) => ({
+              ...prev,
+              trend: period,
+            }))
+          }
           onReset={handleReset}
-          onError={handleFilterError}
         />
 
         <section className="min-w-0 flex-1">
-          <h1 className="mb-3 text-2xl">{content.catalog.title}</h1>
+          <h1 className="mb-3 text-xl md:text-2xl">{content.catalog.title}</h1>
 
           {loading ? (
             <p>{content.loading.generic}</p>
           ) : error ? (
             <ErrorMessage message={error} />
           ) : movies.length === 0 ? (
-            <p>{content.filters.filterError}</p>
+            <p role="status">{content.filters.noResults}</p>
           ) : (
             <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
               {movies.map((movie) => (
