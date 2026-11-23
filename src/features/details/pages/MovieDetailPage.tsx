@@ -8,6 +8,7 @@ import { MAX_VISIBLE_GENRES, MAX_VISIBLE_CAST } from '../../../shared/constants/
 import { Star, UserRound } from 'lucide-react'
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 import ErrorMessage from "@/shared/components/ErrorMessage";
+import { formatDate } from "@/shared/utils/formatDate";
 
 
 export default function MovieDetailPage() {
@@ -93,13 +94,16 @@ export default function MovieDetailPage() {
           <h1 className="text-2xl font-bold leading-tight tracking-tight md:text-4xl">
             {movie.title}
           </h1>  
-          {(Boolean(movie.release_date) || runtime > 0) && (
+          {movie.release_date && (
             <p>
-              {movie.release_date && movie.release_date.slice(0, 4)}
-              {movie.release_date && runtime > 0 && " · "}
-              {runtime > 0 && `${hours}h ${minutes}min`}
+              {content.movieDetail.releaseDate}{formatDate(movie.release_date)}
             </p>
           )}
+        {runtime > 0 && (
+          <p>
+            {content.movieDetail.runtime}: {hours}h {minutes}min
+          </p>
+        )}
           {movie.vote_average > 0 ? (
             <div className="flex items-center gap-2">
               <Star

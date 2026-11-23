@@ -106,6 +106,7 @@
   },
 
   "movieDetail": {
+    "releaseDate": "Estreno: ",
     "overview": "Sinopsis",
     "readMore": "Leer más...",
     "readLess": "Leer menos",
