@@ -1,10 +1,12 @@
 import { supabase } from "@/lib/supabaseClient";
+import content from "@/data/content.json"
+
 
 export async function getMovieRating(movieId: number) {
   const { data: { user }, error: authError } = await supabase.auth.getUser();
 
   if (authError) throw authError;
-  if (!user) throw new Error("Usuario no autenticado");
+  if (!user) throw new Error(content.auth.messages.unauthenticated)
 
   const { data, error } = await supabase
     .from("reviews")
@@ -20,13 +22,13 @@ export async function getMovieRating(movieId: number) {
 
 export async function saveMovieRating(movieId: number, rating: number) {
   if (!Number.isInteger(rating) || rating < 1 || rating > 10) {
-    throw new Error("La puntuación debe estar entre 1 y 10");
+    throw new Error(content.ratings.invalidRating)
   }
 
   const { data: { user }, error: authError } = await supabase.auth.getUser();
 
   if (authError) throw authError;
-  if (!user) throw new Error("Usuario no autenticado");
+  if (!user) throw new Error(content.auth.messages.unauthenticated)
 
   const { error } = await supabase
     .from("reviews")

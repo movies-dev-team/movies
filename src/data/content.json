@@ -69,6 +69,13 @@
       "button": "Crear cuenta",
       "accountText": "¿Ya tienes una cuenta?",
       "accountLink": "Inicia sesión"
+    },
+
+    "messages": {
+      "unauthenticated": "Usuario no autenticado",
+      "loginError": "Error al iniciar sesión",
+      "registerError": "Error al registrar el usuario",
+      "logoutError": "Error al cerrar sesión"
     }
   },
 
@@ -84,7 +91,7 @@
     "genresLoading": "Cargando géneros…",
     "genresEmpty": "No hay géneros disponibles.",
     "activeFilters": "Filtros activos",
-    "noResults":  "¡Vaya escena! No hay películas que coincidan con estos filtros. Prueba otra combinación.",
+    "noResults": "¡Vaya escena! No hay películas que coincidan con estos filtros. Prueba otra combinación.",
     "ratingOptions": {
       "excellent": "Excelente",
       "good": "Buena",
@@ -99,9 +106,22 @@
 
   "favorites": {
     "added": "¡Una nueva película entra en escena y se une a tu colección!",
-    "removed": " ¡Se baja el telón! Película retirada de tu colección.",
+    "removed": "¡Se baja el telón! Película retirada de tu colección.",
     "addLabel": "Añadir a favoritos",
-    "removeLabel": "Quitar de favoritos"
+    "removeLabel": "Quitar de favoritos",
+    "loadError": "Error al cargar tus películas favoritas",
+    "addError": "Error al añadir la película a favoritos",
+    "removeError": "Error al eliminar la película de favoritos"
+  },
+
+  "ratings": {
+    "label": "Tu puntuación",
+    "loading": "Cargando puntuación...",
+    "saved": "Puntuación guardada",
+    "loadError": "Error al cargar tu puntuación",
+    "saveError": "Error al guardar la puntuación",
+    "invalidRating": "La puntuación debe estar entre 1 y 10",
+    "starLabel": "Puntuar con {value} de 10"
   },
 
   "movieDetail": {

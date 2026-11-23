@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { getMovieRating, saveMovieRating } from "../ratingsService";
+import content from "@/data/content.json"
 
 export function useMovieRating(movieId: number) {
   const [rating, setRating] = useState(0);
@@ -22,7 +23,7 @@ export function useMovieRating(movieId: number) {
         }
       } catch {
         if (!ignore) {
-          toast.error("Error al cargar tu puntuación");
+          toast.error(content.ratings.loadError)
         }
       } finally {
         if (!ignore) {
@@ -48,10 +49,9 @@ export function useMovieRating(movieId: number) {
       await saveMovieRating(movieId, newRating);
 
       setRating(newRating);
-      toast.success("Puntuación guardada");
-    } catch  (error) {
-  console.error("Error al guardar rating:", error);
-      toast.error("Error al guardar la puntuación");
+      toast.success(content.ratings.saved)
+    } catch  {
+      toast.error(content.ratings.saveError)
     } finally {
       savingRef.current = false;
       setSaving(false);
