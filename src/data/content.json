@@ -22,7 +22,9 @@
 
   "loading": {
     "generic": "Cargando información...",
-    "trailer": "Cargando tráiler..."
+    "trailer": "Cargando tráiler...",
+    "loadingMore": "Cargando películas...",
+    "loadMore": "Ver más..."
   },
 
   "auth": {
