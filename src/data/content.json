@@ -24,7 +24,9 @@
     "generic": "Cargando información...",
     "trailer": "Cargando tráiler...",
     "loadingMore": "Cargando películas...",
-    "loadMore": "Ver más..."
+    "loadMore": "Ver más...",
+      "noMoreMovies": "¡Fin de la sesión! No quedan más películas por descubrir."
+
   },
 
   "auth": {

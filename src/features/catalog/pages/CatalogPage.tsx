@@ -53,7 +53,7 @@ export default function CatalogPage() {
       const data = await getMovies(filters, nextPage);
 
       if (data.results.length === 0) {
-        toast.info("¡Has llegado al final! No hay más películas.");
+        toast.info(content.loading.noMoreMovies);
         return;
       }
 
