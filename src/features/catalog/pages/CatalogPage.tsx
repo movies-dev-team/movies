@@ -9,6 +9,8 @@ import CatalogFilters from "../components/CatalogFilters";
 import { getMovies } from "../services/movieService";
 import MovieCarousel from "../components/MovieCarousel";
 import { toast } from "sonner";
+import { SKELETON_DELAY } from "@/shared/constants/movieConstants";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -17,6 +19,7 @@ export default function CatalogPage() {
 
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [showSkeleton, setShowSkeleton] = useState(false);
 
   const [filters, setFilters] = useState<CatalogFilterValues>({
     genre: "",
@@ -26,22 +29,34 @@ export default function CatalogPage() {
   });
 
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+
     async function loadMovies() {
       try {
         setLoading(true);
+        setShowSkeleton(false);
         setError(null);
 
+        timeout = setTimeout(() => {
+          setShowSkeleton(true);
+        }, SKELETON_DELAY);
+
         const data = await getMovies(filters);
+
         setMovies(data.results);
         setPage(1);
       } catch (error) {
         setError(getApiErrorMessage(error));
       } finally {
+        clearTimeout(timeout);
         setLoading(false);
+        setShowSkeleton(false);
       }
     }
 
     loadMovies();
+
+    return () => clearTimeout(timeout);
   }, [filters]);
 
   const handleLoadMore = async () => {
@@ -110,7 +125,15 @@ export default function CatalogPage() {
           <h1 className="mb-3 text-xl md:text-2xl">{content.catalog.title}</h1>
 
           {loading ? (
-            <p>{content.loading.generic}</p>
+            showSkeleton ? (
+              <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <li key={index} className="min-w-0">
+                    <Skeleton className="aspect-3/4 w-full rounded-xl" />
+                  </li>
+                ))}
+              </ul>
+            ) : null
           ) : error ? (
             <ErrorMessage message={error} />
           ) : movies.length === 0 ? (
