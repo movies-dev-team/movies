@@ -6,6 +6,7 @@ import content from "@/data/content.json";
 import { MAX_VISIBLE_GENRES, MAX_VISIBLE_CAST } from '../../../shared/constants/movieConstants'
 import { Star, UserRound } from 'lucide-react'
 import MovieTrailer from "../components/MovieTrailer";
+import FavoriteButton from "@/shared/components/FavoriteButton";
 
 export default function MovieDetailPage() {
 
@@ -73,21 +74,26 @@ export default function MovieDetailPage() {
   
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
-      {/* Movie header */}
       <section className="grid grid-cols-5 gap-4 lg:grid-cols-12 lg:gap-8">
-        {/* Poster */}
-        <div className="col-span-2 lg:col-span-3">
-          {movie.poster_path && <img
-            className="aspect-[2/3] w-full rounded-xl object-cover"
-            src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-            alt={`Póster de la película ${movie.original_title}`}
-          />}
-        </div>
-        {/* Main info */}
+        <div className="relative col-span-2 lg:col-span-3">
+           {movie.poster_path && (
+             <img
+               className="aspect-2/3 w-full rounded-xl object-cover"
+               src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+               alt={`Póster de la película ${movie.original_title}`}
+             />
+           )}
+         
+  <div className="absolute right-2 top-2 z-10">
+    <FavoriteButton movieId={movie.id} />
+  </div>
+</div>
         <div className="col-span-3 min-w-0 lg:col-span-6">
-          <h1 className="text-2xl font-bold leading-tight tracking-tight md:text-4xl">
-            {movie.title}
-          </h1>  
+          <div className="flex items-start justify-between gap-3">
+             <h1 className="text-2xl font-bold leading-tight tracking-tight md:text-4xl">
+               {movie.title}
+             </h1>
+           </div>
           {(Boolean(movie.release_date) || runtime > 0) && (
             <p>
               {movie.release_date && movie.release_date.slice(0, 4)}
@@ -113,7 +119,6 @@ export default function MovieDetailPage() {
             </p>
           )}
         </div>
-        {/* Ficha técnica */}
         <div className="col-span-5 lg:col-span-3">
           <p>
             {content.movieDetail.director}: {director? 
@@ -166,12 +171,12 @@ export default function MovieDetailPage() {
                   to={`/app/actor/${actor.id}`}>
                   {actor.profile_path ? (
                   <img
-                    className="w-full aspect-[2/3] object-cover rounded-lg"
+                    className="w-full aspect-2/3 object-cover rounded-lg"
                     src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
                     alt={`Foto de ${actor.name}`}
                   />
                   ) : (
-                    <div className="flex aspect-[2/3] w-full items-center justify-center rounded-lg bg-card">
+                    <div className="flex aspect-2/3 w-full items-center justify-center rounded-lg bg-card">
                       <UserRound
                         className="h-12 w-12 text-text-secondary"
                         aria-hidden="true"
