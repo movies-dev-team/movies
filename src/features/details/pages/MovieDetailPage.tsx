@@ -10,6 +10,7 @@ import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import { formatDate } from "@/shared/utils/formatDate";
 import FavoriteButton from "@/shared/components/FavoriteButton";
+import MovieRatingControl from "../components/MovieRatingControl";
 
 
 export default function MovieDetailPage() {
@@ -127,6 +128,9 @@ export default function MovieDetailPage() {
               {movie.genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => genre.name).join(" · ")}
             </p>
           )}
+          <div className="mt-4">
+            <MovieRatingControl movieId={movie.id} />
+            </div>
         </div>
         <div className="col-span-5 lg:col-span-3">
           <p>
