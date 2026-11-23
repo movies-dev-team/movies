@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import type { MovieDetail } from "../types/movieDetail";
 import { getMovieDetail } from "../services/movieDetailService";
+import MovieTrailer from "../components/MovieTrailer";
 import content from "@/data/content.json";
 import { MAX_VISIBLE_GENRES, MAX_VISIBLE_CAST } from '../../../shared/constants/movieConstants'
 import { Star, UserRound } from 'lucide-react'
-import MovieTrailer from "../components/MovieTrailer";
+import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
+import ErrorMessage from "@/shared/components/ErrorMessage";
+
 
 export default function MovieDetailPage() {
 
@@ -14,7 +17,7 @@ export default function MovieDetailPage() {
 
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
  
   useEffect(() => {
@@ -24,12 +27,12 @@ export default function MovieDetailPage() {
     async function loadMovies() {
       setMovie(null);
       setLoading(true);
-      setError(false);
+      setError(null);
       setIsExpanded(false);
 
       try {
         if (!Number.isInteger(movieId) || movieId <= 0) {
-          setError(true);
+          setError(content.errors.notFound);
           return;
         }
 
@@ -41,8 +44,7 @@ export default function MovieDetailPage() {
         }    
       } catch (error) {
         if (!ignore) {
-          setError(true);
-          console.error(error);
+          setError(getApiErrorMessage(error));
         }    
       } finally {
         if(!ignore) {
@@ -57,13 +59,13 @@ export default function MovieDetailPage() {
   },[movieId]);
 
   if (loading) {
-    return <p>Cargando película...</p>;
+    return <p>{content.loading.movie}</p>;
   }
   if (error) {
-    return <p>Error cargando película...</p>
+    return <ErrorMessage message={error} />;
   } 
   if (!movie) { 
-    return <p>Película no encontrada</p>
+    return <ErrorMessage message={content.errors.notFound} />;
   }
 
   const actors = movie.credits.cast;
@@ -72,7 +74,7 @@ export default function MovieDetailPage() {
   const runtime = movie.runtime ?? 0;
   const hours = Math.floor((runtime) / 60 );
   const minutes = runtime % 60;
-  const hasLongOverview = movie.overview.length > 300;
+  const hasLongOverview = movie.overview.length > 150;
   
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
@@ -95,7 +97,7 @@ export default function MovieDetailPage() {
             <p>
               {movie.release_date && movie.release_date.slice(0, 4)}
               {movie.release_date && runtime > 0 && " · "}
-              {runtime > 0 && `${hours} h ${minutes} min`}
+              {runtime > 0 && `${hours}h ${minutes}min`}
             </p>
           )}
           {movie.vote_average > 0 ? (
