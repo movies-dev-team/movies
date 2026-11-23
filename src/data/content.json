@@ -111,7 +111,12 @@
     "removeLabel": "Quitar de favoritos",
     "loadError": "Error al cargar tus películas favoritas",
     "addError": "Error al añadir la película a favoritos",
-    "removeError": "Error al eliminar la película de favoritos"
+    "removeError": "Error al eliminar la película de favoritos",
+    "pageTitle": "Mis películas favoritas",
+    "loading": "Cargando favoritos...",
+    "empty": "Todavía no has añadido ninguna película a favoritos.",
+    "bannerAlt": "Mis Favoritos: tu colección personal de películas y series",
+    "bannerDescription": "Tu colección personal de películas y series que siempre quieres volver a ver."
   },
 
   "ratings": {
@@ -148,4 +153,5 @@
     "slideLabel": "{current} de {total}",
     "loading": "Cargando estrenos…"
   }
+  
 }
