@@ -7,6 +7,7 @@ import { MAX_VISIBLE_GENRES, MAX_VISIBLE_CAST } from '../../../shared/constants/
 import { Star, UserRound } from 'lucide-react'
 import MovieTrailer from "../components/MovieTrailer";
 import FavoriteButton from "@/shared/components/FavoriteButton";
+import MovieRatingControl from "../components/MovieRatingControl";
 
 export default function MovieDetailPage() {
 
@@ -118,6 +119,9 @@ export default function MovieDetailPage() {
               {movie.genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => genre.name).join(" · ")}
             </p>
           )}
+          <div className="mt-4">
+            <MovieRatingControl movieId={movie.id} />
+            </div>
         </div>
         <div className="col-span-5 lg:col-span-3">
           <p>
