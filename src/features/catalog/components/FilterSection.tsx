@@ -23,7 +23,7 @@ export default function FilterSection({
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="grid w-full grid-cols-[1fr_auto] items-center gap-x-1 gap-y-1 px-2 py-3 text-xs font-semibold transition-colors hover:text-brand-light md:px-3 md:text-base"
+        className="grid w-full grid-cols-[1fr_auto] items-center cursor-pointer gap-x-1 gap-y-1 px-2 py-3 text-xs font-semibold transition-colors hover:text-brand-light md:px-3 md:text-base"
       >
         <span className="flex min-w-0 items-center gap-1">
           <Icon className="size-5 shrink-0 text-brand-light md:size-6" />

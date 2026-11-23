@@ -22,7 +22,10 @@
 
   "loading": {
     "generic": "Cargando información...",
-    "trailer": "Cargando tráiler..."
+    "trailer": "Cargando tráiler...",
+    "loadingMore": "Cargando películas...",
+    "loadMore": "Ver más...",
+    "noMoreMovies": "¡Fin de la sesión! No quedan más películas por descubrir."
   },
 
   "auth": {
@@ -90,7 +93,6 @@
     "restoreFilters": "Restaurar filtros",
     "genresLoading": "Cargando géneros…",
     "genresEmpty": "No hay géneros disponibles.",
-    "activeFilters": "Filtros activos",
     "noResults": "¡Vaya escena! No hay películas que coincidan con estos filtros. Prueba otra combinación.",
     "ratingOptions": {
       "excellent": "Excelente",
@@ -153,5 +155,4 @@
     "slideLabel": "{current} de {total}",
     "loading": "Cargando estrenos…"
   }
-  
 }

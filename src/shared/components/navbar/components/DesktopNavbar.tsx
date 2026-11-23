@@ -15,7 +15,7 @@ const DesktopNavbar = () => {
   return (
     <nav
       aria-label={content.navigation.accessibility.main}
-      className="relative isolate hidden items-center justify-between overflow-hidden border-b border-border bg-card px-6 py-2.5 md:flex"
+      className="sticky top-0 z-50 isolate hidden items-center justify-between overflow-hidden border-b border-border bg-card px-6 py-2.5 md:flex"
     >
       <img
         src={imgNavBar}

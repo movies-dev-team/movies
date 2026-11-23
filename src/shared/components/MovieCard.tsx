@@ -1,5 +1,10 @@
 import type { Movie } from "../types/movie";
-import { Card, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import { Link } from "react-router";
 import MovieRatingAPI from "./MovieRatingAPI";
 import FavoriteButton from "@/shared/components/FavoriteButton";
@@ -24,7 +29,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
       </Link>
 
       <CardContent className="p-4">
-        <CardTitle className="text-base font-semibold leading-snug">
+        <CardTitle className="min-h-12 line-clamp-2 text-base font-semibold leading-snug">
           {movie.title}
         </CardTitle>
 

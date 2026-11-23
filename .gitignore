@@ -32,9 +32,11 @@ coverage/
 .env.*
 !.env.example
 
+.continue/
 # TypeScript
 *.tsbuildinfo
 
 # Operating System
 Thumbs.db
 desktop.ini
+
