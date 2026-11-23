@@ -3,20 +3,7 @@ import { useParams } from "react-router";
 import { getPersonDetail } from "../services/personDetailService";
 import type { PersonDetail } from "../types/personDetail";
 import FilmographyCard from "../components/FilmographyCard";
-
-
-function formatDate(date: string | null): string {
-  if (!date) return ""
-  const parsedDate = new Date(date);
-  
-  const formatter = new Intl.DateTimeFormat("es-ES", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-  return formatter.format(parsedDate);
-}
+import { formatDate } from "@/shared/utils/formatDate";
 
 export default function ActorDetailPage() {
 
