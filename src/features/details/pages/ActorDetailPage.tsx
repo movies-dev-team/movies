@@ -4,7 +4,9 @@ import { getPersonDetail } from "../services/personDetailService";
 import type { PersonDetail } from "../types/personDetail";
 import FilmographyCard from "../components/FilmographyCard";
 import { formatDate } from "@/shared/utils/formatDate";
-import content from "@/data/content.json"
+import content from "@/data/content.json";
+import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
+import ErrorMessage from "@/shared/components/ErrorMessage";
 
 export default function ActorDetailPage() {
 
@@ -13,7 +15,7 @@ export default function ActorDetailPage() {
 
   const [actor, setActor] = useState<PersonDetail | null >(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showAllMovies, setShowAllMovies] =useState(false);
 
@@ -24,13 +26,13 @@ export default function ActorDetailPage() {
     async function loadActor() {
       setActor(null);
       setLoading(true);
-      setError(false);
+      setError(null);
       setIsExpanded(false);
       setShowAllMovies(false);
     
       try {
         if (!Number.isInteger(actorId) || actorId <= 0) {
-            setError(true);
+            setError(content.movieDetail.actorNotFound);
             return;
           }
 
@@ -42,8 +44,7 @@ export default function ActorDetailPage() {
 
       } catch (error) {
         if (!ignore) {
-          setError(true);
-          console.error(error);
+          setError(getApiErrorMessage(error));
         }    
       } finally {
         if(!ignore) {
@@ -61,10 +62,10 @@ export default function ActorDetailPage() {
     return <p>{content.loading.generic}</p>;
   }
   if (error) {
-    return <p>{content.movieDetail.error}</p>
+    return <ErrorMessage message={error} />;
   } 
   if (!actor) { 
-    return <p>{content.movieDetail.actorNotFound}</p>
+    return <ErrorMessage message={content.movieDetail.actorNotFound} />;
   }
 
   const hasLongBiography = actor.biography.length > 300;
