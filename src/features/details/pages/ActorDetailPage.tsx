@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, Link, useLocation } from "react-router";
 import { getPersonDetail } from "../services/personDetailService";
 import type { PersonDetail } from "../types/personDetail";
 import FilmographyCard from "../components/FilmographyCard";
 import { formatDate } from "@/shared/utils/formatDate";
+import content from "@/data/content.json";
+import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
+import ErrorMessage from "@/shared/components/ErrorMessage";
+import { ArrowLeft } from 'lucide-react';
 
 export default function ActorDetailPage() {
 
@@ -12,9 +16,16 @@ export default function ActorDetailPage() {
 
   const [actor, setActor] = useState<PersonDetail | null >(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showAllMovies, setShowAllMovies] =useState(false);
+  const location = useLocation();
+  const fromMovieId = location.state?.fromMovieId;
+  const backTo = typeof fromMovieId === "number" &&
+  Number.isInteger(fromMovieId) &&
+  fromMovieId > 0
+    ? `/app/movie/${fromMovieId}`
+    : "/app";
 
   useEffect(() => {
 
@@ -23,18 +34,17 @@ export default function ActorDetailPage() {
     async function loadActor() {
       setActor(null);
       setLoading(true);
-      setError(false);
+      setError(null);
       setIsExpanded(false);
       setShowAllMovies(false);
     
       try {
         if (!Number.isInteger(actorId) || actorId <= 0) {
-            setError(true);
+            setError(content.movieDetail.actorNotFound);
             return;
           }
 
         const data = await getPersonDetail(actorId);
-        console.log('Detalle de actor:', data);
 
         if (!ignore) {
           setActor(data);
@@ -42,8 +52,7 @@ export default function ActorDetailPage() {
 
       } catch (error) {
         if (!ignore) {
-          setError(true);
-          console.error(error);
+          setError(getApiErrorMessage(error));
         }    
       } finally {
         if(!ignore) {
@@ -58,13 +67,13 @@ export default function ActorDetailPage() {
   },[actorId]);
 
   if (loading) {
-    return <p>Cargando datos...</p>;
+    return <p>{content.loading.generic}</p>;
   }
   if (error) {
-    return <p>Error cargando datos...</p>
+    return <ErrorMessage message={error} />;
   } 
   if (!actor) { 
-    return <p>Actor/Actriz no encontrado/a</p>
+    return <ErrorMessage message={content.movieDetail.actorNotFound} />;
   }
 
   const hasLongBiography = actor.biography.length > 300;
@@ -78,12 +87,25 @@ export default function ActorDetailPage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
+      <Link
+        to={backTo}
+        className="mb-4 inline-flex items-center gap-2
+          text-sm font-medium text-brand-light
+          transition-colors hover:text-white
+          focus-visible:outline-2
+          focus-visible:outline-brand-light"
+      >
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        {backTo === "/app"
+          ? content.navigation.backToCatalog
+          : content.navigation.backToMovieDetail}
+      </Link>
       <section className="grid grid-cols-5 gap-4 md:grid-cols-3 md:gap-x-8 md:gap-y-4">
         <div className="col-span-2 md:col-span-1 md:row-span-2">
           {actor.profile_path && ( <img
             className="aspect-[2/3] w-full max-w-[160px] md:max-w-xs rounded-xl object-cover"
             src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
-            alt={`Foto de ${actor.name}`}
+            alt={`${content.movieDetail.pictureOf} ${actor.name}`}
             />
           )}
         </div>
@@ -94,24 +116,28 @@ export default function ActorDetailPage() {
           <div className="mt-3 flex flex-col gap-2">
             {actor.birthday && (
             <p className="text-sm leading-5 text-text-secondary">
-              Nacimiento: {formatDate(actor.birthday)}
+              {content.movieDetail.birthDate}:{" "} {formatDate(actor.birthday)}
             </p>
             )}
             {actor.place_of_birth && (
             <p className="text-sm leading-5 text-text-secondary">
-              Lugar: {actor.place_of_birth}
+              {content.movieDetail.birthPlace}:{" "} {actor.place_of_birth}
             </p>
             )}
           </div>  
         </div>
-        <div className="col-span-5 min-w-0 md:col-span-2">
-          <h2 className="mb-2 text-xl font-semibold">
-          Biografía
+        <section 
+          className="col-span-5 min-w-0 md:col-span-2" 
+          aria-labelledby="biography-title">
+          <h2
+            id="biography-title" 
+            className="mb-2 text-xl font-semibold md:text-2xl">
+            {content.movieDetail.biography}
           </h2>
           <p className={`text-sm leading-7 text-text-secondary whitespace-pre-line md:text-base
             ${hasLongBiography && !isExpanded ? "max-h-40 overflow-hidden" : ""}`}
           >
-            {actor.biography.trim() ? actor.biography : "Biografía no disponible"}
+            {actor.biography.trim() ? actor.biography : content.movieDetail.biographyNotAvailable}
           </p>
           {hasLongBiography && (
             <button
@@ -120,17 +146,17 @@ export default function ActorDetailPage() {
             className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
             onClick={() => setIsExpanded((previous) => !previous)}
           >
-           {isExpanded ? "Leer menos" : "Leer más..."}
+           {isExpanded ? content.loading.readLess : content.loading.readMore}
           </button>)}
-        </div>   
+        </section>   
       </section>
       <section
         id="filmography"
         aria-labelledby="filmography-title"
-        className="mt-10"
+        className="mt-4"
       >
-        <h2 id="filmography-title" className="mb-5 text-2xl font-bold">
-          Filmografía
+        <h2 id="filmography-title" className="mb-5 text-xl font-semibold md:text-2xl">
+          {content.movieDetail.filmography}
         </h2>
         <div className="grid grid-cols-2 auto-rows-fr gap-4 md:grid-cols-3 lg:grid-cols-4">
           {hasFilmography ? (
@@ -141,7 +167,7 @@ export default function ActorDetailPage() {
               film={film} />
             );
           })
-        ): <p>No hay películas disponibles</p>}
+        ): <p>{content.movieDetail.moviesNotAvailable}</p>}
         </div>
         {(sortedFilmography.length > moviesPerProfile) && (
           <button
@@ -150,7 +176,7 @@ export default function ActorDetailPage() {
             className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
             onClick={() => setShowAllMovies((previous) => !previous)}
           >
-           {showAllMovies ? "Ver menos" : "Ver más..."}
+           {showAllMovies ? content.loading.loadLess : content.loading.loadMore}
           </button>)}
       </section> 
     </div>

@@ -1,37 +1,46 @@
+import content from "@/data/content.json"
+
 export function validateEmail(email: string): string {
   if (!email.trim()) {
-    return "El correo electrónico es obligatorio"
+    return content.auth.validation.emailRequired
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
   if (!emailRegex.test(email.trim())) {
-    return "Introduce un correo electrónico válido"
+    return content.auth.validation.invalidEmail
   }
+
   return ""
 }
 
 export function validatePassword(password: string): string {
   if (!password) {
-    return "La contraseña es obligatoria"
+    return content.auth.validation.passwordRequired
   }
+
   return ""
 }
 
 export function validateRegisterPassword(password: string): string {
   if (!password) {
-    return "La contraseña es obligatoria"
+    return content.auth.validation.passwordRequired
   }
+
   if (password.length < 8) {
-    return "La contraseña debe tener al menos 8 caracteres"
+    return content.auth.validation.passwordMinLength
   }
+
   return ""
 }
+
 export function validateConfirmPassword(
   password: string,
   confirmPassword: string
 ): string {
   if (password !== confirmPassword) {
-    return "Las contraseñas no coinciden"
+    return content.auth.validation.passwordMismatch
   }
+
   return ""
 }

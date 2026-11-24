@@ -1,8 +1,9 @@
 import { useState } from "react"
 import type { SubmitEvent } from "react"
 import { Link, useNavigate } from "react-router"
-import { registerUser } from "../services/authService"
-import { validateEmail, validatePassword, validateConfirmPassword } from "./authValidation"
+import { registerUser, isUsernameAvailable } from "../services/authService"
+import { validateEmail, validateRegisterPassword, validateConfirmPassword } from "./authValidation"
+import content from "@/data/content.json"
 
 function RegisterForm() {
   const [username, setUsername] = useState("")
@@ -21,7 +22,7 @@ function RegisterForm() {
     setError("")
 
     if (!username.trim()) {
-      setError("Introduce un nombre de usuario")
+      setError(content.auth.messages.usernameRequired)
       return
     }
 
@@ -32,7 +33,7 @@ function RegisterForm() {
       return
     }
 
-    const passwordError = validatePassword(password)
+    const passwordError = validateRegisterPassword(password)
 
     if (passwordError) {
       setError(passwordError)
@@ -52,29 +53,36 @@ function RegisterForm() {
     setIsLoading(true)
 
     try {
-      const { session } = await registerUser(email.trim(), password)
+      const available = await isUsernameAvailable(username.trim())
+
+      if (!available) {
+        setError(content.auth.messages.usernameTaken)
+        return
+      }
+
+      const { session } = await registerUser(
+        email.trim(),
+        password,
+        username.trim()
+      )
 
       if (!session) {
-        setError("No se ha podido iniciar sesión después del registro")
+        setError(content.auth.messages.sessionError)
         return
       }
 
       navigate("/app", { replace: true })
-    } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Error al registrarse"
-      )
+    } catch {
+      setError(content.auth.messages.registerError)
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-  <section className="mx-auto w-full max-w-90 rounded-2xl border border-white/20 bg-slate-950/80 px-5 py-5 shadow-2xl backdrop-blur-xl sm:max-w-md sm:px-6 lg:ml-auto lg:max-w-md lg:p-8">
-     <h2 className="mb-4 text-center text-xl font-bold text-white sm:text-2xl lg:mb-6 lg:text-left lg:text-3xl">
-        Crea tu cuenta
+    <section className="mx-auto w-full max-w-90 rounded-2xl border border-white/20 bg-slate-950/80 px-5 py-5 shadow-2xl backdrop-blur-xl sm:max-w-md sm:px-6 lg:ml-auto lg:max-w-md lg:p-8">
+      <h2 className="mb-4 text-center text-xl font-bold text-white sm:text-2xl lg:mb-6 lg:text-left lg:text-3xl">
+        {content.auth.register.title}
       </h2>
 
       <form
@@ -82,7 +90,6 @@ function RegisterForm() {
         noValidate
         className="space-y-2.5"
       >
-
         <div className="flex h-11 items-center gap-3 rounded-lg bg-white/10 px-3 focus-within:ring-2 focus-within:ring-purple-500">
           <svg
             className="h-5 w-5 shrink-0 text-white"
@@ -97,13 +104,13 @@ function RegisterForm() {
           </svg>
 
           <label htmlFor="register-username" className="sr-only">
-            Nombre de usuario
+            {content.auth.register.usernameLabel}
           </label>
 
           <input
             id="register-username"
             type="text"
-            placeholder="Nombre de usuario"
+            placeholder={content.auth.register.usernameLabel}
             autoComplete="username"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
@@ -126,13 +133,13 @@ function RegisterForm() {
           </svg>
 
           <label htmlFor="register-email" className="sr-only">
-            Correo electrónico
+            {content.auth.emailLabel}
           </label>
 
           <input
             id="register-email"
             type="email"
-            placeholder="Correo electrónico"
+            placeholder={content.auth.emailLabel}
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -155,13 +162,13 @@ function RegisterForm() {
           </svg>
 
           <label htmlFor="register-password" className="sr-only">
-            Contraseña
+            {content.auth.passwordLabel}
           </label>
 
           <input
             id="register-password"
             type={showPassword ? "text" : "password"}
-            placeholder="Contraseña"
+            placeholder={content.auth.passwordLabel}
             autoComplete="new-password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
@@ -172,7 +179,11 @@ function RegisterForm() {
           <button
             type="button"
             onClick={() => setShowPassword((prev) => !prev)}
-            aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            aria-label={
+              showPassword
+                ? content.auth.accessibility.hidePassword
+                : content.auth.accessibility.showPassword
+            }
             aria-pressed={showPassword}
             className="shrink-0 text-gray-300 transition hover:text-white"
           >
@@ -214,13 +225,13 @@ function RegisterForm() {
           </svg>
 
           <label htmlFor="confirm-password" className="sr-only">
-            Confirmar contraseña
+            {content.auth.register.confirmPasswordLabel}
           </label>
 
           <input
             id="confirm-password"
             type={showConfirmPassword ? "text" : "password"}
-            placeholder="Confirmar contraseña"
+            placeholder={content.auth.register.confirmPasswordLabel}
             autoComplete="new-password"
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
@@ -233,8 +244,8 @@ function RegisterForm() {
             onClick={() => setShowConfirmPassword((prev) => !prev)}
             aria-label={
               showConfirmPassword
-                ? "Ocultar confirmación de contraseña"
-                : "Mostrar confirmación de contraseña"
+                ? content.auth.accessibility.hideConfirmPassword
+                : content.auth.accessibility.showConfirmPassword
             }
             aria-pressed={showConfirmPassword}
             className="shrink-0 text-gray-300 transition hover:text-white"
@@ -274,7 +285,9 @@ function RegisterForm() {
           disabled={isLoading}
           className="mt-3 h-12 w-full rounded-lg bg-linear-to-r from-purple-700 to-purple-600 text-sm font-bold text-white shadow-lg transition hover:from-purple-600 hover:to-purple-500 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isLoading ? "Creando cuenta..." : "Crear cuenta"}
+          {isLoading
+            ? content.auth.register.loading
+            : content.auth.register.button}
         </button>
       </form>
 
@@ -283,13 +296,14 @@ function RegisterForm() {
         <div className="h-1.5 w-1.5 rounded-full bg-purple-500" />
         <div className="h-px flex-1 bg-white/10" />
       </div>
+
       <p className="text-center text-xs text-gray-200 sm:text-sm">
-        ¿Ya tienes una cuenta?{" "}
+        {content.auth.register.accountText}{" "}
         <Link
           to="/"
           className="font-semibold text-purple-400 transition hover:text-purple-300"
         >
-          Inicia sesión
+          {content.auth.register.accountLink}
         </Link>
       </p>
     </section>
