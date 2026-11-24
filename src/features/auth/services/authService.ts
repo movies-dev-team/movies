@@ -1,12 +1,16 @@
 import { supabase } from "@/lib/supabaseClient"
 
-export async function registerUser(email: string, password: string) {
+export async function registerUser(email: string, password: string, username: string) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        username,
+      },
+    },
   })
- console.log("Data:", data)
-  console.log("Error:", error)
+
   if (error) {
     throw error
   }
@@ -33,4 +37,16 @@ export async function logoutUser() {
   if (error) {
     throw error
   }
+}
+
+export async function isUsernameAvailable(username: string): Promise<boolean> {
+  const { data, error } = await supabase.rpc("is_username_available", {
+    p_username: username.trim(),
+  })
+
+  if (error) {
+    throw error
+  }
+
+  return data
 }

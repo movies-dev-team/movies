@@ -82,7 +82,8 @@
       "unauthenticated": "Usuario no autenticado",
       "loginError": "Error al iniciar sesión",
       "registerError": "Error al registrar el usuario",
-      "logoutError": "Error al cerrar sesión"
+      "logoutError": "Error al cerrar sesión",
+        "usernameTaken": "Este nombre de usuario ya está en uso"
     }
   },
 

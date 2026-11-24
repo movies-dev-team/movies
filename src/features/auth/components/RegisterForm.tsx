@@ -1,8 +1,9 @@
 import { useState } from "react"
 import type { SubmitEvent } from "react"
 import { Link, useNavigate } from "react-router"
-import { registerUser } from "../services/authService"
+import { registerUser, isUsernameAvailable } from "../services/authService"
 import { validateEmail, validatePassword, validateConfirmPassword } from "./authValidation"
+import content from "@/data/content.json"
 
 function RegisterForm() {
   const [username, setUsername] = useState("")
@@ -52,23 +53,30 @@ function RegisterForm() {
     setIsLoading(true)
 
     try {
-      const { session } = await registerUser(email.trim(), password)
+  const available = await isUsernameAvailable(username.trim())
 
-      if (!session) {
-        setError("No se ha podido iniciar sesión después del registro")
-        return
-      }
+  if (!available) {
+    setError(content.auth.messages.usernameTaken)
+    return
+  }
 
-      navigate("/app", { replace: true })
-    } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Error al registrarse"
-      )
-    } finally {
-      setIsLoading(false)
-    }
+  const { session } = await registerUser(email.trim(), password, username.trim())
+
+  if (!session) {
+    setError("No se ha podido iniciar sesión después del registro")
+    return
+  }
+
+  navigate("/app", { replace: true })
+} catch (error) {
+  setError(
+    error instanceof Error
+      ? error.message
+      : content.auth.messages.registerError
+  )
+} finally {
+  setIsLoading(false)
+}
   }
 
   return (
