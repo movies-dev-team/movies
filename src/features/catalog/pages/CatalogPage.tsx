@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { Movie } from "@/shared/types/movie";
+import type { Movie } from "@/features/catalog/types/movieService";
 import MovieCard from "@/shared/components/MovieCard";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import content from "@/data/content.json";

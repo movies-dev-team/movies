@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Movie } from "@/shared/types/movie";
+import type { Movie } from "@/features/catalog/types/movieService";
 import MovieCard from "@/shared/components/MovieCard";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import { useFavoritesContext } from "./hooks/useFavoritesContext";
@@ -9,8 +9,11 @@ import favoritesBanner from "@/assets/images/cinea-favoritos-banner2.webp";
 import content from "@/data/content.json";
 
 export default function FavoritesPage() {
-  const { favorites, loading: favoritesLoading, error: favoritesError } =
-    useFavoritesContext();
+  const {
+    favorites,
+    loading: favoritesLoading,
+    error: favoritesError,
+  } = useFavoritesContext();
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,7 +36,7 @@ export default function FavoritesPage() {
         setError(null);
 
         const data = await Promise.all(
-          favorites.map((movieId) => getMovieById(movieId))
+          favorites.map((movieId) => getMovieById(movieId)),
         );
 
         if (active) {
@@ -88,8 +91,6 @@ export default function FavoritesPage() {
               {content.favorites.pageTitle}
             </h1>
           </div>
-
-          
         </div>
       </section>
 
