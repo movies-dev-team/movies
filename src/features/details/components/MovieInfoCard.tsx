@@ -17,7 +17,7 @@ export default function MovieInfoCard({movie}: MovieInfoCardProps) {
     type: "language",});
 
   return (
-    <div className="rounded-xl border border-brand-light/40 bg-card p-3">
+    <div className="rounded-xl border border-brand-light/40 bg-card px-3 py-1 text-sm leading-relaxed">
       <div className="grid grid-cols-[24px_1fr_1.4fr] items-start gap-3 border-b border-brand-light/20 py-2">
         <UserRound className="h-5 w-5 text-brand-light" aria-hidden="true" />
         <span className="font-medium">

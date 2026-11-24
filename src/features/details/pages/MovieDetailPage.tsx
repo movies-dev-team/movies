@@ -11,6 +11,7 @@ import ErrorMessage from "@/shared/components/ErrorMessage";
 import FavoriteButton from "@/shared/components/FavoriteButton";
 import MovieRatingControl from "../components/MovieRatingControl";
 import MovieInfoCard from "../components/MovieInfoCard"
+import { Card } from "@/components/ui/card"
 
 
 export default function MovieDetailPage() {
@@ -80,7 +81,7 @@ export default function MovieDetailPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
       <section className="grid grid-cols-[120px_minmax(0,1fr)] gap-4 md:grid-cols-2 md:gap-6">
-        <div className="relative w-full min-w-0">
+        <Card className="relative w-full min-w-0 gap-0 overflow-hidden p-0">
           {movie.poster_path && (
           <img
             className="aspect-2/3 w-full rounded-xl object-cover"
@@ -91,7 +92,7 @@ export default function MovieDetailPage() {
           <div className="absolute right-2 top-2 z-10">
             <FavoriteButton movieId={movie.id} />
           </div>
-        </div>
+        </Card>
         <div className="min-w-0">
           <div className="flex items-start justify-between gap-3">
             <h1 className="text-xl font-bold leading-tight tracking-tight md:text-4xl">
@@ -100,7 +101,7 @@ export default function MovieDetailPage() {
           </div> 
           {runtime > 0 && (
             <p>
-              {content.movieDetail.runtime}: {hours}h {minutes}min
+              {hours}h {minutes}min
             </p>
           )}
           {movie.vote_average > 0 ? ( 
@@ -124,11 +125,11 @@ export default function MovieDetailPage() {
           </div>
         </div>
       </section>
-      <section className="mt-8" aria-labelledby="synopsis-title">
-        <h2 className="mb-4 text-xl font-semibold" id="synopsis-title">
+      <section className="mt-4" aria-labelledby="overview-title">
+        <h2 className="mb-1 text-xl font-semibold md:text-3xl" id="overview-title">
           {content.movieDetail.overview}
         </h2>
-        <p className={`text-sm leading-relaxed mt-4 
+        <p className={`text-sm leading-relaxed
           ${hasLongOverview && !isExpanded? "max-h-40 overflow-hidden" : ""}`}
         >
           {movie.overview}
@@ -137,17 +138,17 @@ export default function MovieDetailPage() {
         <button
         type="button"
         aria-expanded={isExpanded}
-        className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
+        className="mt-1 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
         onClick={() => setIsExpanded((previous) => !previous)}
         >
           {isExpanded ? content.movieDetail.readLess : content.movieDetail.readMore}
         </button>)}
       </section>
-      <div className="mt-6">
+      <div className="mt-3">
         <MovieInfoCard movie={movie} />
       </div>
-      <section className="mt-8">
-        <h2 className="mb-4 text-xl font-semibold">
+      <section className="mt-3">
+        <h2 className="mb-1 text-xl font-semibold md:text-3xl">
           {content.movieDetail.cast}</h2>
         <div className="flex gap-4 overflow-x-auto pb-3 snap-x snap-mandatory">
           {actors.slice(0, MAX_VISIBLE_CAST).map((actor) => {
