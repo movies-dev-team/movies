@@ -11,9 +11,9 @@ export default function MovieRating({ rating, onChange }: MovieRatingProps) {
   const [hoverRating, setHoverRating] = useState(0);
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:gap-4">
       <div
-        className="flex items-center gap-1"
+        className="flex items-center gap-0.5 md:gap-1"
         onMouseLeave={() => setHoverRating(0)}
       >
         {Array.from({ length: 10 }, (_, index) => {
@@ -31,7 +31,7 @@ export default function MovieRating({ rating, onChange }: MovieRatingProps) {
               className="cursor-pointer transition-transform duration-150 hover:scale-110"
             >
               <Star
-                className={`size-6 transition-colors duration-150 ${
+                className={`size-4 md:size-5 lg:size-6 transition-colors duration-150 ${
                   active
                     ? "fill-[#9634F5] text-[#9634F5]"
                     : "fill-transparent text-[#49316F]"

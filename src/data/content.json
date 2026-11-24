@@ -22,6 +22,7 @@
 
   "loading": {
     "generic": "Cargando información...",
+    "movie": "Cargando película...",
     "trailer": "Cargando tráiler...",
     "loadingMore": "Cargando películas...",
     "loadMore": "Ver más...",
@@ -132,11 +133,12 @@
   },
 
   "movieDetail": {
-    "synopsis": "Sinopsis",
+    "releaseDate": "Estreno",
+    "overview": "Sinopsis",
+    "readMore": "Leer más...",
+    "readLess": "Leer menos",
     "director": "Director",
     "cast": "Reparto",
-    "character": "Personaje",
-    "runtime": "Duración",
     "trailer": "Ver tráiler",
     "share": "Compartir",
     "noPoster": "Póster no disponible",
@@ -144,6 +146,7 @@
     "unknownDirector": "Director desconocido",
     "productionCompanies": "Productoras",
     "originCountry": "País de origen",
+    "originalLanguage": "Idioma original",
     "noTrailer": "Tráiler no disponible"
   },
 
