@@ -1,19 +1,15 @@
-import type { FormEvent } from "react";
+import type { SubmitEvent } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-
-interface MovieSearchProps {
-  value: string;
-  onChange: (value: string) => void;
-  onSearch: () => void;
-}
+import content from "@/data/content.json";
+import type { MovieSearchProps } from "../types/searchService";
 
 export default function MovieSearch({
   value,
   onChange,
   onSearch,
 }: MovieSearchProps) {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSearch();
   };
@@ -31,9 +27,9 @@ export default function MovieSearch({
           type="search"
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          placeholder="Buscar películas..."
-          aria-label="Buscar películas"
-          className="h-12 pl-11"
+          placeholder={content.search.searchLabel}
+          aria-label={content.search.label}
+          className="h-12 pl-11 [&::-webkit-search-cancel-button]:cursor-pointer"
         />
       </div>
     </form>

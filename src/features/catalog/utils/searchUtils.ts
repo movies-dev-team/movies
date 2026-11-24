@@ -1,3 +1,5 @@
+import type { Movie } from "../types/movieService";
+
 export function normalizeSearch(value: string): string {
   return value
     .trim()
@@ -8,4 +10,12 @@ export function normalizeSearch(value: string): string {
 
 export function validateSearch(value: string): boolean {
   return value.length > 0;
+}
+
+export function filterMoviesByTitle(movies: Movie[], query: string): Movie[] {
+  const normalizedQuery = normalizeSearch(query);
+
+  return movies.filter((movie) =>
+    normalizeSearch(movie.title).includes(normalizedQuery),
+  );
 }

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import type { Movie } from "@/features/catalog/types/movieService";
 import MovieCard from "@/shared/components/MovieCard";
@@ -12,6 +13,7 @@ import { toast } from "sonner";
 import { SKELETON_DELAY } from "@/shared/constants/movieConstants";
 import { Skeleton } from "@/components/ui/skeleton";
 import MovieSearch from "../components/MovieSearch";
+import { useMovieSearch } from "../hooks/useMovieSearch";
 
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -21,7 +23,6 @@ export default function CatalogPage() {
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [showSkeleton, setShowSkeleton] = useState(false);
-  const [search, setSearch] = useState("");
 
   const [filters, setFilters] = useState<CatalogFilterValues>({
     genre: "",
@@ -29,6 +30,22 @@ export default function CatalogPage() {
     maxRating: undefined,
     trend: "",
   });
+
+  const {
+    search,
+    setSearch,
+    movies: searchResults,
+    loading: searchLoading,
+    loadingMore: searchLoadingMore,
+    error: searchError,
+    hasSearched,
+    handleSearch,
+    handleLoadMore: handleSearchLoadMore,
+    hasMore: hasMoreSearch,
+    clearSearch,
+  } = useMovieSearch();
+
+  const displayedMovies = hasSearched ? searchResults : movies;
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -61,10 +78,6 @@ export default function CatalogPage() {
     return () => clearTimeout(timeout);
   }, [filters]);
 
-  const handleSearch = () => {
-    console.log("Buscar película:", search);
-  };
-
   const handleLoadMore = async () => {
     try {
       setLoadingMore(true);
@@ -96,16 +109,30 @@ export default function CatalogPage() {
     });
   };
 
+  const handleMovieSearch = () => {
+    if (!search.trim()) {
+      clearSearch();
+      return;
+    }
+
+    handleSearch();
+  };
+
+  const isLoading = hasSearched ? searchLoading : loading;
+  const currentError = hasSearched ? searchError : error;
+
   return (
     <main className="p-4 md:p-6">
       <MovieCarousel />
+
       <div className="flex flex-col gap-6 md:flex-row md:gap-16">
         <aside className="flex w-full flex-col gap-6 md:mt-10 md:w-72 md:shrink-0 lg:w-80">
           <MovieSearch
             value={search}
             onChange={setSearch}
-            onSearch={handleSearch}
+            onSearch={handleMovieSearch}
           />
+
           <CatalogFilters
             selectedGenre={filters.genre}
             onGenreChange={(values) =>
@@ -135,9 +162,12 @@ export default function CatalogPage() {
         </aside>
 
         <section className="min-w-0 flex-1">
-          <h1 className="mb-3 text-xl md:text-2xl">{content.catalog.title}</h1>
-          {loading ? (
-            showSkeleton ? (
+          <h1 className="mb-3 text-xl md:text-2xl">
+            {content.catalog.title}
+          </h1>
+
+          {isLoading ? (
+            !hasSearched && !showSkeleton ? null : (
               <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
                 {Array.from({ length: 10 }).map((_, index) => (
                   <li key={index} className="min-w-0">
@@ -145,31 +175,44 @@ export default function CatalogPage() {
                   </li>
                 ))}
               </ul>
-            ) : null
-          ) : error ? (
-            <ErrorMessage message={error} />
-          ) : movies.length === 0 ? (
+            )
+          ) : currentError ? (
+            <ErrorMessage message={currentError} />
+          ) : displayedMovies.length === 0 ? (
             <p role="status">{content.filters.noResults}</p>
           ) : (
             <>
               <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
-                {movies.map((movie) => (
+                {displayedMovies.map((movie) => (
                   <li key={movie.id} className="min-w-0">
                     <MovieCard movie={movie} />
                   </li>
                 ))}
               </ul>
 
-              <button
-                type="button"
-                className="mt-6 cursor-pointer text-sm font-semibold text-brand-light hover:underline disabled:opacity-50"
-                onClick={handleLoadMore}
-                disabled={loadingMore}
-              >
-                {loadingMore
-                  ? content.loading.loadingMore
-                  : content.loading.loadMore}
-              </button>
+              {!hasSearched ? (
+                <button
+                  type="button"
+                  className="mt-6 cursor-pointer text-sm font-semibold text-brand-light hover:underline disabled:opacity-50"
+                  onClick={handleLoadMore}
+                  disabled={loadingMore}
+                >
+                  {loadingMore
+                    ? content.loading.loadingMore
+                    : content.loading.loadMore}
+                </button>
+              ) : hasMoreSearch ? (
+                <button
+                  type="button"
+                  className="mt-6 cursor-pointer text-sm font-semibold text-brand-light hover:underline disabled:opacity-50"
+                  onClick={handleSearchLoadMore}
+                  disabled={searchLoadingMore}
+                >
+                  {searchLoadingMore
+                    ? content.loading.loadingMore
+                    : content.loading.loadMore}
+                </button>
+              ) : null}
             </>
           )}
         </section>

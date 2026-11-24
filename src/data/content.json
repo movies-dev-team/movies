@@ -154,5 +154,10 @@
     "viewDetails": "Ver detalles",
     "slideLabel": "{current} de {total}",
     "loading": "Cargando estrenos…"
+  },
+
+  "search": {
+    "searchLabel": "Buscar películas...",
+    "label": "Buscar películas"
   }
 }
