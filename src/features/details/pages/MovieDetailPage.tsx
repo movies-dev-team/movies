@@ -5,13 +5,13 @@ import { getMovieDetail } from "../services/movieDetailService";
 import MovieTrailer from "../components/MovieTrailer";
 import content from "@/data/content.json";
 import { MAX_VISIBLE_GENRES, MAX_VISIBLE_CAST } from '../../../shared/constants/movieConstants'
-import { Star, UserRound } from 'lucide-react'
+import { Star, UserRound, ArrowLeft } from 'lucide-react'
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import FavoriteButton from "@/shared/components/FavoriteButton";
 import MovieRatingControl from "../components/MovieRatingControl";
-import MovieInfoCard from "../components/MovieInfoCard"
-import { Card } from "@/components/ui/card"
+import MovieInfoCard from "../components/MovieInfoCard";
+import { Card } from "@/components/ui/card";
 
 
 export default function MovieDetailPage() {
@@ -41,7 +41,6 @@ export default function MovieDetailPage() {
         }
 
         const data = await getMovieDetail(movieId);
-        console.log('Detalle:', data)
         
         if (!ignore) {
           setMovie(data);
@@ -80,6 +79,17 @@ export default function MovieDetailPage() {
   
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
+      <Link
+        to="/app"
+        className="mb-4 inline-flex items-center gap-2
+          text-sm font-medium text-brand-light
+          transition-colors hover:text-white
+          focus-visible:outline-2
+          focus-visible:outline-brand-light"
+      >
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        {content.navigation.backToCatalog}
+      </Link>
       <section className="grid grid-cols-[120px_minmax(0,1fr)] gap-4 md:grid-cols-2 md:gap-6">
         <Card className="relative w-full min-w-0 gap-0 overflow-hidden p-0">
           {movie.poster_path && (
@@ -160,6 +170,7 @@ export default function MovieDetailPage() {
                 <Link
                   className="block"
                   to={`/app/actor/${actor.id}`}
+                  state={{ fromMovieId: movie.id }}
                 >
                   {actor.profile_path ? (
                   <img

@@ -32,6 +32,7 @@ export default function MovieInfoCard({movie}: MovieInfoCardProps) {
             focus-visible:outline-2 
             focus-visible:outline-brand-light"
             to={`/app/director/${director.id}`}
+            state={{ fromMovieId: movie.id }}
           >
             {director.name}
           </Link>) : content.movieDetail.unknownDirector}

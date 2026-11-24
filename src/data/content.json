@@ -2,6 +2,8 @@
   "navigation": {
     "catalog": "Catálogo",
     "favorites": "Favoritos",
+    "backToCatalog": "Volver al catálogo",
+    "backToMovieDetail": "Volver a la película",
     "profile": {
       "label": "Mi perfil",
       "information": "Mi perfil",
@@ -160,8 +162,7 @@
     "filmography": "Filmografía",
     "actorNotFound": "Actor/Actriz no encontrado/a",
     "directorNotFound": "Director/a no encontrado/a",
-    "moviesNotAvailable":"No hay películas disponibles.",
-    "error": "Error cargando datos"
+    "moviesNotAvailable":"No hay películas disponibles."
   },
 
   "carousel": {
