@@ -8,11 +8,18 @@ import type { CatalogFilterValues } from "../types/CatalogFilters";
 import CatalogFilters from "../components/CatalogFilters";
 import { getMovies } from "../services/movieService";
 import MovieCarousel from "../components/MovieCarousel";
+import { toast } from "sonner";
+import { SKELETON_DELAY } from "@/shared/constants/movieConstants";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [page, setPage] = useState(1);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [showSkeleton, setShowSkeleton] = useState(false);
 
   const [filters, setFilters] = useState<CatalogFilterValues>({
     genre: "",
@@ -22,23 +29,58 @@ export default function CatalogPage() {
   });
 
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+
     async function loadMovies() {
       try {
         setLoading(true);
+        setShowSkeleton(false);
         setError(null);
+
+        timeout = setTimeout(() => {
+          setShowSkeleton(true);
+        }, SKELETON_DELAY);
 
         const data = await getMovies(filters);
 
         setMovies(data.results);
+        setPage(1);
       } catch (error) {
         setError(getApiErrorMessage(error));
       } finally {
+        clearTimeout(timeout);
         setLoading(false);
+        setShowSkeleton(false);
       }
     }
 
     loadMovies();
+
+    return () => clearTimeout(timeout);
   }, [filters]);
+
+  const handleLoadMore = async () => {
+    try {
+      setLoadingMore(true);
+      setError(null);
+
+      const nextPage = page + 1;
+      const data = await getMovies(filters, nextPage);
+
+      if (data.results.length === 0) {
+        toast.info(content.loading.noMoreMovies);
+        return;
+      }
+
+      setMovies((prev) => [...prev, ...data.results]);
+      setPage(nextPage);
+    } catch (error) {
+      setError(getApiErrorMessage(error));
+    } finally {
+      setLoadingMore(false);
+    }
+  };
+
   const handleReset = () => {
     setFilters({
       genre: "",
@@ -83,19 +125,40 @@ export default function CatalogPage() {
           <h1 className="mb-3 text-xl md:text-2xl">{content.catalog.title}</h1>
 
           {loading ? (
-            <p>{content.loading.generic}</p>
+            showSkeleton ? (
+              <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <li key={index} className="min-w-0">
+                    <Skeleton className="aspect-3/4 w-full rounded-xl" />
+                  </li>
+                ))}
+              </ul>
+            ) : null
           ) : error ? (
             <ErrorMessage message={error} />
           ) : movies.length === 0 ? (
             <p role="status">{content.filters.noResults}</p>
           ) : (
-            <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
-              {movies.map((movie) => (
-                <li key={movie.id} className="min-w-0">
-                  <MovieCard movie={movie} />
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
+                {movies.map((movie) => (
+                  <li key={movie.id} className="min-w-0">
+                    <MovieCard movie={movie} />
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                type="button"
+                className="mt-6 cursor-pointer text-sm font-semibold text-brand-light hover:underline disabled:opacity-50"
+                onClick={handleLoadMore}
+                disabled={loadingMore}
+              >
+                {loadingMore
+                  ? content.loading.loadingMore
+                  : content.loading.loadMore}
+              </button>
+            </>
           )}
         </section>
       </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Star } from "lucide-react";
+import content from "@/data/content.json"
 
 interface MovieRatingProps {
   rating: number;
@@ -42,7 +43,7 @@ export default function MovieRating({ rating, onChange }: MovieRatingProps) {
       </div>
 
       <span className="whitespace-nowrap text-sm text-gray-300">
-        Tu puntuación
+        {content.ratings.label}
       </span>
     </div>
   );

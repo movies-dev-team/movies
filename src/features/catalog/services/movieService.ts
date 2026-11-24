@@ -17,19 +17,19 @@ async function getData(endpoint: string, params = {}, page: number = 1) {
   });
   return response.data;
 }
-
 export function getTrendingMovies(
   period: "day" | "week",
+  page: number = 1,
 ): Promise<MoviesResponse> {
-  return getData(`trending/movie/${period}`);
+  return getData(`trending/movie/${period}`, {}, page);
 }
 
 export async function getMovies(
   filters: CatalogFilterValues,
+  page: number = 1,
 ): Promise<MoviesResponse> {
   if (filters.trend) {
-    const data = await getTrendingMovies(filters.trend);
-
+    const data = await getTrendingMovies(filters.trend, page);
     const filteredMovies = data.results.filter((movie) => {
       const matchesGenre =
         !filters.genre || movie.genre_ids.includes(Number(filters.genre));
@@ -59,7 +59,7 @@ export async function getMovies(
     params["vote_average.lte"] = filters.maxRating;
   }
 
-  return getData("discover/movie", params);
+  return getData("discover/movie", params, page);
 }
 
 export async function getMovieGenres(): Promise<

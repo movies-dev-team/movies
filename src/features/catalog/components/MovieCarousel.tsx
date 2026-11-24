@@ -120,7 +120,7 @@ export default function MovieCarousel() {
           type="button"
           onClick={previousMovie}
           aria-label={content.carousel.previous}
-          className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-brand-primary/70 p-1.5 text-white hover:bg-brand-primary md:left-4 md:p-2"
+          className="absolute left-2 top-1/2 z-20 -translate-y-1/2 cursor-pointer rounded-full bg-brand-primary/70 p-1.5 text-white hover:bg-brand-primary md:left-4 md:p-2"
         >
           <ChevronLeft className="size-5 md:size-6" />
         </button>
@@ -131,7 +131,7 @@ export default function MovieCarousel() {
           type="button"
           onClick={nextMovie}
           aria-label={content.carousel.next}
-          className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-brand-primary/70 p-1.5 text-white hover:bg-brand-primary md:right-4 md:p-2"
+          className="absolute right-2 top-1/2 z-20 -translate-y-1/2 cursor-pointer rounded-full bg-brand-primary/70 p-1.5 text-white hover:bg-brand-primary md:right-4 md:p-2"
         >
           <ChevronRight className="size-5 md:size-6" />
         </button>
