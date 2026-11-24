@@ -2,6 +2,7 @@ import { UserRound, Heart } from "lucide-react"
 import { useProfile } from "./hooks/useProfile"
 import { useFavoritesContext } from "@/features/favorites/hooks/useFavoritesContext"
 import content from "@/data/content.json"
+import { Link } from "react-router"
 
 export default function ProfilePage() {
   const { profile, loading, error } = useProfile()
@@ -59,9 +60,11 @@ export default function ProfilePage() {
               </span>
             )}
 
-            <p className="text-sm text-gray-300 sm:text-base">
-              {content.profile.favoritesCount}
-            </p>
+            <Link
+                to="/app/favorites"
+                className="text-sm text-gray-300 transition-colors hover:text-purple-400 hover:underline sm:text-base">
+                {content.profile.favoritesCount}
+              </Link>
           </div>
         </div>
       )}
