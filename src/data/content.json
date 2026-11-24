@@ -135,6 +135,13 @@
     "invalidRating": "La puntuación debe estar entre 1 y 10",
     "starLabel": "Puntuar con {value} de 10"
   },
+"profile": {
+  "loading": "Cargando tu perfil...",
+  "loadError": "No se ha podido cargar tu perfil. Inténtalo de nuevo.",
+  "favoritesCount": "Películas favoritas",
+  "usernameUnavailable": "Nombre de usuario no disponible",
+  "emailUnavailable": "Correo electrónico no disponible"
+},
 
   "movieDetail": {
     "releaseDate": "Estreno",

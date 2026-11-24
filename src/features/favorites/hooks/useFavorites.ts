@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getFavorites, addFavorite, removeFavorite } from "../services/favoritesService";
+import content from "@/data/content.json";
 
 export function useFavorites() {
   const [favorites, setFavorites] = useState<number[]>([]);
@@ -17,11 +18,9 @@ export function useFavorites() {
         if (active) {
           setFavorites(data.map((favorite) => favorite.movie_id));
         }
-      } catch (err) {
+      } catch {
         if (active) {
-          setError(
-            err instanceof Error ? err.message : "Error al cargar favoritos"
-          );
+          setError(content.favorites.loadError);
         }
       } finally {
         if (active) {
@@ -47,8 +46,10 @@ export function useFavorites() {
     setUpdatingIds((prev) => [...prev, movieId]);
     setError(null);
 
+    const wasFavorite = isFavorite(movieId);
+
     try {
-      if (isFavorite(movieId)) {
+      if (wasFavorite) {
         await removeFavorite(movieId);
         setFavorites((prev) => prev.filter((id) => id !== movieId));
       } else {
@@ -57,9 +58,11 @@ export function useFavorites() {
       }
 
       return true;
-    } catch (err) {
+    } catch {
       setError(
-        err instanceof Error ? err.message : "Error al actualizar favoritos"
+        wasFavorite
+          ? content.favorites.removeError
+          : content.favorites.addError
       );
 
       return false;
