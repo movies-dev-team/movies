@@ -1,19 +1,16 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
+import MovieHeader from "../components/MovieHeader";
+import MovieOverview from "../components/MovieOverview";
+import MovieInfoCard from "../components/MovieInfoCard";
+import MovieCast from "../components/MovieCast";
+import MovieTrailer from "../components/MovieTrailer";
+import ErrorMessage from "@/shared/components/ErrorMessage";
 import type { MovieDetail } from "../types/movieDetail";
 import { getMovieDetail } from "../services/movieDetailService";
-import MovieTrailer from "../components/MovieTrailer";
-import MovieCast from "../components/MovieCast";
-import MovieOverview from "../components/MovieOverview";
-import content from "@/data/content.json";
-import { MAX_VISIBLE_GENRES } from '../../../shared/constants/movieConstants'
-import { Star, ArrowLeft } from 'lucide-react'
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
-import ErrorMessage from "@/shared/components/ErrorMessage";
-import FavoriteButton from "@/shared/components/FavoriteButton";
-import MovieRatingControl from "../components/MovieRatingControl";
-import MovieInfoCard from "../components/MovieInfoCard";
-import { Card } from "@/components/ui/card";
+import content from "@/data/content.json";
+import { ArrowLeft } from "lucide-react";
 
 export default function MovieDetailPage() {
 
@@ -70,11 +67,6 @@ export default function MovieDetailPage() {
     return <ErrorMessage message={content.errors.notFound} />;
   }
 
-  const actors = movie.credits.cast;
-  const runtime = movie.runtime ?? 0;
-  const hours = Math.floor((runtime) / 60 );
-  const minutes = runtime % 60;
-  
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
       <Link
@@ -86,59 +78,15 @@ export default function MovieDetailPage() {
           focus-visible:outline-brand-light"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-        {content.navigation.backToCatalog}
+          {content.navigation.backToCatalog}
       </Link>
-      <section className="grid grid-cols-[120px_minmax(0,1fr)] gap-4 md:grid-cols-2 md:gap-6">
-        <Card className="relative w-full min-w-0 gap-0 overflow-hidden p-0">
-          {movie.poster_path && (
-          <img
-            className="aspect-2/3 w-full rounded-xl object-cover"
-            src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-            alt={`Póster de la película ${movie.original_title}`}
-          />
-          )}
-          <div className="absolute right-2 top-2 z-10">
-            <FavoriteButton movieId={movie.id} />
-          </div>
-        </Card>
-        <div className="min-w-0">
-          <div className="flex items-start justify-between gap-3">
-            <h1 className="text-xl font-bold leading-tight tracking-tight md:text-4xl">
-                {movie.title}
-            </h1>
-          </div> 
-          {runtime > 0 && (
-            <p>
-              {hours}h {minutes}min
-            </p>
-          )}
-          {movie.vote_average > 0 ? ( 
-          <div className="flex items-center gap-2">
-            <Star className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-            <p>{movie.vote_average.toFixed(1)}
-              <span className="text-text-secondary"> 
-                / 10
-              </span>
-            </p>
-          </div>
-          ) : ( <p>{content.movieDetail.noRating}</p> 
-          )}
-          {movie.genres.length > 0 && (
-            <p className="mt-2 text-sm text-text-secondary">
-              {movie.genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => genre.name).join(" · ")}
-            </p>
-          )}
-          <div className="mt-4">
-            <MovieRatingControl movieId={movie.id} />
-          </div>
-        </div>
-      </section>
+      <MovieHeader movie={movie} />
       <MovieOverview key={movie.id} overview={movie.overview} />
       <div className="mt-3">
         <MovieInfoCard movie={movie} />
       </div>
-      <MovieCast actors={actors} movieId={movie.id} />
-      <MovieTrailer movieId={movieId} />
+      <MovieCast actors={movie.credits.cast} movieId={movie.id} />
+      <MovieTrailer movieId={movie.id} />
     </div> 
   )
 }
