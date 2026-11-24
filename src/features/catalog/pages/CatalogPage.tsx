@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import type { Movie } from "@/features/catalog/types/movieService";
 import MovieCard from "@/shared/components/MovieCard";
@@ -14,6 +13,7 @@ import { SKELETON_DELAY } from "@/shared/constants/movieConstants";
 import { Skeleton } from "@/components/ui/skeleton";
 import MovieSearch from "../components/MovieSearch";
 import { useMovieSearch } from "../hooks/useMovieSearch";
+import { filterSearchResults } from "../utils/searchUtils";
 
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -45,9 +45,13 @@ export default function CatalogPage() {
     clearSearch,
   } = useMovieSearch();
 
-  const displayedMovies = hasSearched ? searchResults : movies;
+  const displayedMovies = hasSearched
+    ? filterSearchResults(searchResults, filters)
+    : movies;
 
   useEffect(() => {
+    if (hasSearched) return;
+
     let timeout: ReturnType<typeof setTimeout>;
 
     async function loadMovies() {
@@ -76,7 +80,7 @@ export default function CatalogPage() {
     loadMovies();
 
     return () => clearTimeout(timeout);
-  }, [filters]);
+  }, [filters, hasSearched]);
 
   const handleLoadMore = async () => {
     try {
@@ -162,9 +166,7 @@ export default function CatalogPage() {
         </aside>
 
         <section className="min-w-0 flex-1">
-          <h1 className="mb-3 text-xl md:text-2xl">
-            {content.catalog.title}
-          </h1>
+          <h1 className="mb-3 text-xl md:text-2xl">{content.catalog.title}</h1>
 
           {isLoading ? (
             !hasSearched && !showSkeleton ? null : (
