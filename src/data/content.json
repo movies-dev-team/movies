@@ -195,5 +195,15 @@
     "viewDetails": "Ver detalles",
     "slideLabel": "{current} de {total}",
     "loading": "Cargando estrenos…"
-  }
+  },
+  "footer": {
+  "brand": "CINÉA",
+  "description": "Descubre, valora y colecciona tus películas favoritas.",
+  "provider": {
+    "name": "TMDB",
+    "description": "Datos de películas de TMDB."
+  },
+  "copyright": "CINÉA",
+  "credits": "Hecho con pasión por el cine 🎬"
+}
 }
