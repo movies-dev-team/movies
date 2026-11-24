@@ -1,12 +1,16 @@
 import { supabase } from "@/lib/supabaseClient"
 
-export async function registerUser(email: string, password: string) {
+export async function registerUser(email: string, password: string, username: string) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        username,
+      },
+    },
   })
- console.log("Data:", data)
-  console.log("Error:", error)
+
   if (error) {
     throw error
   }

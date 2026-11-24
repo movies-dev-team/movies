@@ -52,7 +52,7 @@ function RegisterForm() {
     setIsLoading(true)
 
     try {
-      const { session } = await registerUser(email.trim(), password)
+      const { session } = await registerUser(email.trim(), password,username.trim())
 
       if (!session) {
         setError("No se ha podido iniciar sesión después del registro")
