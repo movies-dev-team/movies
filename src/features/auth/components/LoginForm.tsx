@@ -2,7 +2,8 @@ import { useState } from "react"
 import type { SubmitEvent } from "react"
 import { Link, useNavigate } from "react-router"
 import { loginUser } from "../services/authService"
-import {validateEmail,validatePassword,} from "./authValidation"
+import { validateEmail, validatePassword } from "./authValidation"
+import content from "@/data/content.json"
 
 function LoginForm() {
   const [email, setEmail] = useState("")
@@ -36,12 +37,8 @@ function LoginForm() {
     try {
       await loginUser(email.trim(), password)
       navigate("/app")
-    } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Error al iniciar sesión"
-      )
+    } catch {
+      setError(content.auth.messages.loginError)
     } finally {
       setIsLoading(false)
     }
@@ -51,7 +48,7 @@ function LoginForm() {
     <section className="mx-auto w-full max-w-90 rounded-2xl border border-white/15 bg-slate-950/80 px-5 py-4 shadow-2xl backdrop-blur-xl lg:ml-auto lg:max-w-md lg:p-8">
 
       <h2 className="mb-3 text-center text-xl font-bold lg:mb-6 lg:text-left lg:text-3xl">
-        Inicia sesión
+        {content.auth.login.title}
       </h2>
 
       <form
@@ -62,7 +59,7 @@ function LoginForm() {
 
         <div>
           <label htmlFor="email" className="sr-only">
-            Correo electrónico
+            {content.auth.emailLabel}
           </label>
 
           <div className="flex h-10 items-center gap-2.5 rounded-lg bg-white/10 px-3 focus-within:ring-2 focus-within:ring-purple-500 lg:h-14 lg:rounded-xl lg:px-4">
@@ -91,7 +88,7 @@ function LoginForm() {
             <input
               id="email"
               type="email"
-              placeholder="Correo electrónico"
+              placeholder={content.auth.emailLabel}
               autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
@@ -103,7 +100,7 @@ function LoginForm() {
 
         <div>
           <label htmlFor="password" className="sr-only">
-            Contraseña
+            {content.auth.passwordLabel}
           </label>
 
           <div className="flex h-10 items-center gap-2.5 rounded-lg bg-white/10 px-3 focus-within:ring-2 focus-within:ring-purple-500 lg:h-14 lg:rounded-xl lg:px-4">
@@ -132,7 +129,7 @@ function LoginForm() {
             <input
               id="password"
               type={showPassword ? "text" : "password"}
-              placeholder="Contraseña"
+              placeholder={content.auth.passwordLabel}
               autoComplete="current-password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
@@ -145,8 +142,8 @@ function LoginForm() {
               onClick={() => setShowPassword((prev) => !prev)}
               aria-label={
                 showPassword
-                  ? "Ocultar contraseña"
-                  : "Mostrar contraseña"
+                  ? content.auth.accessibility.hidePassword
+                  : content.auth.accessibility.showPassword
               }
               aria-pressed={showPassword}
               className="shrink-0 text-gray-300 transition hover:text-white"
@@ -192,7 +189,9 @@ function LoginForm() {
           disabled={isLoading}
           className="mt-2 h-11 w-full rounded-lg bg-linear-to-r from-purple-700 to-purple-600 text-sm font-bold text-white shadow-lg transition hover:from-purple-600 hover:to-purple-500 disabled:cursor-not-allowed disabled:opacity-60 lg:mt-4 lg:h-14 lg:rounded-xl lg:text-lg"
         >
-          {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
+          {isLoading
+            ? content.auth.login.loading
+            : content.auth.login.button}
         </button>
 
       </form>
@@ -204,12 +203,12 @@ function LoginForm() {
       </div>
 
       <p className="text-center text-xs text-gray-200 lg:text-base">
-        ¿No tienes cuenta?{" "}
+        {content.auth.login.accountText}{" "}
         <Link
           to="/register"
           className="font-semibold text-purple-400 transition hover:text-purple-300"
         >
-          Regístrate
+          {content.auth.login.accountLink}
         </Link>
       </p>
 
