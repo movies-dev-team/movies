@@ -22,7 +22,7 @@ export default function MovieSearch({
     <form onSubmit={handleSubmit} className="w-full">
       <div className="relative">
         <Search
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+          className="absolute left-4 top-1/2 -translate-y-1/2  text-muted-foreground"
           size={18}
           aria-hidden="true"
         />
