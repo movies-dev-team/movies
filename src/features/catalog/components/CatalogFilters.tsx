@@ -43,7 +43,7 @@ export default function CatalogFilters({
   }, []);
 
   return (
-    <aside className="w-full shrink-0 md:mt-10 md:w-72 lg:w-80">
+    <aside className="w-full shrink-0 md:mt-0 md:w-full">
       <div className="rounded-xl border border-border/30 bg-card/40 p-5 md:p-6 shadow-none">
         <div className="mb-1 flex items-center justify-between md:mb-4">
           <div className="flex items-center gap-1">

@@ -11,6 +11,7 @@ import MovieCarousel from "../components/MovieCarousel";
 import { toast } from "sonner";
 import { SKELETON_DELAY } from "@/shared/constants/movieConstants";
 import { Skeleton } from "@/components/ui/skeleton";
+import MovieSearch from "../components/MovieSearch";
 
 export default function CatalogPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -20,6 +21,7 @@ export default function CatalogPage() {
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [showSkeleton, setShowSkeleton] = useState(false);
+  const [search, setSearch] = useState("");
 
   const [filters, setFilters] = useState<CatalogFilterValues>({
     genre: "",
@@ -59,6 +61,10 @@ export default function CatalogPage() {
     return () => clearTimeout(timeout);
   }, [filters]);
 
+  const handleSearch = () => {
+    console.log("Buscar película:", search);
+  };
+
   const handleLoadMore = async () => {
     try {
       setLoadingMore(true);
@@ -93,37 +99,43 @@ export default function CatalogPage() {
   return (
     <main className="p-4 md:p-6">
       <MovieCarousel />
-      <div className="flex flex-col gap-6 md:flex-row md:gap-10">
-        <CatalogFilters
-          selectedGenre={filters.genre}
-          onGenreChange={(values) =>
-            setFilters((prev) => ({
-              ...prev,
-              genre: values[0] ?? "",
-            }))
-          }
-          selectedMinRating={filters.minRating}
-          selectedMaxRating={filters.maxRating}
-          onRatingChange={(min, max) =>
-            setFilters((prev) => ({
-              ...prev,
-              minRating: min,
-              maxRating: max,
-            }))
-          }
-          selectedPeriod={filters.trend}
-          onTrendChange={(period) =>
-            setFilters((prev) => ({
-              ...prev,
-              trend: period,
-            }))
-          }
-          onReset={handleReset}
-        />
+      <div className="flex flex-col gap-6 md:flex-row md:gap-16">
+        <aside className="flex w-full flex-col gap-6 md:mt-10 md:w-72 md:shrink-0 lg:w-80">
+          <MovieSearch
+            value={search}
+            onChange={setSearch}
+            onSearch={handleSearch}
+          />
+          <CatalogFilters
+            selectedGenre={filters.genre}
+            onGenreChange={(values) =>
+              setFilters((prev) => ({
+                ...prev,
+                genre: values[0] ?? "",
+              }))
+            }
+            selectedMinRating={filters.minRating}
+            selectedMaxRating={filters.maxRating}
+            onRatingChange={(min, max) =>
+              setFilters((prev) => ({
+                ...prev,
+                minRating: min,
+                maxRating: max,
+              }))
+            }
+            selectedPeriod={filters.trend}
+            onTrendChange={(period) =>
+              setFilters((prev) => ({
+                ...prev,
+                trend: period,
+              }))
+            }
+            onReset={handleReset}
+          />
+        </aside>
 
         <section className="min-w-0 flex-1">
           <h1 className="mb-3 text-xl md:text-2xl">{content.catalog.title}</h1>
-
           {loading ? (
             showSkeleton ? (
               <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
