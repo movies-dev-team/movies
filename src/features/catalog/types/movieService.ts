@@ -10,19 +10,14 @@ export interface Movie {
   backdrop_path: string | null;
 }
 
+export interface MovieGenre {
+  id: number;
+  name: string;
+}
+
 export interface MoviesResponse {
   results: Movie[];
   page: number;
   total_pages: number;
   total_results: number;
-}
-
-export interface MovieGenre {
-  id: number;
-  name: string;
-}
-export interface MovieBackdrop {
-  file_path: string;
-  width: number;
-  height: number;
 }

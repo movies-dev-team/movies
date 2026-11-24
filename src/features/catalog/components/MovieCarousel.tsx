@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import type { Movie, MovieBackdrop } from "@/shared/types/movie";
+import type { Movie } from "@/features/catalog/types/movieService";
+import type { MovieBackdrop } from "@/features/catalog/types/movieCarouselService";
+
 import { getImageUrl } from "@/shared/utils/getImageUrl";
 import content from "@/data/content.json";
 
 import {
   getNowPlayingMovies,
   getMovieBackdropImages,
-} from "@/features/catalog/services/movieService";
+} from "@/features/catalog/services/movieCarouselService";
 
 const MAX_SLIDES = 5;
 

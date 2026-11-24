@@ -1,4 +1,4 @@
-import type { Movie } from "../types/movie";
+import type { Movie } from "../../features/catalog/types/movieService";
 import {
   Card,
   CardTitle,

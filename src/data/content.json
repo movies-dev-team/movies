@@ -65,44 +65,44 @@
     "passwordLabel": "Contraseña",
 
     "login": {
-  "title": "Inicia sesión",
-  "button": "Iniciar sesión",
-  "loading": "Iniciando sesión...",
-  "accountText": "¿No tienes una cuenta?",
-  "accountLink": "Regístrate"
-},
+      "title": "Inicia sesión",
+      "button": "Iniciar sesión",
+      "loading": "Iniciando sesión...",
+      "accountText": "¿No tienes una cuenta?",
+      "accountLink": "Regístrate"
+    },
 
     "register": {
-  "title": "Crea tu cuenta",
-  "usernameLabel": "Nombre de usuario",
-  "confirmPasswordLabel": "Confirmar contraseña",
-  "button": "Crear cuenta",
-  "loading": "Creando cuenta...",
-  "accountText": "¿Ya tienes una cuenta?",
-  "accountLink": "Inicia sesión"
-},
-"messages": {
-  "unauthenticated": "Usuario no autenticado",
-  "loginError": "Error al iniciar sesión",
-  "registerError": "Error al registrar el usuario",
-  "logoutError": "Error al cerrar sesión",
-  "usernameTaken": "Este nombre de usuario ya está en uso",
-  "usernameRequired": "Introduce un nombre de usuario",
-  "sessionError": "No se ha podido iniciar sesión después del registro"
-},
-"accessibility": {
-  "showPassword": "Mostrar contraseña",
-  "hidePassword": "Ocultar contraseña",
-  "showConfirmPassword": "Mostrar confirmación de contraseña",
-  "hideConfirmPassword": "Ocultar confirmación de contraseña"
-},
-"validation": {
-  "emailRequired": "El correo electrónico es obligatorio",
-  "invalidEmail": "Introduce un correo electrónico válido",
-  "passwordRequired": "La contraseña es obligatoria",
-  "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
-  "passwordMismatch": "Las contraseñas no coinciden"
-}
+      "title": "Crea tu cuenta",
+      "usernameLabel": "Nombre de usuario",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "button": "Crear cuenta",
+      "loading": "Creando cuenta...",
+      "accountText": "¿Ya tienes una cuenta?",
+      "accountLink": "Inicia sesión"
+    },
+    "messages": {
+      "unauthenticated": "Usuario no autenticado",
+      "loginError": "Error al iniciar sesión",
+      "registerError": "Error al registrar el usuario",
+      "logoutError": "Error al cerrar sesión",
+      "usernameTaken": "Este nombre de usuario ya está en uso",
+      "usernameRequired": "Introduce un nombre de usuario",
+      "sessionError": "No se ha podido iniciar sesión después del registro"
+    },
+    "accessibility": {
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
+      "showConfirmPassword": "Mostrar confirmación de contraseña",
+      "hideConfirmPassword": "Ocultar confirmación de contraseña"
+    },
+    "validation": {
+      "emailRequired": "El correo electrónico es obligatorio",
+      "invalidEmail": "Introduce un correo electrónico válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+      "passwordMismatch": "Las contraseñas no coinciden"
+    }
   },
 
   "catalog": {
@@ -153,13 +153,13 @@
     "invalidRating": "La puntuación debe estar entre 1 y 10",
     "starLabel": "Puntuar con {value} de 10"
   },
-"profile": {
-  "loading": "Cargando tu perfil...",
-  "loadError": "No se ha podido cargar tu perfil. Inténtalo de nuevo.",
-  "favoritesCount": "Películas favoritas",
-  "usernameUnavailable": "Nombre de usuario no disponible",
-  "emailUnavailable": "Correo electrónico no disponible"
-},
+  "profile": {
+    "loading": "Cargando tu perfil...",
+    "loadError": "No se ha podido cargar tu perfil. Inténtalo de nuevo.",
+    "favoritesCount": "Películas favoritas",
+    "usernameUnavailable": "Nombre de usuario no disponible",
+    "emailUnavailable": "Correo electrónico no disponible"
+  },
 
   "movieDetail": {
     "releaseDate": "Estreno",
@@ -185,7 +185,7 @@
     "filmography": "Filmografía",
     "actorNotFound": "Actor/Actriz no encontrado/a",
     "directorNotFound": "Director/a no encontrado/a",
-    "moviesNotAvailable":"No hay películas disponibles."
+    "moviesNotAvailable": "No hay películas disponibles."
   },
 
   "carousel": {
@@ -196,14 +196,19 @@
     "slideLabel": "{current} de {total}",
     "loading": "Cargando estrenos…"
   },
-  "footer": {
-  "brand": "CINÉA",
-  "description": "Descubre, valora y colecciona tus películas favoritas.",
-  "provider": {
-    "name": "TMDB",
-    "description": "Datos de películas de TMDB."
+  "search": {
+    "searchLabel": "Buscar películas...",
+    "label": "Buscar películas"
   },
-  "copyright": "CINÉA",
-  "credits": "Hecho con pasión por el cine 🎬"
-}
+
+  "footer": {
+    "brand": "CINÉA",
+    "description": "Descubre, valora y colecciona tus películas favoritas.",
+    "provider": {
+      "name": "TMDB",
+      "description": "Datos de películas de TMDB."
+    },
+    "copyright": "CINÉA",
+    "credits": "Hecho con pasión por el cine 🎬"
+  }
 }

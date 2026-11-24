@@ -1,5 +1,5 @@
 import { SlidersHorizontal, RotateCcw } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -7,7 +7,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import content from "@/data/content.json";
-import { useState } from "react";
 import FilterGenres from "./FilterGenres";
 import FilterRating from "./FilterRating";
 import FilterTrending from "./FilterTrending";
@@ -36,19 +35,20 @@ export default function CatalogFilters({
         setOpenFilter(null);
       }
     }
+
     document.addEventListener("pointerdown", handleClickOutside);
+
     return () => {
       document.removeEventListener("pointerdown", handleClickOutside);
     };
   }, []);
 
   return (
-    <aside className="w-full shrink-0 md:mt-10 md:w-72 lg:w-80">
-      <div className="rounded-xl border border-border/30 bg-card/40 p-5 md:p-6 shadow-none">
-        <div className="mb-1 flex items-center justify-between md:mb-4">
-          <div className="flex items-center gap-1">
-            <SlidersHorizontal className="size-6 text-brand-light" />
-          </div>
+    <aside className="w-full shrink-0 md:mt-0 md:w-full">
+      <div className="rounded-xl border border-border/30 bg-card/40 p-5 shadow-none md:p-6">
+        <div className="mb-4 hidden items-center justify-between md:flex">
+          <SlidersHorizontal className="size-6 text-brand-light" />
+
           <Tooltip>
             <TooltipTrigger
               render={
@@ -58,24 +58,19 @@ export default function CatalogFilters({
                   size="icon"
                   aria-label={content.filters.restoreFilters}
                   onClick={onReset}
-                  className="text-muted-foreground transition-all duration-90 hover:scale-90 hover:bg-brand-primary/5 hover:text-brand-light hover:shadow-[0_0_4px_var(--color-brand-primary)]"
+                  className="text-muted-foreground hover:text-brand-light"
                 >
                   <RotateCcw className="size-5" />
                 </Button>
               }
             />
-
-            <TooltipContent
-              side="top"
-              className="border border-border/40 bg-card text-foreground shadow-md"
-            >
-              {content.filters.restoreFilters}
-            </TooltipContent>
+            <TooltipContent>{content.filters.restoreFilters}</TooltipContent>
           </Tooltip>
         </div>
+
         <div
           ref={filtersRef}
-          className="grid grid-cols-3 items-start gap-2 md:grid-cols-1 md:gap-4"
+          className="flex items-center gap-2 md:flex-col md:items-stretch md:gap-4"
         >
           <FilterGenres
             selectedGenres={selectedGenre ? [selectedGenre] : []}
@@ -104,6 +99,26 @@ export default function CatalogFilters({
               setOpenFilter(openFilter === "trending" ? null : "trending")
             }
           />
+
+          <div className="md:hidden">
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label={content.filters.restoreFilters}
+                    onClick={onReset}
+                    className="text-muted-foreground hover:text-brand-light"
+                  >
+                    <RotateCcw className="size-5" />
+                  </Button>
+                }
+              />
+              <TooltipContent>{content.filters.restoreFilters}</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </aside>

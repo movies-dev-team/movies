@@ -1,11 +1,11 @@
 import type { CastMember, CrewMember } from "./movieCredits";
-import type { MovieGenre } from "@/shared/types/movie";
+import type { MovieGenre } from "@/features/catalog/types/movieService";
 
 export interface MovieDetail {
   credits: {
     cast: CastMember[];
     crew: CrewMember[];
-  }
+  };
   id: number;
   genres: MovieGenre[];
   original_language: string;
@@ -21,7 +21,6 @@ export interface MovieDetail {
 }
 
 export interface MovieProductionCompany {
-  id: number; 
+  id: number;
   name: string;
 }
-
