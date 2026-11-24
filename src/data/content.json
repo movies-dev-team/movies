@@ -26,7 +26,10 @@
     "trailer": "Cargando tráiler...",
     "loadingMore": "Cargando películas...",
     "loadMore": "Ver más...",
-    "noMoreMovies": "¡Fin de la sesión! No quedan más películas por descubrir."
+    "loadLess": "Ver menos",
+    "noMoreMovies": "¡Fin de la sesión! No quedan más películas por descubrir.",
+    "readMore": "Leer más...",
+    "readLess": "Leer menos"
   },
 
   "auth": {
@@ -135,19 +138,29 @@
   "movieDetail": {
     "releaseDate": "Estreno",
     "overview": "Sinopsis",
-    "readMore": "Leer más...",
-    "readLess": "Leer menos",
     "director": "Director",
     "cast": "Reparto",
     "trailer": "Ver tráiler",
     "share": "Compartir",
     "noPoster": "Póster no disponible",
+    "posterOf": "Póster de la película",
     "noRating": "Aún no hay suficientes valoraciones",
-    "unknownDirector": "Director desconocido",
+    "unknownDirector": "Director/a desconocido/a",
     "productionCompanies": "Productoras",
     "originCountry": "País de origen",
     "originalLanguage": "Idioma original",
-    "noTrailer": "Tráiler no disponible"
+    "noTrailer": "Tráiler no disponible",
+    "pictureOf": "Foto de",
+    "birthDate": "Nacimiento",
+    "birthPlace": "Lugar",
+    "biography": "Biografía",
+    "imageNotAvailable": "Imagen no disponible",
+    "biographyNotAvailable": "Biografía no disponible",
+    "filmography": "Filmografía",
+    "actorNotFound": "Actor/Actriz no encontrado/a",
+    "directorNotFound": "Director/a no encontrado/a",
+    "moviesNotAvailable":"No hay películas disponibles.",
+    "error": "Error cargando datos"
   },
 
   "carousel": {
