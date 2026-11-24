@@ -38,3 +38,15 @@ export async function logoutUser() {
     throw error
   }
 }
+
+export async function isUsernameAvailable(username: string): Promise<boolean> {
+  const { data, error } = await supabase.rpc("is_username_available", {
+    p_username: username.trim(),
+  })
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
