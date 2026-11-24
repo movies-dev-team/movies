@@ -141,7 +141,7 @@ export default function MovieDetailPage() {
         className="mt-1 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
         onClick={() => setIsExpanded((previous) => !previous)}
         >
-          {isExpanded ? content.movieDetail.readLess : content.movieDetail.readMore}
+          {isExpanded ? content.loading.readLess : content.loading.readMore}
         </button>)}
       </section>
       <div className="mt-3">

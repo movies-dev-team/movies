@@ -4,6 +4,7 @@ import { getPersonDetail } from "../services/personDetailService";
 import type { PersonDetail } from "../types/personDetail";
 import FilmographyCard from "../components/FilmographyCard";
 import { formatDate } from "@/shared/utils/formatDate";
+import content from "@/data/content.json"
 
 export default function DirectorDetailPage() {
 
@@ -57,13 +58,13 @@ export default function DirectorDetailPage() {
   },[directorId]);
 
   if (loading) {
-    return <p>Cargando datos...</p>;
+    return <p>{content.loading.generic}</p>;
   }
   if (error) {
-    return <p>Error cargando datos...</p>
+    return <p>{content.movieDetail.error}</p>
   } 
   if (!director) { 
-    return <p>Director/a no encontrado/a</p>
+    return <p>{content.movieDetail.directorNotFound}</p>
   }
 
   const hasLongBiography = director.biography.length > 300;
@@ -83,7 +84,7 @@ export default function DirectorDetailPage() {
           {director.profile_path && ( <img
             className="aspect-[2/3] w-full max-w-[160px] md:max-w-xs rounded-xl object-cover"
             src={`https://image.tmdb.org/t/p/w300${director.profile_path}`}
-            alt={`Foto de ${director.name}`}
+            alt={`${content.movieDetail.pictureOf} ${director.name}`}
             />
           )}
         </div>
@@ -94,7 +95,7 @@ export default function DirectorDetailPage() {
           <div className="mt-3 flex flex-col gap-2">
             {director.birthday && (
             <p className="text-sm leading-5 text-text-secondary">
-              Nacimiento:{" "}
+              {content.movieDetail.birthDate}:{" "}
               <time dateTime={director.birthday}>
                 {formatDate(director.birthday)}
               </time>
@@ -102,7 +103,7 @@ export default function DirectorDetailPage() {
             )}
             {director.place_of_birth && (
             <p className="text-sm leading-5 text-text-secondary">
-              Lugar: {director.place_of_birth}
+              {content.movieDetail.birthPlace}:{" "}{director.place_of_birth}
             </p>
             )}
           </div>  
@@ -111,13 +112,15 @@ export default function DirectorDetailPage() {
           className="col-span-5 min-w-0 md:col-span-2"
           aria-labelledby="biography-title"
         >
-          <h2 className="mb-2 text-xl font-semibold">
-          Biografía
+          <h2
+            id="biography-title"
+            className="mb-2 text-xl font-semibold md:text-2xl">
+            {content.movieDetail.biography}
           </h2>
           <p className={`text-sm leading-7 text-text-secondary whitespace-pre-line md:text-base
             ${hasLongBiography && !isExpanded ? "max-h-40 overflow-hidden" : ""}`}
           >
-            {director.biography.trim() ? director.biography : "Biografía no disponible"}
+            {director.biography.trim() ? director.biography : content.movieDetail.biographyNotAvailable}
           </p>
           {hasLongBiography && (
             <button
@@ -126,19 +129,19 @@ export default function DirectorDetailPage() {
             className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
             onClick={() => setIsExpanded((previous) => !previous)}
           >
-           {isExpanded ? "Leer menos" : "Leer más..."}
+           {isExpanded ? content.loading.readLess : content.loading.readMore}
           </button>)}
         </section>   
       </section>
       <section
         id="filmography"
         aria-labelledby="filmography-title"
-        className="mt-10"
+        className="mt-4"
       >
         <h2 
           id="filmography-title" 
-          className="mb-5 text-2xl font-bold">
-          Filmografía
+          className="mb-4 text-xl font-semibold md:text-2xl">
+          {content.movieDetail.filmography}
         </h2>
         <div className="grid grid-cols-2 auto-rows-fr gap-4 md:grid-cols-3 lg:grid-cols-4">
           {hasFilmography ? (
@@ -150,7 +153,7 @@ export default function DirectorDetailPage() {
               />
             );
           })
-        ): <p>No hay películas disponibles</p>}
+        ): <p>{content.movieDetail.moviesNotAvailable}</p>}
         </div>
         {(sortedFilmography.length > moviesPerProfile) && (
           <button
@@ -159,7 +162,7 @@ export default function DirectorDetailPage() {
             className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
             onClick={() => setShowAllMovies((previous) => !previous)}
           >
-           {showAllMovies ? "Ver menos" : "Ver más..."}
+           {showAllMovies ? content.loading.loadLess : content.loading.loadMore}
           </button>)}
       </section> 
     </main>
