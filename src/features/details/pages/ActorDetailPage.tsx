@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, Link, useLocation } from "react-router";
 import { getPersonDetail } from "../services/personDetailService";
 import type { PersonDetail } from "../types/personDetail";
 import FilmographyCard from "../components/FilmographyCard";
@@ -7,6 +7,7 @@ import { formatDate } from "@/shared/utils/formatDate";
 import content from "@/data/content.json";
 import { getApiErrorMessage } from "@/shared/utils/getApiErrorMessage";
 import ErrorMessage from "@/shared/components/ErrorMessage";
+import { ArrowLeft } from 'lucide-react';
 
 export default function ActorDetailPage() {
 
@@ -18,6 +19,13 @@ export default function ActorDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showAllMovies, setShowAllMovies] =useState(false);
+  const location = useLocation();
+  const fromMovieId = location.state?.fromMovieId;
+  const backTo = typeof fromMovieId === "number" &&
+  Number.isInteger(fromMovieId) &&
+  fromMovieId > 0
+    ? `/app/movie/${fromMovieId}`
+    : "/app";
 
   useEffect(() => {
 
@@ -79,6 +87,19 @@ export default function ActorDetailPage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
+      <Link
+        to={backTo}
+        className="mb-4 inline-flex items-center gap-2
+          text-sm font-medium text-brand-light
+          transition-colors hover:text-white
+          focus-visible:outline-2
+          focus-visible:outline-brand-light"
+      >
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        {backTo === "/app"
+          ? content.navigation.backToCatalog
+          : content.navigation.backToMovieDetail}
+      </Link>
       <section className="grid grid-cols-5 gap-4 md:grid-cols-3 md:gap-x-8 md:gap-y-4">
         <div className="col-span-2 md:col-span-1 md:row-span-2">
           {actor.profile_path && ( <img
