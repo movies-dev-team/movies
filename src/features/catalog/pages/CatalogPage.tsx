@@ -52,6 +52,7 @@ export default function CatalogPage() {
   useEffect(() => {
     if (hasSearched) return;
 
+    let cancelled = false;
     let timeout: ReturnType<typeof setTimeout>;
 
     async function loadMovies() {
@@ -61,25 +62,37 @@ export default function CatalogPage() {
         setError(null);
 
         timeout = setTimeout(() => {
-          setShowSkeleton(true);
+          if (!cancelled) {
+            setShowSkeleton(true);
+          }
         }, SKELETON_DELAY);
 
         const data = await getMovies(filters);
 
-        setMovies(data.results);
-        setPage(1);
+        if (!cancelled) {
+          setMovies(data.results);
+          setPage(1);
+        }
       } catch (error) {
-        setError(getApiErrorMessage(error));
+        if (!cancelled) {
+          setError(getApiErrorMessage(error));
+        }
       } finally {
         clearTimeout(timeout);
-        setLoading(false);
-        setShowSkeleton(false);
+
+        if (!cancelled) {
+          setLoading(false);
+          setShowSkeleton(false);
+        }
       }
     }
 
     loadMovies();
 
-    return () => clearTimeout(timeout);
+    return () => {
+      cancelled = true;
+      clearTimeout(timeout);
+    };
   }, [filters, hasSearched]);
 
   const handleLoadMore = async () => {

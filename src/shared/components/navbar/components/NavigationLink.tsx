@@ -1,4 +1,3 @@
-
 import { NavLink } from "react-router";
 import type { NavigationLinkProps } from "@/shared/components/navbar/types/NavigationLink";
 
@@ -14,7 +13,7 @@ const NavigationLink = ({
       to={to}
       end={end}
       className={({ isActive }) =>
-        `group relative flex flex-1 flex-col items-center justify-center text-sm transition-colors md:flex-none md:text-xl ${
+        `group relative flex flex-1 flex-col items-center justify-center text-sm transition-colors md:flex-none md:text-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light focus-visible:rounded-lg ${
           isActive ? "text-brand-light" : "text-text-secondary"
         }`
       }
