@@ -12,6 +12,7 @@ vi.mock("@/features/favorites/hooks/useFavoritesContext", () => ({
 vi.mock("sonner", () => ({
   toast: Object.assign(vi.fn(), {
     success: vi.fn(),
+    error: vi.fn(),
   }),
 }));
 
@@ -69,15 +70,13 @@ describe("FavoriteButton", () => {
     fireEvent.click(
       screen.getByRole("button", {
         name: content.favorites.addLabel,
-      })
+      }),
     );
 
     expect(toggleFavorite).toHaveBeenCalledWith(1);
 
     await waitFor(() => {
-      expect(toast.success).toHaveBeenCalledWith(
-        content.favorites.added
-      );
+      expect(toast.success).toHaveBeenCalledWith(content.favorites.added);
     });
   });
 
@@ -92,15 +91,13 @@ describe("FavoriteButton", () => {
     fireEvent.click(
       screen.getByRole("button", {
         name: content.favorites.removeLabel,
-      })
+      }),
     );
 
     expect(toggleFavorite).toHaveBeenCalledWith(1);
 
     await waitFor(() => {
-      expect(toast).toHaveBeenCalledWith(
-        content.favorites.removed
-      );
+      expect(toast.success).toHaveBeenCalledWith(content.favorites.removed);
     });
   });
 
