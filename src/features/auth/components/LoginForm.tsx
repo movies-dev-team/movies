@@ -1,52 +1,51 @@
-import { useState } from "react"
-import type { SubmitEvent } from "react"
-import { Link, useNavigate } from "react-router"
-import { loginUser } from "../services/authService"
-import { validateEmail, validatePassword } from "./authValidation"
-import content from "@/data/content.json"
+import { useState } from "react";
+import type { SubmitEvent } from "react";
+import { Link, useNavigate } from "react-router";
+import { loginUser } from "../services/authService";
+import { validateEmail, validatePassword } from "./authValidation";
+import content from "@/data/content.json";
 
 function LoginForm() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setError("")
+    event.preventDefault();
+    setError("");
 
-    const emailError = validateEmail(email)
+    const emailError = validateEmail(email);
 
     if (emailError) {
-      setError(emailError)
-      return
+      setError(emailError);
+      return;
     }
 
-    const passwordError = validatePassword(password)
+    const passwordError = validatePassword(password);
 
     if (passwordError) {
-      setError(passwordError)
-      return
+      setError(passwordError);
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      await loginUser(email.trim(), password)
-      navigate("/app")
+      await loginUser(email.trim(), password);
+      navigate("/app", { replace: true });
     } catch {
-      setError(content.auth.messages.loginError)
+      setError(content.auth.messages.loginError);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
   return (
     <section className="mx-auto w-full max-w-90 rounded-2xl border border-white/15 bg-slate-950/80 px-5 py-4 shadow-2xl backdrop-blur-xl lg:ml-auto lg:max-w-md lg:p-8">
-
       <h2 className="mb-3 text-center text-xl font-bold lg:mb-6 lg:text-left lg:text-3xl">
         {content.auth.login.title}
       </h2>
@@ -56,14 +55,12 @@ function LoginForm() {
         noValidate
         className="space-y-2.5 lg:space-y-4"
       >
-
         <div>
           <label htmlFor="email" className="sr-only">
             {content.auth.emailLabel}
           </label>
 
           <div className="flex h-10 items-center gap-2.5 rounded-lg bg-white/10 px-3 focus-within:ring-2 focus-within:ring-purple-500 lg:h-14 lg:rounded-xl lg:px-4">
-
             <svg
               className="h-4 w-4 shrink-0 lg:h-5 lg:w-5"
               fill="none"
@@ -79,10 +76,7 @@ function LoginForm() {
                 rx="2"
                 strokeWidth="1.8"
               />
-              <path
-                d="m3 7 9 6 9-6"
-                strokeWidth="1.8"
-              />
+              <path d="m3 7 9 6 9-6" strokeWidth="1.8" />
             </svg>
 
             <input
@@ -104,7 +98,6 @@ function LoginForm() {
           </label>
 
           <div className="flex h-10 items-center gap-2.5 rounded-lg bg-white/10 px-3 focus-within:ring-2 focus-within:ring-purple-500 lg:h-14 lg:rounded-xl lg:px-4">
-
             <svg
               className="h-4 w-4 shrink-0 lg:h-5 lg:w-5"
               fill="none"
@@ -120,10 +113,7 @@ function LoginForm() {
                 rx="2"
                 strokeWidth="1.8"
               />
-              <path
-                d="M8 10V7a4 4 0 0 1 8 0v3"
-                strokeWidth="1.8"
-              />
+              <path d="M8 10V7a4 4 0 0 1 8 0v3" strokeWidth="1.8" />
             </svg>
 
             <input
@@ -189,11 +179,8 @@ function LoginForm() {
           disabled={isLoading}
           className="mt-2 h-11 w-full rounded-lg bg-linear-to-r from-purple-700 to-purple-600 text-sm font-bold text-white shadow-lg transition hover:from-purple-600 hover:to-purple-500 disabled:cursor-not-allowed disabled:opacity-60 lg:mt-4 lg:h-14 lg:rounded-xl lg:text-lg"
         >
-          {isLoading
-            ? content.auth.login.loading
-            : content.auth.login.button}
+          {isLoading ? content.auth.login.loading : content.auth.login.button}
         </button>
-
       </form>
 
       <div className="my-4 flex items-center gap-3 lg:my-8">
@@ -211,9 +198,8 @@ function LoginForm() {
           {content.auth.login.accountLink}
         </Link>
       </p>
-
     </section>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;
