@@ -11,27 +11,39 @@ import MovieDetailPage from "@/features/details/pages/MovieDetailPage";
 import ActorDetailPage from "@/features/details/pages/ActorDetailPage";
 import DirectorDetailPage from "@/features/details/pages/DirectorDetailPage";
 import NotFoundPage from "@/pages/NotFoundPage";
+import ProtectedRoute from "@/features/auth/components/ProtectedRoute";
+import AuthRoute from "@/features/auth/components/AuthRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: AuthLayout,
+    Component: AuthRoute,
     children: [
-      { index: true, Component: LoginPage },
-      { path: "register", Component: RegisterPage },
+      {
+        Component: AuthLayout,
+        children: [
+          { index: true, Component: LoginPage },
+          { path: "register", Component: RegisterPage },
+        ],
+      },
     ],
   },
   {
     path: "/app",
-    Component: MainLayout,
+    Component: ProtectedRoute,
     children: [
-      { index: true, Component: CatalogPage },
-      { path: "favorites", Component: FavoritesPage },
-      { path: "profile", Component: ProfilePage },
+      {
+        Component: MainLayout,
+        children: [
+          { index: true, Component: CatalogPage },
+          { path: "favorites", Component: FavoritesPage },
+          { path: "profile", Component: ProfilePage },
 
-      { path: "movie/:id", Component: MovieDetailPage },
-      { path: "actor/:id", Component: ActorDetailPage },
-      { path: "director/:id", Component: DirectorDetailPage },
+          { path: "movie/:id", Component: MovieDetailPage },
+          { path: "actor/:id", Component: ActorDetailPage },
+          { path: "director/:id", Component: DirectorDetailPage },
+        ],
+      },
     ],
   },
   {
