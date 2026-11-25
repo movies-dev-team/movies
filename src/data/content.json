@@ -212,5 +212,12 @@
     },
     "copyright": "CINÉA",
     "credits": "Hecho con pasión por el cine 🎬"
+  },
+
+  "notFound": {
+    "title": "Parece que esta escena no existe",
+    "description": "Ni los mejores directores encuentran siempre la escena perfecta.",
+    "highlight": "Esta página no está disponible.",
+    "button": "Volver a la página principal"
   }
 }
