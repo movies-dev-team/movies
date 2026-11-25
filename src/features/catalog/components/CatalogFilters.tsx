@@ -1,3 +1,4 @@
+
 import { SlidersHorizontal, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -64,7 +65,9 @@ export default function CatalogFilters({
                 </Button>
               }
             />
-            <TooltipContent>{content.filters.restoreFilters}</TooltipContent>
+            <TooltipContent>
+              {content.filters.restoreFilters}
+            </TooltipContent>
           </Tooltip>
         </div>
 
@@ -116,7 +119,9 @@ export default function CatalogFilters({
                   </Button>
                 }
               />
-              <TooltipContent>{content.filters.restoreFilters}</TooltipContent>
+              <TooltipContent>
+                {content.filters.restoreFilters}
+              </TooltipContent>
             </Tooltip>
           </div>
         </div>

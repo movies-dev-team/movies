@@ -144,17 +144,19 @@
     "empty": "Todavía no has añadido ninguna película a favoritos.",
     "bannerAlt": "Mis Favoritos: tu colección personal de películas y series",
     "bannerDescription": "Tu colección personal de películas y series que siempre quieres volver a ver."
-  },
+    },
 
   "ratings": {
-    "label": "Tu puntuación",
+    "label": "Valora esta película",
     "loading": "Cargando puntuación...",
     "saved": "Puntuación guardada",
     "loadError": "Error al cargar tu puntuación",
     "saveError": "Error al guardar la puntuación",
     "invalidRating": "La puntuación debe estar entre 1 y 10",
-    "starLabel": "Puntuar con {value} de 10"
+    "starLabel": "Puntuar con {value} de 10",
+    "groupLabel": "Puntuación de la película"
   },
+
   "profile": {
     "loading": "Cargando tu perfil...",
     "loadError": "No se ha podido cargar tu perfil. Inténtalo de nuevo.",

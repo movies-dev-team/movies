@@ -178,7 +178,7 @@ export default function CatalogPage() {
           />
         </aside>
 
-        <section className="min-w-0 flex-1">
+        <section className="min-w-0 flex-1" aria-busy={isLoading}>
           <h1 className="mb-3 text-xl md:text-2xl">{content.catalog.title}</h1>
 
           {isLoading ? (
@@ -208,6 +208,7 @@ export default function CatalogPage() {
               {!hasSearched ? (
                 <button
                   type="button"
+                  aria-busy={loadingMore}
                   className="mt-6 cursor-pointer text-sm font-semibold text-brand-light hover:underline disabled:opacity-50"
                   onClick={handleLoadMore}
                   disabled={loadingMore}

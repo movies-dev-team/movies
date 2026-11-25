@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { Star } from "lucide-react";
-import content from "@/data/content.json"
+import content from "@/data/content.json";
 
 interface MovieRatingProps {
   rating: number;
@@ -13,6 +14,8 @@ export default function MovieRating({ rating, onChange }: MovieRatingProps) {
   return (
     <div className="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:gap-4">
       <div
+        role="group"
+        aria-label={content.ratings.groupLabel}
         className="flex items-center gap-0.5 md:gap-1"
         onMouseLeave={() => setHoverRating(0)}
       >
@@ -26,9 +29,12 @@ export default function MovieRating({ rating, onChange }: MovieRatingProps) {
               type="button"
               onClick={() => onChange(value)}
               onMouseEnter={() => setHoverRating(value)}
-              aria-label={`Puntuar con ${value} de 10`}
+              aria-label={content.ratings.starLabel.replace(
+                "{value}",
+                String(value),
+              )}
               aria-pressed={rating === value}
-              className="cursor-pointer transition-transform duration-150 hover:scale-110"
+              className="cursor-pointer transition-transform duration-150 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light"
             >
               <Star
                 className={`size-4 md:size-5 lg:size-6 transition-colors duration-150 ${

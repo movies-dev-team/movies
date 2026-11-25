@@ -7,7 +7,10 @@ interface MovieRatingAPIProps {
 const MovieRatingAPI = ({ rating }: MovieRatingAPIProps) => {
   return (
     <div className="flex items-center gap-1 text-base text-muted-foreground">
-      <Star className="size-3.5 fill-brand-light text-brand-light" />
+      <Star
+        aria-hidden="true"
+        className="size-3.5 fill-brand-light text-brand-light"
+      />
       <span>{rating.toFixed(1)}</span>
     </div>
   );

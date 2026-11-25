@@ -17,12 +17,20 @@ export default function FavoriteButton({ movieId }: FavoriteButtonProps) {
   async function handleToggleFavorite() {
     if (isUpdating) return;
 
-    await toggleFavorite(movieId);
+    const message = favorite
+      ? content.favorites.removed
+      : content.favorites.added;
 
-    if (favorite) {
-      toast(content.favorites.removed);
-    } else {
-      toast.success(content.favorites.added);
+    const errorMessage = favorite
+      ? content.favorites.removeError
+      : content.favorites.addError;
+
+    toast.success(message);
+
+    try {
+      await toggleFavorite(movieId);
+    } catch {
+      toast.error(errorMessage);
     }
   }
 
@@ -34,14 +42,14 @@ export default function FavoriteButton({ movieId }: FavoriteButtonProps) {
       onClick={handleToggleFavorite}
       disabled={isUpdating}
       aria-label={
-        favorite
-          ? content.favorites.removeLabel
-          : content.favorites.addLabel
+        favorite ? content.favorites.removeLabel : content.favorites.addLabel
       }
       aria-pressed={favorite}
-      className="border-0 transition-transform duration-200 hover:scale-110"
+      aria-busy={isUpdating}
+      className="border-0 transition-transform duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light"
     >
       <Heart
+        aria-hidden="true"
         className={`size-5 transition-all duration-200 ${
           favorite
             ? "fill-brand-primary text-brand-light stroke-0 drop-shadow-brand-glow"
