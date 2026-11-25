@@ -27,6 +27,7 @@ export default function FavoritesPage() {
 
       if (favorites.length === 0) {
         setMovies([]);
+        setError(null);
         setLoading(false);
         return;
       }
@@ -62,10 +63,12 @@ export default function FavoritesPage() {
 
   return (
     <main className="w-full">
-      <section className="relative mx-4 mt-6 flex min-h-52 items-start overflow-hidden rounded-2xl border border-purple-800/60 sm:min-h-80 md:min-h-96 lg:min-h-90 0lg:items-center">
+      <section className="relative mx-4 mt-6 flex min-h-52 items-start overflow-hidden rounded-2xl border border-purple-800/60 sm:min-h-80 md:min-h-96 lg:min-h-90 lg:items-center">
         <img
           src={favoritesBanner}
           alt={content.favorites.bannerAlt}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-[65%_center] lg:object-center"
         />
 
@@ -96,7 +99,9 @@ export default function FavoritesPage() {
 
       <section className="min-w-0 p-4 md:p-6">
         {favoritesLoading || loading ? (
-          <p>{content.favorites.loading}</p>
+          <p role="status" aria-live="polite">
+            {content.favorites.loading}
+          </p>
         ) : favoritesError || error ? (
           <ErrorMessage message={favoritesError || error || ""} />
         ) : movies.length === 0 ? (

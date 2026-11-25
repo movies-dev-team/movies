@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router";
 import MovieRatingAPI from "./MovieRatingAPI";
 import FavoriteButton from "@/shared/components/FavoriteButton";
+import content from "@/data/content.json";
 
 export default function MovieCard({ movie }: { movie: Movie }) {
   return (
@@ -15,19 +16,20 @@ export default function MovieCard({ movie }: { movie: Movie }) {
       <div className="absolute right-2 top-2 z-10">
         <FavoriteButton movieId={movie.id} />
       </div>
-
       <Link to={`/app/movie/${movie.id}`} className="block">
-        <img
-          className="w-full aspect-3/4 object-cover"
-          src={
-            movie.poster_path
-              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-              : undefined
-          }
-          alt={movie.title}
-          loading="lazy"
-          decoding="async"
-        />
+        {movie.poster_path ? (
+          <img
+            className="w-full aspect-3/4 object-cover"
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <div className="flex w-full aspect-3/4 items-center justify-center bg-muted text-sm text-muted-foreground">
+            {content.movieCard.no_image}
+          </div>
+        )}
       </Link>
 
       <CardContent className="p-4">

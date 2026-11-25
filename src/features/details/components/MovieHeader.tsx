@@ -7,24 +7,25 @@ import { MAX_VISIBLE_GENRES } from "@/shared/constants/movieConstants";
 import type { MovieDetail } from "../types/movieDetail";
 
 interface MovieHeaderProps {
-movie: MovieDetail;
+  movie: MovieDetail;
 }
 
-export default function MovieHeader({movie}: MovieHeaderProps) {
-
+export default function MovieHeader({ movie }: MovieHeaderProps) {
   const runtime = movie.runtime ?? 0;
-  const hours = Math.floor((runtime) / 60 );
+  const hours = Math.floor(runtime / 60);
   const minutes = runtime % 60;
 
   return (
     <section className="grid grid-cols-[120px_minmax(0,1fr)] gap-4 md:grid-cols-2 md:gap-6">
       <Card className="relative w-full min-w-0 gap-0 overflow-hidden p-0">
         {movie.poster_path && (
-        <img
-          className="aspect-2/3 w-full rounded-xl object-cover"
-          src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-          alt={`Póster de la película ${movie.original_title}`}
-        />
+          <img
+            className="aspect-2/3 w-full rounded-xl object-cover"
+            src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+            alt={`Póster de la película ${movie.original_title}`}
+            loading="eager"
+            decoding="async"
+          />
         )}
         <div className="absolute right-2 top-2 z-10">
           <FavoriteButton movieId={movie.id} />
@@ -33,28 +34,31 @@ export default function MovieHeader({movie}: MovieHeaderProps) {
       <div className="min-w-0">
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-xl font-bold leading-tight tracking-tight md:text-4xl">
-              {movie.title}
+            {movie.title}
           </h1>
-        </div> 
+        </div>
         {runtime > 0 && (
           <p>
             {hours}h {minutes}min
           </p>
         )}
-        {movie.vote_average > 0 ? ( 
-        <div className="flex items-center gap-2">
-          <Star className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-          <p>{movie.vote_average.toFixed(1)}
-            <span className="text-text-secondary"> 
-              / 10
-            </span>
-          </p>
-        </div>
-        ) : ( <p>{content.movieDetail.noRating}</p> 
+        {movie.vote_average > 0 ? (
+          <div className="flex items-center gap-2">
+            <Star className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+            <p>
+              {movie.vote_average.toFixed(1)}
+              <span className="text-text-secondary">/ 10</span>
+            </p>
+          </div>
+        ) : (
+          <p>{content.movieDetail.noRating}</p>
         )}
         {movie.genres.length > 0 && (
           <p className="mt-2 text-sm text-text-secondary">
-            {movie.genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => genre.name).join(" · ")}
+            {movie.genres
+              .slice(0, MAX_VISIBLE_GENRES)
+              .map((genre) => genre.name)
+              .join(" · ")}
           </p>
         )}
         <div className="mt-4">
@@ -62,5 +66,5 @@ export default function MovieHeader({movie}: MovieHeaderProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -11,7 +11,7 @@ export default function PersonHeader({person}: PersonHeaderProps) {
     <>
       <div className="col-span-2 md:col-span-1 md:row-span-2">
         {person.profile_path && ( <img
-          className="aspect-[2/3] w-full max-w-[160px] md:max-w-xs rounded-xl object-cover"
+          className="aspect-2/3 w-full max-w-160px md:max-w-xs rounded-xl object-cover"
           src={`https://image.tmdb.org/t/p/w500${person.profile_path}`}
           alt={`${content.movieDetail.pictureOf} ${person.name}`}
           />

@@ -108,7 +108,12 @@
   },
 
   "catalog": {
-    "title": "Explora películas"
+    "title": "Explora películas",
+    "no_image": "Sin imagen"
+  },
+
+  "movieCard": {
+    "no_image": "Sin imagen"
   },
 
   "filters": {
@@ -144,7 +149,7 @@
     "empty": "Todavía no has añadido ninguna película a favoritos.",
     "bannerAlt": "Mis Favoritos: tu colección personal de películas y series",
     "bannerDescription": "Tu colección personal de películas y series que siempre quieres volver a ver."
-    },
+  },
 
   "ratings": {
     "label": "Valora esta película",
@@ -200,6 +205,7 @@
     "slideLabel": "{current} de {total}",
     "loading": "Cargando estrenos…"
   },
+
   "search": {
     "searchLabel": "Buscar películas...",
     "label": "Buscar películas"

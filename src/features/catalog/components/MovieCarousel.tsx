@@ -3,21 +3,19 @@ import { Link } from "react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import type { Movie } from "@/features/catalog/types/movieService";
-import type { MovieBackdrop } from "@/features/catalog/types/movieCarouselService";
 
 import { getImageUrl } from "@/shared/utils/getImageUrl";
 import content from "@/data/content.json";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import {
-  getNowPlayingMovies,
-  getMovieBackdropImages,
-} from "@/features/catalog/services/movieCarouselService";
+import { getNowPlayingMovies } from "@/features/catalog/services/movieCarouselService";
 
 const MAX_SLIDES = 5;
 
 export default function MovieCarousel() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -30,34 +28,16 @@ export default function MovieCarousel() {
           .filter((movie) => movie.backdrop_path)
           .slice(0, MAX_SLIDES);
 
-        const checkedMovies = await Promise.all(
-          moviesWithBackdrop.map(async (movie) => {
-            try {
-              const images = await getMovieBackdropImages(movie.id);
-              const highResolutionBackdrop = images.backdrops
-                .filter((image: MovieBackdrop) => image.width >= 1280)
-                .sort((a, b) => b.width - a.width)[0];
-
-              if (highResolutionBackdrop) {
-                return {
-                  ...movie,
-                  backdrop_path: highResolutionBackdrop.file_path,
-                };
-              }
-
-              return movie;
-            } catch {
-              return movie;
-            }
-          }),
-        );
-
         if (!cancelled) {
-          setMovies(checkedMovies);
+          setMovies(moviesWithBackdrop);
         }
       } catch (error) {
         if (!cancelled) {
           console.error("Error cargando películas:", error);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
         }
       }
     }
@@ -79,6 +59,13 @@ export default function MovieCarousel() {
     return () => clearInterval(interval);
   }, [movies.length]);
 
+  // Mientras carga, reservamos el mismo espacio que ocupará el carrusel
+  if (loading) {
+    return (
+      <Skeleton className="mb-8 h-64 w-full rounded-2xl md:h-80 lg:h-[480px]" />
+    );
+  }
+
   if (movies.length === 0) return null;
 
   const movie = movies[currentIndex];
@@ -95,11 +82,11 @@ export default function MovieCarousel() {
     <section
       aria-roledescription="carousel"
       aria-label={content.carousel.regionLabel}
-      className="relative mb-8 h-64 overflow-hidden rounded-2xl border border-brand-primary/50 md:h-80 lg:h-480px"
+      className="relative mb-8 h-64 overflow-hidden rounded-2xl border border-brand-primary/50 md:h-80 lg:h-[480px]"
     >
       <img
         key={movie.id}
-        src={getImageUrl(movie.backdrop_path!, "original")}
+        src={getImageUrl(movie.backdrop_path!, "w1280")}
         alt=""
         fetchPriority="high"
         decoding="async"

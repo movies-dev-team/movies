@@ -13,7 +13,6 @@ import content from "@/data/content.json";
 import { ArrowLeft } from "lucide-react";
 
 export default function MovieDetailPage() {
-
   const { id } = useParams();
   const movieId = Number(id);
 
@@ -22,7 +21,6 @@ export default function MovieDetailPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-
     let ignore = false;
 
     async function loadMovies() {
@@ -37,16 +35,16 @@ export default function MovieDetailPage() {
         }
 
         const data = await getMovieDetail(movieId);
-        
+
         if (!ignore) {
           setMovie(data);
-        }    
+        }
       } catch (error) {
         if (!ignore) {
           setError(getApiErrorMessage(error));
-        }    
+        }
       } finally {
-        if(!ignore) {
+        if (!ignore) {
           setLoading(false);
         }
       }
@@ -55,30 +53,35 @@ export default function MovieDetailPage() {
     return () => {
       ignore = true;
     };
-  },[movieId]);
+  }, [movieId]);
 
   if (loading) {
-    return <p>{content.loading.movie}</p>;
+    return (
+      <p role="status" aria-live="polite">
+        {content.loading.movie}
+      </p>
+    );
   }
   if (error) {
     return <ErrorMessage message={error} />;
-  } 
-  if (!movie) { 
+  }
+  if (!movie) {
     return <ErrorMessage message={content.errors.notFound} />;
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
+    <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
       <Link
         to="/app"
         className="mb-4 inline-flex items-center gap-2
-          text-sm font-medium text-brand-light
-          transition-colors hover:text-white
-          focus-visible:outline-2
-          focus-visible:outline-brand-light"
+    text-sm font-medium text-brand-light
+    transition-colors hover:text-white
+    focus-visible:outline-2
+    focus-visible:outline-offset-2
+    focus-visible:outline-brand-light"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-          {content.navigation.backToCatalog}
+        {content.navigation.backToCatalog}
       </Link>
       <MovieHeader movie={movie} />
       <MovieOverview key={movie.id} overview={movie.overview} />
@@ -87,7 +90,6 @@ export default function MovieDetailPage() {
       </div>
       <MovieCast actors={movie.credits.cast} movieId={movie.id} />
       <MovieTrailer movieId={movie.id} />
-    </div> 
-  )
+    </main>
+  );
 }
-
