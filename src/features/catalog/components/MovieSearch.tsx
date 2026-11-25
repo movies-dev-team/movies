@@ -15,7 +15,12 @@ export default function MovieSearch({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
+    <form
+      role="search"
+      aria-label="Buscar películas"
+      onSubmit={handleSubmit}
+      className="w-full"
+    >
       <div className="relative">
         <Search
           className="absolute left-4 top-1/2 -translate-y-1/2  text-muted-foreground"

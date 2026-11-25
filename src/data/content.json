@@ -108,7 +108,12 @@
   },
 
   "catalog": {
-    "title": "Explora películas"
+    "title": "Explora películas",
+    "no_image": "Sin imagen"
+  },
+
+  "movieCard": {
+    "no_image": "Sin imagen"
   },
 
   "filters": {
@@ -147,14 +152,16 @@
   },
 
   "ratings": {
-    "label": "Tu puntuación",
+    "label": "Valora esta película",
     "loading": "Cargando puntuación...",
     "saved": "Puntuación guardada",
     "loadError": "Error al cargar tu puntuación",
     "saveError": "Error al guardar la puntuación",
     "invalidRating": "La puntuación debe estar entre 1 y 10",
-    "starLabel": "Puntuar con {value} de 10"
+    "starLabel": "Puntuar con {value} de 10",
+    "groupLabel": "Puntuación de la película"
   },
+
   "profile": {
     "loading": "Cargando tu perfil...",
     "loadError": "No se ha podido cargar tu perfil. Inténtalo de nuevo.",
@@ -198,6 +205,7 @@
     "slideLabel": "{current} de {total}",
     "loading": "Cargando estrenos…"
   },
+
   "search": {
     "searchLabel": "Buscar películas...",
     "label": "Buscar películas"

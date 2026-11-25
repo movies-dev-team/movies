@@ -8,51 +8,49 @@ import PersonFilmography from "../components/PersonFilmography";
 import ErrorMessage from "@/shared/components/ErrorMessage";
 import type { PersonDetail } from "../types/personDetail";
 import content from "@/data/content.json";
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from "lucide-react";
 
 export default function DirectorDetailPage() {
-
   const { id } = useParams();
   const directorId = Number(id);
 
-  const [director, setDirector] = useState<PersonDetail | null >(null);
+  const [director, setDirector] = useState<PersonDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const location = useLocation();
   const fromMovieId = location.state?.fromMovieId;
-  const backTo = typeof fromMovieId === "number" &&
-  Number.isInteger(fromMovieId) &&
-  fromMovieId > 0
-    ? `/app/movie/${fromMovieId}`
-    : "/app";
+  const backTo =
+    typeof fromMovieId === "number" &&
+    Number.isInteger(fromMovieId) &&
+    fromMovieId > 0
+      ? `/app/movie/${fromMovieId}`
+      : "/app";
 
   useEffect(() => {
-
     let ignore = false;
 
     async function loadDirector() {
       setDirector(null);
       setLoading(true);
       setError(null);
-    
+
       try {
         if (!Number.isInteger(directorId) || directorId <= 0) {
-            setError(content.movieDetail.directorNotFound);
-            return;
+          setError(content.movieDetail.directorNotFound);
+          return;
         }
 
         const data = await getPersonDetail(directorId);
 
         if (!ignore) {
           setDirector(data);
-        }  
-
+        }
       } catch (error) {
         if (!ignore) {
           setError(getApiErrorMessage(error));
-        }    
+        }
       } finally {
-        if(!ignore) {
+        if (!ignore) {
           setLoading(false);
         }
       }
@@ -61,23 +59,28 @@ export default function DirectorDetailPage() {
     return () => {
       ignore = true;
     };
-  },[directorId]);
+  }, [directorId]);
 
   if (loading) {
-    return <p>{content.loading.generic}</p>;
+    return (
+      <p role="status" aria-live="polite">
+        {content.loading.generic}
+      </p>
+    );
   }
   if (error) {
     return <ErrorMessage message={error} />;
-  } 
-  if (!director) { 
+  }
+  if (!director) {
     return <ErrorMessage message={content.movieDetail.directorNotFound} />;
   }
 
-  const filmography = director.movie_credits.crew.filter((credit) => (
-    credit.job === "Director"))
+  const filmography = director.movie_credits.crew.filter(
+    (credit) => credit.job === "Director",
+  );
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
+    <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
       <Link
         to={backTo}
         className="mb-4 inline-flex items-center gap-2
@@ -85,6 +88,7 @@ export default function DirectorDetailPage() {
           transition-colors hover:text-white
           focus-visible:outline-2
           focus-visible:outline-brand-light"
+        focus-visible:outline-offset-2
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         {backTo === "/app"
@@ -96,6 +100,6 @@ export default function DirectorDetailPage() {
         <PersonBiography biography={director.biography} key={director.id} />
       </section>
       <PersonFilmography filmography={filmography} key={director.id} />
-    </div>
-  )
+    </main>
+  );
 }

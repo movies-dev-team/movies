@@ -10,7 +10,7 @@ import catalogActive from "./assets/icons/catalogActive.svg";
 import catalogDefault from "./assets/icons/catalogDefault.svg";
 import favoritesActive from "./assets/icons/favoritesActive.svg";
 import favoritesDefault from "./assets/icons/favoritesDefault.svg";
-import imgNavBar from "./assets/images/imgNavBar.png";
+import imgNavBar from "./assets/images/imgNavBar.webp";
 
 const Navbar = () => {
   return (

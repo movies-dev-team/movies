@@ -6,8 +6,7 @@ interface MovieOverviewProps {
   overview: MovieDetail["overview"];
 }
 
-export default function MovieOverview({overview}: MovieOverviewProps) {
-
+export default function MovieOverview({ overview }: MovieOverviewProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const hasLongOverview = overview.length > 150;
 
@@ -29,7 +28,8 @@ export default function MovieOverview({overview}: MovieOverviewProps) {
         onClick={() => setIsExpanded((previous) => !previous)}
         >
           {isExpanded ? content.loading.readLess : content.loading.readMore}
-        </button>)}
+        </button>
+      )}
     </section>
-  )
+  );
 }
