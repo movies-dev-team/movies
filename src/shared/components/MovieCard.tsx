@@ -25,6 +25,8 @@ export default function MovieCard({ movie }: { movie: Movie }) {
               : undefined
           }
           alt={movie.title}
+          loading="lazy"
+          decoding="async"
         />
       </Link>
 

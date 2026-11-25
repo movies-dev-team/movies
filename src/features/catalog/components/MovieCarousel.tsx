@@ -20,46 +20,53 @@ export default function MovieCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function loadMovies() {
       try {
         const data = await getNowPlayingMovies();
 
-        const moviesWithBackdrop = data.results.filter(
-          (movie) => movie.backdrop_path,
-        );
+        const moviesWithBackdrop = data.results
+          .filter((movie) => movie.backdrop_path)
+          .slice(0, MAX_SLIDES);
 
         const checkedMovies = await Promise.all(
           moviesWithBackdrop.map(async (movie) => {
             try {
               const images = await getMovieBackdropImages(movie.id);
+              const highResolutionBackdrop = images.backdrops
+                .filter((image: MovieBackdrop) => image.width >= 1280)
+                .sort((a, b) => b.width - a.width)[0];
 
-              const highResolutionBackdrop = images.backdrops.find(
-                (image: MovieBackdrop) => image.width >= 1280,
-              );
+              if (highResolutionBackdrop) {
+                return {
+                  ...movie,
+                  backdrop_path: highResolutionBackdrop.file_path,
+                };
+              }
 
-              if (!highResolutionBackdrop) return null;
-
-              return {
-                ...movie,
-                backdrop_path: highResolutionBackdrop.file_path,
-              };
+              return movie;
             } catch {
-              return null;
+              return movie;
             }
           }),
         );
 
-        const highResolutionMovies = checkedMovies
-          .filter((movie) => movie !== null)
-          .slice(0, MAX_SLIDES) as Movie[];
-
-        setMovies(highResolutionMovies);
+        if (!cancelled) {
+          setMovies(checkedMovies);
+        }
       } catch (error) {
-        console.error("Error cargando películas:", error);
+        if (!cancelled) {
+          console.error("Error cargando películas:", error);
+        }
       }
     }
 
     loadMovies();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -94,6 +101,8 @@ export default function MovieCarousel() {
         key={movie.id}
         src={getImageUrl(movie.backdrop_path!, "original")}
         alt=""
+        fetchPriority="high"
+        decoding="async"
         className="absolute inset-0 size-full object-cover object-[center_35%] animate-[slide-in_700ms_ease-out]"
       />
 
