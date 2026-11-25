@@ -80,8 +80,10 @@ export default function MovieDetailPage() {
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           {content.navigation.backToCatalog}
       </Link>
-      <MovieHeader movie={movie} />
-      <MovieOverview key={movie.id} overview={movie.overview} />
+      <section className="grid grid-cols-5 gap-4 md:grid-cols-3 md:gap-x-8 md:gap-y-4">
+        <MovieHeader movie={movie} />
+        <MovieOverview key={movie.id} overview={movie.overview} />
+      </section>
       <div className="mt-3">
         <MovieInfoCard movie={movie} />
       </div>
