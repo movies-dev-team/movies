@@ -10,7 +10,7 @@
       "signOut": "Cerrar sesión"
     },
     "accessibility": {
-      "brand": "CINÉA - Catálogo",
+      "brand": "CINEA - Catálogo",
       "main": "Navegación principal"
     }
   },
@@ -206,13 +206,13 @@
   },
 
   "footer": {
-    "brand": "CINÉA",
+    "brand": "CINEA",
     "description": "Descubre, valora y colecciona tus películas favoritas.",
     "provider": {
       "name": "TMDB",
       "description": "Datos de películas de TMDB."
     },
-    "copyright": "CINÉA",
+    "copyright": "CINEA",
     "credits": "Hecho con pasión por el cine 🎬"
   },
 
