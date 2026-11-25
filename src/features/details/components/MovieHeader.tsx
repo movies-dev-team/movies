@@ -16,8 +16,8 @@ export default function MovieHeader({ movie }: MovieHeaderProps) {
   const minutes = runtime % 60;
 
   return (
-    <section className="grid grid-cols-[120px_minmax(0,1fr)] gap-4 md:grid-cols-2 md:gap-6">
-      <Card className="relative w-full min-w-0 gap-0 overflow-hidden p-0">
+    <>
+      <Card className="relative col-span-2 w-full min-w-0 max-w-160px gap-0 overflow-hidden p-0 self-start md:col-span-1 md:row-span-2 md:max-w-xs">
         {movie.poster_path && (
           <img
             className="aspect-2/3 w-full rounded-xl object-cover"
@@ -31,7 +31,7 @@ export default function MovieHeader({ movie }: MovieHeaderProps) {
           <FavoriteButton movieId={movie.id} />
         </div>
       </Card>
-      <div className="min-w-0">
+      <div className="col-span-3 min-w-0 md:col-span-2">
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-xl font-bold leading-tight tracking-tight md:text-4xl">
             {movie.title}
@@ -65,6 +65,6 @@ export default function MovieHeader({ movie }: MovieHeaderProps) {
           <MovieRatingControl movieId={movie.id} />
         </div>
       </div>
-    </section>
-  );
+    </>
+  )
 }

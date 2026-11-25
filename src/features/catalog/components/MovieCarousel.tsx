@@ -62,7 +62,7 @@ export default function MovieCarousel() {
   // Mientras carga, reservamos el mismo espacio que ocupará el carrusel
   if (loading) {
     return (
-      <Skeleton className="mb-8 h-64 w-full rounded-2xl md:h-80 lg:h-[480px]" />
+      <Skeleton className="mb-8 h-64 w-full rounded-2xl md:h-80 lg:h-480px" />
     );
   }
 
@@ -82,7 +82,7 @@ export default function MovieCarousel() {
     <section
       aria-roledescription="carousel"
       aria-label={content.carousel.regionLabel}
-      className="relative mb-8 h-64 overflow-hidden rounded-2xl border border-brand-primary/50 md:h-80 lg:h-[480px]"
+      className="relative mb-8 h-64 overflow-hidden rounded-2xl border border-brand-primary/50 md:h-80 lg:h-480px"
     >
       <img
         key={movie.id}

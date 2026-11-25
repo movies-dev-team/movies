@@ -11,26 +11,21 @@ export default function MovieOverview({ overview }: MovieOverviewProps) {
   const hasLongOverview = overview.length > 150;
 
   return (
-    <section className="mt-4" aria-labelledby="overview-title">
-      <h2
-        className="mb-1 text-xl font-semibold md:text-3xl"
-        id="overview-title"
-      >
-        {content.movieDetail.overview}
+    <section className="col-span-5 min-w-0 md:col-span-2" aria-labelledby="overview-title">
+      <h2 className="mb-2 text-xl font-semibold md:text-2xl" id="overview-title">
+          {content.movieDetail.overview}
       </h2>
-      <p
-        className={`text-sm leading-relaxed
-          ${hasLongOverview && !isExpanded ? "max-h-40 overflow-hidden" : ""}`}
+      <p className={`text-sm leading-7 text-text-secondary whitespace-pre-line md:text-base
+          ${hasLongOverview && !isExpanded? "max-h-40 overflow-hidden" : ""}`}
       >
         {overview}
       </p>
       {hasLongOverview && (
         <button
-          type="button"
-          aria-expanded={isExpanded}
-          aria-controls="movie-overview"
-          className="mt-1 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
-          onClick={() => setIsExpanded((previous) => !previous)}
+        type="button"
+        aria-expanded={isExpanded}
+        className="mt-2 cursor-pointer text-sm font-semibold text-brand-light hover:underline"
+        onClick={() => setIsExpanded((previous) => !previous)}
         >
           {isExpanded ? content.loading.readLess : content.loading.readMore}
         </button>
