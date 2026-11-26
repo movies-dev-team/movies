@@ -6,6 +6,12 @@ CINEA es una aplicación web de cine que permite descubrir películas, consultar
 
 Desarrollada en equipo como proyecto formativo de frontend en IT Academy Barcelona, combina React y TypeScript con la API de TMDb y Supabase, siguiendo un diseño responsive **mobile-first**.
 
+## 🎬 Demo de CINEA
+
+<p align="left">
+  <a href="./public/Demo.mp4">▶️ Ver demo</a>
+</p>
+
 ## Funcionalidades
 
 - **Catálogo:** búsqueda por título, filtros por género y puntuación, tendencias y carga dinámica de resultados.
@@ -19,15 +25,43 @@ Desarrollada en equipo como proyecto formativo de frontend en IT Academy Barcelo
 
 ## Tecnologías
 
-| Área | Tecnologías |
-| --- | --- |
-| Frontend | React, TypeScript, Vite |
-| Estilos e interfaz | Tailwind CSS, shadcn/ui, Lucide React, Sonner |
-| Navegación y estado | React Router, Context API, custom hooks |
-| API | Axios, TMDb API |
-| Backend y base de datos | Supabase, PostgreSQL, Supabase Auth |
-| Testing | Vitest, React Testing Library, Gherkin |
-| Herramientas | ESLint, Git, GitHub, npm |
+| Área                    | Tecnologías                                   |
+| ----------------------- | --------------------------------------------- |
+| Frontend                | React, TypeScript, Vite                       |
+| Estilos e interfaz      | Tailwind CSS, shadcn/ui, Lucide React, Sonner |
+| Navegación y estado     | React Router, Context API, custom hooks       |
+| API                     | Axios, TMDb API                               |
+| Backend y base de datos | Supabase, PostgreSQL, Supabase Auth           |
+| Testing                 | Vitest, React Testing Library, Gherkin        |
+| Herramientas            | ESLint, Git, GitHub, npm                      |
+
+## 📊 Lighthouse
+
+Se realizaron pruebas con Lighthouse sobre la build de producción, en Chrome incógnito y sin extensiones.
+
+**Procedimiento:**
+
+1. `npm run build`
+2. `npm run preview` (`http://localhost:4173`)
+3. Análisis con Lighthouse en Chrome incógnito.
+
+| Métrica        | Desktop | Mobile |
+| -------------- | ------: | -----: |
+| Performance    |      91 |     89 |
+| Accessibility  |     100 |    100 |
+| Best Practices |     100 |    100 |
+| SEO            |      92 |     92 |
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="./src/docs/lighthouse-desktop.png" width="100%" />
+    </td>
+    <td width="50%">
+      <img src="./src/docs/lighthouse-mobile.png" width="100%" />
+    </td>
+  </tr>
+</table>
 
 ## Instalación y configuración
 
@@ -61,13 +95,13 @@ npm run dev
 
 Abrir la URL indicada por Vite en la terminal.
 
-| Comando | Descripción |
-| --- | --- |
-| `npm run build` | Generar la compilación de producción |
-| `npm run preview` | Previsualizar la compilación |
-| `npm run lint` | Analizar el código |
-| `npm run test` | Ejecutar tests en modo interactivo |
-| `npm run test:run` | Ejecutar toda la suite una vez |
+| Comando            | Descripción                          |
+| ------------------ | ------------------------------------ |
+| `npm run build`    | Generar la compilación de producción |
+| `npm run preview`  | Previsualizar la compilación         |
+| `npm run lint`     | Analizar el código                   |
+| `npm run test`     | Ejecutar tests en modo interactivo   |
+| `npm run test:run` | Ejecutar toda la suite una vez       |
 
 ## Arquitectura
 
@@ -114,12 +148,12 @@ La información cinematográfica se obtiene mediante Axios y una instancia HTTP 
 
 Supabase gestiona la autenticación y la persistencia de los datos personales sin necesidad de mantener un servidor backend propio.
 
-| Tabla | Responsabilidad |
-| --- | --- |
+| Tabla        | Responsabilidad           |
+| ------------ | ------------------------- |
 | `auth.users` | Identidad y autenticación |
-| `profiles` | Información del usuario |
-| `favorites` | Películas guardadas |
-| `reviews` | Valoraciones personales |
+| `profiles`   | Información del usuario   |
+| `favorites`  | Películas guardadas       |
+| `reviews`    | Valoraciones personales   |
 
 Las rutas privadas se protegen mediante layouts y cambios de sesión. Las políticas **Row Level Security (RLS)** restringen el acceso a los datos según el usuario autenticado.
 
@@ -144,12 +178,12 @@ npm run test:run
 
 Cobertura del módulo Details:
 
-| Indicador | Cobertura |
-| --- | ---: |
-| Sentencias | 62,89 % |
-| Ramas | 58,69 % |
-| Funciones | 50,92 % |
-| Líneas | 63,03 % |
+| Indicador  | Cobertura |
+| ---------- | --------: |
+| Sentencias |   62,89 % |
+| Ramas      |   58,69 % |
+| Funciones  |   50,92 % |
+| Líneas     |   63,03 % |
 
 Los resultados se han obtenido mediante Vitest y el proveedor de cobertura V8. La cobertura global del proyecto supera ampliamente el umbral mínimo del 20 % establecido en la rúbrica de evaluación.
 
@@ -163,7 +197,7 @@ Proyecto colaborativo desarrollado en IT Academy Barcelona.
 
 - [Alejandro Felipe Acuña](https://github.com/alefelipin)
 - [Matias Aejandro Rodriguez](https://github.com/alejandro64rodriguez-dotcom)
-- [Yanet Pérez](https://github.com/ypmodev)
+- [Yanet Pérez Montes de Oca](https://github.com/ypmodev)
 
 <!-- Añadir el enlace de despliegue. -->
 
