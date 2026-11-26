@@ -74,7 +74,7 @@ export default function FavoritesPage() {
 
         <div className="absolute inset-0 bg-linear-to-r from-[#100019]/90 via-[#100019]/65 to-transparent lg:from-transparent lg:via-transparent" />
 
-        <div className="relative z-10 flex max-w-3xl flex-col gap-3 px-6 pt-10 text-white sm:px-10 sm:pt-14 md:px-16 lg:gap-5 lg:px-24 lg:pt-0 lg:translate-y-20">
+        <div className="relative z-10 flex max-w-3xl flex-col gap-3 px-6 pt-10 text-white sm:px-10 sm:pt-14 md:px-16 lg:gap-5 lg:px-24 lg:pt-0">
           <div className="flex items-center gap-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ export default function FavoritesPage() {
         </div>
       </section>
 
-      <section className="min-w-0 p-4 md:p-6">
+      <section className="min-w-0 mt-8 p-4 md:p-6">
         {favoritesLoading || loading ? (
           <p role="status" aria-live="polite">
             {content.favorites.loading}
