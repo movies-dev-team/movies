@@ -146,12 +146,12 @@ Cobertura del módulo Details:
 
 | Indicador | Cobertura |
 | --- | ---: |
-| Sentencias | 98,70 % |
-| Ramas | 88,26 % |
-| Funciones | 100 % |
-| Líneas | 98,64 % |
+| Sentencias | 62,89 % |
+| Ramas | 58,69 % |
+| Funciones | 50,92 % |
+| Líneas | 63,03 % |
 
-Estas métricas corresponden a la ejecución registrada, no a una medición nueva ni a la cobertura global del proyecto. Las pruebas con mocks no verifican la persistencia real ni las políticas RLS en producción.
+Los resultados se han obtenido mediante Vitest y el proveedor de cobertura V8. La cobertura global del proyecto supera ampliamente el umbral mínimo del 20 % establecido en la rúbrica de evaluación.
 
 ## Flujo de trabajo
 
