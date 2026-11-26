@@ -71,7 +71,6 @@ const mockMovie: MovieDetail = {
         profile_path: "/nolan.jpg",
         department: "Directing",
         job: "Director",
-        order: 0,
       },
     ],
   },
