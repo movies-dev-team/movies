@@ -197,7 +197,8 @@ Proyecto colaborativo desarrollado en IT Academy Barcelona.
 - [Matias Aejandro Rodriguez](https://github.com/alejandro64rodriguez-dotcom)
 - [Yanet Pérez Montes de Oca](https://github.com/ypmodev)
 
-<!-- Añadir el enlace de despliegue. -->
+## 🌐 Proyecto desplegado
+🚀 [Ver CINEA en producción](https://movies-pi-smoky.vercel.app/)
 
 ## Créditos
 
