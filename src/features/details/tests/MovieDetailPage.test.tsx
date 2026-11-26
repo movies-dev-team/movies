@@ -346,4 +346,32 @@ describe("MovieDetailPage", () => {
       })
     ).toBeInTheDocument();
   });
+
+  it("should display an error message when the trailer request fails", async () => {
+    mockGet
+      .mockResolvedValueOnce({
+        data: mockMovie,
+      })
+      .mockRejectedValueOnce(
+        new Error("Trailer request failed")
+      );
+
+    renderMovieDetailPage();
+
+    expect(
+      await screen.findByRole("alert")
+    ).toHaveTextContent(content.errors.generic);
+
+    expect(
+      screen.queryByTitle(mockTrailer.name)
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.getByRole("heading", {
+        name: mockMovie.title,
+      })
+    ).toBeInTheDocument();
+
+    expect(mockGet).toHaveBeenCalledTimes(2);
+  });
 });

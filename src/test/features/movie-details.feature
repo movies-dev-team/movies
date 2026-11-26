@@ -71,3 +71,10 @@ Feature: Detalle de películas
     Given que estoy en el detalle de una película
     When pulso el enlace para regresar al catálogo
     Then debería navegar al catálogo de películas
+  
+  Scenario: Error al cargar el tráiler de una película
+  Given que estoy en el detalle de una película
+  When ocurre un error al solicitar el tráiler a la API
+  Then debería visualizar un mensaje de error
+  And no debería visualizar el reproductor del tráiler
+  And debería seguir visualizando los detalles de la película
