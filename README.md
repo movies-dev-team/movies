@@ -8,9 +8,7 @@ Desarrollada en equipo como proyecto formativo de frontend en IT Academy Barcelo
 
 ## 🎬 Demo de CINEA
 
-<a href="./public/Demo.mp4">
-  <img src="./public/preview.png" width="700" alt="Demo de CINEA">
-</a>
+[<video controls src="public/Demo.mp4" title="Title"></video>](https://github.com/user-attachments/assets/c797a2cd-7357-496b-bf10-dc1f468233d5)
 
 ## Funcionalidades
 
