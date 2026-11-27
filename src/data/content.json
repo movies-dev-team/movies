@@ -1,0 +1,231 @@
+{
+  "navigation": {
+    "catalog": "Catálogo",
+    "favorites": "Favoritos",
+    "backToCatalog": "Volver al catálogo",
+    "backToMovieDetail": "Volver a la película",
+    "profile": {
+      "label": "Mi perfil",
+      "information": "Mi perfil",
+      "signOut": "Cerrar sesión"
+    },
+    "accessibility": {
+      "brand": "CINEA - Catálogo",
+      "main": "Navegación principal"
+    }
+  },
+
+  "errors": {
+    "generic": "¡Corte! No se ha podido obtener la información. Inténtalo de nuevo.",
+    "notFound": "¡Escena perdida! No hemos encontrado la información que buscas. Comprueba los datos e inténtalo de nuevo.",
+    "server": "¡Problemas tras las cámaras! El servidor no está disponible en este momento.",
+    "network": "¡Se ha perdido la señal! Comprueba tu conexión a Internet e inténtalo de nuevo."
+  },
+
+  "loading": {
+    "generic": "Cargando información...",
+    "movie": "Cargando película...",
+    "trailer": "Cargando tráiler...",
+    "loadingMore": "Cargando películas...",
+    "loadMore": "Ver más",
+    "loadLess": "Ver menos",
+    "noMoreMovies": "¡Fin de la sesión! No quedan más películas por descubrir.",
+    "readMore": "Leer más",
+    "readLess": "Leer menos"
+  },
+
+  "auth": {
+    "heading": "Tu próximo gran descubrimiento empieza aquí.",
+    "description": "Explora películas, descubre historias y crea tu colección personal.",
+
+    "benefits": [
+      {
+        "id": "explore",
+        "title": "Explora",
+        "text": "Historias para cada momento"
+      },
+      {
+        "id": "collect",
+        "title": "Colecciona",
+        "text": "Películas que te encantan"
+      },
+      {
+        "id": "discover",
+        "title": "Descubre",
+        "text": "Nuevos mundos y talentos"
+      },
+      {
+        "id": "rate",
+        "title": "Valora",
+        "text": "Tu valoración cuenta"
+      }
+    ],
+
+    "emailLabel": "Correo electrónico",
+    "passwordLabel": "Contraseña",
+
+    "login": {
+      "title": "Inicia sesión",
+      "button": "Iniciar sesión",
+      "loading": "Iniciando sesión...",
+      "accountText": "¿No tienes una cuenta?",
+      "accountLink": "Regístrate"
+    },
+
+    "register": {
+      "title": "Crea tu cuenta",
+      "usernameLabel": "Nombre de usuario",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "button": "Crear cuenta",
+      "loading": "Creando cuenta...",
+      "accountText": "¿Ya tienes una cuenta?",
+      "accountLink": "Inicia sesión"
+    },
+    "messages": {
+      "unauthenticated": "Usuario no autenticado",
+      "loginError": "Error al iniciar sesión",
+      "registerError": "Error al registrar al usuario",
+      "logoutError": "Error al cerrar sesión",
+      "usernameTaken": "Este nombre de usuario ya está en uso",
+      "usernameRequired": "Introduce un nombre de usuario",
+      "sessionError": "No se ha podido iniciar sesión después del registro"
+    },
+    "accessibility": {
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
+      "showConfirmPassword": "Mostrar contraseña de confirmación",
+      "hideConfirmPassword": "Ocultar contraseña de confirmación"
+    },
+    "validation": {
+      "emailRequired": "El correo electrónico es obligatorio",
+      "invalidEmail": "Introduce un correo electrónico válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "isAuthenticated": "Comprobando sesión...",
+      "sessionError": "No se ha podido comprobar tu sesión. Inténtalo de nuevo."
+    }
+  },
+
+  "catalog": {
+    "title": "Explora películas",
+    "no_image": "Imagen no disponible"
+  },
+
+  "movieCard": {
+    "no_image": "Imagen no disponible"
+  },
+
+  "filters": {
+    "filterGenres": "Género",
+    "filterRating": "Puntuación",
+    "filterTrending": "Tendencia",
+    "restoreFilters": "Restablecer filtros",
+    "genresLoading": "Cargando géneros…",
+    "genresEmpty": "No hay géneros disponibles.",
+    "noResults": "¡Vaya escena! No hay películas que coincidan con estos filtros. Prueba otra combinación.",
+    "ratingOptions": {
+      "excellent": "Excelente",
+      "good": "Buena",
+      "regular": "Regular",
+      "low": "Baja"
+    },
+    "trendOptions": {
+      "day": "Hoy",
+      "week": "Esta semana"
+    }
+  },
+
+  "favorites": {
+    "added": "¡Una nueva película entra en escena y se une a tu colección!",
+    "removed": "¡Se baja el telón! Película retirada de tu colección.",
+    "addLabel": "Añadir a favoritos",
+    "removeLabel": "Quitar de favoritos",
+    "loadError": "Error al cargar tus películas favoritas",
+    "addError": "Error al añadir la película a favoritos",
+    "removeError": "Error al quitar la película de favoritos",
+    "pageTitle": "Mis películas favoritas",
+    "loading": "Cargando favoritos...",
+    "empty": "Todavía no has añadido ninguna película a favoritos.",
+    "bannerAlt": "Mis Favoritos: tu colección personal de películas",
+    "bannerDescription": "Tu colección personal de películas que siempre quieres volver a ver."
+  },
+
+  "ratings": {
+    "label": "Valora esta película",
+    "loading": "Cargando puntuación...",
+    "saved": "Puntuación guardada",
+    "loadError": "Error al cargar tu puntuación",
+    "saveError": "Error al guardar la puntuación",
+    "invalidRating": "La puntuación debe ser un número entero entre 1 y 10",
+    "starLabel": "Puntuar con {value} de 10",
+    "groupLabel": "Tu valoración de la película"
+  },
+
+  "profile": {
+    "loading": "Cargando tu perfil...",
+    "loadError": "No se ha podido cargar tu perfil. Inténtalo de nuevo.",
+    "favoritesCount": "Películas favoritas",
+    "usernameUnavailable": "Nombre de usuario no disponible",
+    "emailUnavailable": "Correo electrónico no disponible"
+  },
+
+  "movieDetail": {
+    "releaseDate": "Estreno",
+    "overview": "Sinopsis",
+    "director": "Director",
+    "cast": "Reparto",
+    "trailer": "Ver tráiler",
+    "share": "Compartir",
+    "noPoster": "Póster no disponible",
+    "posterOf": "Póster de la película",
+    "noRating": "Aún no hay suficientes valoraciones",
+    "unknownDirector": "Director/a desconocido/a",
+    "productionCompanies": "Productoras",
+    "originCountry": "País de origen",
+    "originalLanguage": "Idioma original",
+    "noTrailer": "Tráiler no disponible",
+    "pictureOf": "Foto de",
+    "birthDate": "Nacimiento",
+    "birthPlace": "Lugar",
+    "biography": "Biografía",
+    "imageNotAvailable": "Imagen no disponible",
+    "biographyNotAvailable": "Biografía no disponible",
+    "filmography": "Filmografía",
+    "actorNotFound": "No se ha encontrado al actor o a la actriz",
+    "directorNotFound": "No se ha encontrado al director o directora",
+    "moviesNotAvailable": "No hay películas disponibles."
+  },
+
+  "carousel": {
+    "regionLabel": "Carrusel de estrenos",
+    "previous": "Película anterior",
+    "next": "Película siguiente",
+    "viewDetails": "Ver detalles",
+    "slideLabel": "{current} de {total}",
+    "loading": "Cargando estrenos…"
+  },
+
+  "search": {
+    "searchLabel": "Buscar películas...",
+    "label": "Buscar películas"
+  },
+
+  "footer": {
+    "brand": "CINEA",
+    "description": "Descubre, valora y colecciona tus películas favoritas.",
+    "provider": {
+      "name": "TMDB",
+      "description": "Información cinematográfica proporcionada por TMDb."
+    },
+    "copyright": "CINEA",
+    "credits": "Hecho con pasión por el cine 🎬"
+  },
+
+  "notFound": {
+    "title": "Parece que esta escena no existe",
+    "description": "Ni los mejores directores encuentran siempre la escena perfecta.",
+    "highlight": "Esta página no está disponible.",
+    "button": "Volver a la página principal"
+  }
+}
